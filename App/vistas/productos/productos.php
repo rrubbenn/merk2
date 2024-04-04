@@ -1,0 +1,202 @@
+<?php require_once RUTA_APP.'/vistas/inc/header.php'?>
+
+
+<div class="container">
+    <div class="row mt-5">
+
+        <div class="col-2 d-flex flex-column border-end m-0 p-0">
+            <div class="mt-3 p-0"> 
+                <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                    <button class="btn btn-outline-light fs-5 d-flex align-items-center anadir" onclick="openModal(this)" style="background-color: #A898D5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                        </svg>
+                        
+                        <span class="ms-1 fs-5" style="margin-top:1.5%"> Añadir producto </span>
+                    </button> 
+                <?php endif ?>
+            </div> 
+            <div class="p-3">
+                <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Productos </b> </h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Compras <h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <?php foreach ($datos['productos'] as $producto): ?>
+                    <div class="col-4"  id="producto_<?php echo $producto->id_producto ?>">
+                        <div class="card-container"style="position: relative;">
+                            <div class="card">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/img/colores.jpg" class="card-img-top" alt="...">
+                                <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                                    <a href="#" class="btn-light rounded text-decoration-none text-dark p-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Editar" aria-expanded="false" style="position: absolute; top: 10px; right: 10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                        </svg>
+                                    </a>
+                                    <ul class="dropdown-menu" style="position: absolute; top: 100%; right: 0;" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item editar" href="#" id="<?php echo $producto->id_producto ?>" onclick="openModal(this)">Editar</a></li>
+                                        <li><a class="dropdown-item text-danger borrar" href="#" id="<?php echo $producto->id_producto ?>" onclick="openModal(this)">Borrar</a></li>
+                                    </ul>
+                                <?php endif ?>
+                                <div class="card-body">
+                                    <h5 class="card-title"> <?php echo $producto->nombre_producto ?> </h5>
+                                    <p class="card-text"> <?php echo $producto->descripcion ?> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>  
+
+    </div>
+</div>
+
+
+
+</div>
+
+<div id="modalAnadir" class="modal-container">
+    <div class="modal-contenido">
+        <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
+            <form method="post" 
+            enctype="multipart/form-data" 
+            id="formAnadir"
+            data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
+            action="<?php echo RUTA_URL?>/Productos/addproducto">
+                <div class="modal-header">
+                    <h2>Añadir Producto</h2>
+                </div>
+                <div class="modal-body d-flex">
+                    <div class="col-7 border-end pe-4">
+                        <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
+
+                        <label for="nombre_producto">Categoria</label>
+                        <select class="form-select" name="id_categoria" id="anadir_id_categoria" aria-label="Default select example">
+                            <option selected>Selecciona una categoria</option>
+                        </select>
+                        <label for="nombre_producto">Nombre del producto</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="nombre_producto" id="anadir_nombre_producto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div> 
+
+                        <label for="nombre_producto">Descripcion</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="descripcion" id="anadir_descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div> 
+
+                        <label for="nombre_producto">Precio</label>
+                        <div class="col-4">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">€</span>
+                                <input type="text" name="precio" id="anadir_precio" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            </div>
+                        </div>
+                        
+                        <!-- <input type="text" name="negociable"></input> -->
+                    </div>
+                    <div class="col-5">
+                        <div class="col-10 offset-1">
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Subir Fotos</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Subir</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<div id="modalEditar" class="modal-container">
+    <div class="modal-contenido">
+        <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
+            <form method="post" 
+            action="javascript:editarDatos(event)" 
+            id="formEditar"
+            data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
+            data-rutarellenar="<?php echo htmlspecialchars(RUTA_URL.'/Productos/get_datosproducto')?>"
+            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/editproducto')?>">
+                <div class="modal-header">
+                    <h2>Editar Producto</h2>
+                </div>
+                <div class="modal-body d-flex">
+                    <div class="col-7 border-end pe-4">
+                        <input type="hidden" name="id_producto" id="id_producto" class="id_producto" value=""></input>
+
+                        <label for="nombre_producto">Categoria</label>
+                        <select class="form-select" name="id_categoria" id="editar_id_categoria" aria-label="Default select example">
+                            <option selected>Selecciona una categoria</option>
+                        </select>
+                        <label for="nombre_producto">Nombre del producto</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="nombre_producto" id="editar_nombre_producto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="">
+                        </div> 
+
+                        <label for="nombre_producto">Descripcion</label>
+                        <div class="input-group mb-3">
+                            <input type="text" name="descripcion" id="editar_descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="">
+                        </div> 
+
+                        <label for="nombre_producto">Precio</label>
+                        <div class="col-4 col-md-8 col-sm-10 col-xs-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">€</span>
+                                <input type="text" name="precio" id="editar_precio" class="form-control" aria-label="Amount (to the nearest dollar)" value="">
+                            </div>
+                        </div>
+                        
+                        <!-- <input type="text" name="negociable"></input> -->
+                    </div>
+                    <div class="col-5">
+                        <div class="col-10 offset-1">
+                            <div class="mb-3">
+                                <label for="formFileMultiple" class="form-label">Subir Fotos</label>
+                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Editar</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<div id="modalBorrar" class="modal-container">
+    <div class="modal-contenido">
+        <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
+            <form method="post" 
+            action="javascript:borrarDatos()" 
+            id="formBorrar"
+            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/delproducto')?>">
+                <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
+                <input type="hidden" name="id_producto" id="id_producto_borrar" value=""></input>
+                <div class="modal-header">
+                    <h2>Añadir Producto</h2>
+                </div>
+                <div class="modal-body d-flex">
+                    ¿Está seguro de que quiere eliminar el producto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Borrar</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<?php require_once RUTA_APP.'/vistas/inc/footer.php'?>

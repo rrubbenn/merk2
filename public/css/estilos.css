@@ -1,0 +1,132 @@
+body{
+    position: relative;
+    padding-bottom: 25%;
+    font-family: 'Harmattan', sans-serif;
+
+}
+
+.bodyregistro{
+    position: relative;
+    padding-bottom: 0%;
+    font-family: 'Harmattan', sans-serif;
+
+}
+
+.icono{
+    width:200px;
+}
+
+.imgperfil{
+    width:50%;
+    height:30%;
+}
+
+.imgvaloraciones {
+
+    width:100px;
+
+}
+
+.imgproducto {
+
+    height:50vw;
+
+}
+
+.imgcard {
+    height: 20vw;
+    object-fit: cover; /* Esto asegura que la imagen se ajuste correctamente manteniendo su relación de aspecto */
+}
+
+.img-carousel {
+    float: left;
+    width:  100px;
+    height: 400px;
+    background-size: cover;
+}
+
+  /* CSS MODAL */
+ 
+.modal-container{
+    display: none; 
+    position: fixed; 
+    z-index: 99; 
+    width: 100vw; 
+    height: 100vh; 
+    left: 0;
+    top: 0;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.modal-contenido{
+    position: relative;
+    background-color: whitesmoke;
+    margin: auto;
+    padding: 25px;
+    /* border: 1px solid black; */
+    border-radius: 20px;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation: .5s aparecerModal;
+}
+
+.cerrar{
+    color: darkgray;
+    float: right;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.page-item.disabled .page-link{
+    color:#212529 !important;
+}
+
+.page-item .page-link{
+    color:#96823b !important;
+}
+
+.page-item.active .page-link {
+    background-color: #96823b;
+    border-color: #ced4da;
+    color: #000 !important;
+}
+
+.cerrar:hover{
+    color: darkred;
+    transition: 0.2s;
+}
+
+input[type=file]{
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #e1e1e1;
+    border-radius: 0;
+    max-width: 100%;
+    width: 100%;
+    border-right: 1px solid #e1e1e1;
+    margin-right: 20px;
+    transition: .5s;
+}
+
+input[type=file]::file-selector-button {
+    background-color: #fff;
+    color: #000;
+    border: 0px;
+    border-right: 1px solid #e1e1e1;
+    padding: 10px 15px;
+    margin-right: 20px;
+    transition: .5s;
+  }
+  
+input[type=file]::file-selector-button:hover {
+    background-color: #eee;
+    border: 0px;
+    border-right: 1px solid #e1e1e1;
+}
