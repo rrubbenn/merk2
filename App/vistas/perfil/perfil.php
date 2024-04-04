@@ -35,9 +35,9 @@
         </div>
     </div>
     <div class="row mt-2">
-        <hr>
+    <hr>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 mb-5">
         <div class="col-2">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="p-2" id="pestanaEnVenta" onclick="mostrarEnVenta();">
@@ -45,7 +45,7 @@
                 </div>
             </a>
         </div>
-        <div class="col-2 ">
+        <div class="col-2">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="p-2" id="pestanaVendidos" onclick="mostrarVendidos();">
                     <h5 class="mb-0"> Productos vendidos </h5>
@@ -60,7 +60,7 @@
             </a>
         </div>
     </div>
-    <div class="row mt-5 ms-3 Informacion" id="Informacion">
+    <div class="row ms-3 Informacion" id="Informacion">
         <div class="row mt-1">
             <div class="col-3">
                 <div>
@@ -73,6 +73,7 @@
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row mt-1">
             <div class="col-3">
                 <div>
@@ -85,6 +86,7 @@
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row mt-1">
             <div class="col-3">
                 <div>
@@ -97,6 +99,7 @@
                 </div>
             </div>
         </div>
+        <hr>
         <div class="row mt-1">
             <div class="col-3">
                 <div>
@@ -109,6 +112,7 @@
                 </div>
             </div>
         </div>
+        <hr>
         <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
             <div class="row mt-5">
                 <div class="col-3">
@@ -123,7 +127,7 @@
     <div class="row mt-2 enVenta d-none" id="enVenta">
         <div class="col-12">
             <?php foreach ($datos['enVenta'] as $producto): ?>
-                <a href="" class="row text-decoration-none text-dark mt-1">
+                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="row text-decoration-none text-dark mt-1">
                     <div class="col-1">
                         <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="imgproductoperfil"> </img>
                     </div>
