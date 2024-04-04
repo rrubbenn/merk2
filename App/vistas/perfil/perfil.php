@@ -121,15 +121,50 @@
     </div>
 
     <div class="row mt-2 enVenta d-none" id="enVenta">
-        <div class="col-2 offset-1">
-            
+        <div class="col-12">
+            <?php foreach ($datos['enVenta'] as $producto): ?>
+                <a href="" class="row text-decoration-none text-dark mt-1">
+                    <div class="col-1">
+                        <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="imgproductoperfil"> </img>
+                    </div>
+                    <div class="col-2 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <?php echo $producto->nombre_producto ?> </p>
+                    </div>
+                    <div class="col-1 pt-2 pt-sm-0 d-flex align-items-center">
+                    <p class="p-0 mb-0"> <?php echo $producto->precio ?> € </p>
+                    </div>
+                    <div class="col-5 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <?php echo $producto->descripcion ?> </p>
+                    </div>
+                    <div class="col-3 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <u> Mas Información... </u> </p>
+                    </div>
+                </a>
+            <?php endforeach ?>
         </div>
-        
     </div>
 
     <div class="row mt-2 Vendidos d-none" id="Vendidos">
-        <div class="col-2 offset-1">
-            
+    <div class="col-12">
+            <?php foreach ($datos['Vendidos'] as $producto): ?>
+                <a href="" class="row text-decoration-none text-dark mt-1">
+                    <div class="col-1">
+                        <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="imgproductoperfil"> </img>
+                    </div>
+                    <div class="col-2 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <?php echo $producto->nombre_producto ?> </p>
+                    </div>
+                    <div class="col-1 pt-2 pt-sm-0 d-flex align-items-center">
+                    <p class="p-0 mb-0"> <?php echo $producto->precio ?> € </p>
+                    </div>
+                    <div class="col-5 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <?php echo $producto->descripcion ?> </p>
+                    </div>
+                    <div class="col-3 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <u> Mas Información... </u> </p>
+                    </div>
+                </a>
+            <?php endforeach ?>
         </div>
     </div>
 

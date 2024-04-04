@@ -12,6 +12,9 @@
 
             $this->datos['roles'] = $this->perfilModelo->obtenerRoles();
             $this->datos['datosUsuario'] = $this->perfilModelo->obtenerInformacionPerfil($id_usuario);
+
+            $this->datos['enVenta'] = $this->perfilModelo->obtenerEnVentaUsuario($id_usuario);
+            $this->datos['Vendidos'] = $this->perfilModelo->obtenerVendidosUsuario($id_usuario);
             
             $this->vista("/perfil/perfil", $this->datos);
             

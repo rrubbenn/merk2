@@ -33,6 +33,12 @@ body{
 
 }
 
+.imgproductoperfil {
+
+    height:5vw;
+
+}
+
 .imgcard {
     height: 20vw;
     object-fit: cover; /* Esto asegura que la imagen se ajuste correctamente manteniendo su relación de aspecto */

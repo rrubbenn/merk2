@@ -21,6 +21,36 @@
             return $this->db->registro();                    
         }
 
+        public function obtenerEnVentaUsuario($id_usuario){
+
+            $this->db->query("SELECT *
+            FROM producto p
+            WHERE id_usuario = :id_usuario AND NOT EXISTS (
+                SELECT 1
+                FROM venta v
+                WHERE p.id_producto = v.id_producto);");
+
+            $this->db->bind(':id_usuario',$id_usuario);
+
+            return $this->db->registros();   
+
+        }
+
+        public function obtenerVendidosUsuario($id_usuario){
+
+            $this->db->query("SELECT *
+            FROM producto p
+            WHERE id_usuario = :id_usuario AND EXISTS (
+                SELECT 1
+                FROM venta v
+                WHERE p.id_producto = v.id_producto);");
+
+            $this->db->bind(':id_usuario',$id_usuario);
+
+            return $this->db->registros();   
+
+        }
+
         public function enviarEditarModelo($datos, $id_usuario) {
 
             $this->db->query("UPDATE usuario 
