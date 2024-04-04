@@ -258,7 +258,7 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
     if (marcador == true) {
 
-        await fetch(rutaurl+"/favorito/desmarcarfavorito/"+id_producto, {
+        await fetch(rutaurl+"/favorito/delfavorito/"+id_producto, {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -269,13 +269,25 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
                 let datos = data
 
-                console.log(datos);
+                if (datos == true) {
+
+                    botonfav = document.getElementById("fav"); 
+                    botonunfav = document.getElementById("unfav"); 
+
+                    botonfav.classList.remove("d-none");
+                    botonunfav.classList.add("d-none");
+
+                } else if (datos == false) {
+
+                    console.log("error");
+
+                }
 
             });
 
     } else if (marcador == false) {
 
-        await fetch(rutaurl+"/favorito/marcarfavorito/"+id_producto, {
+        await fetch(rutaurl+"/favorito/addfavorito/"+id_producto, {
             headers: {
                 "Content-Type": "application/json"
             },
@@ -286,7 +298,19 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
                 let datos = data
 
-                //console.log(datos);
+                if (datos == true) {
+
+                    botonfav = document.getElementById("fav"); 
+                    botonunfav = document.getElementById("unfav"); 
+
+                    botonfav.classList.add("d-none");
+                    botonunfav.classList.remove("d-none");
+
+                } else if (datos == false) {
+
+                    console.log("error");
+
+                }
 
             });
     } 

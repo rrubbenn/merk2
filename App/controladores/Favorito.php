@@ -18,39 +18,33 @@
             
         }
 
-        public function delFavorito(){
+        public function delFavorito($id_producto){
 
-            if ($this->favoritoModelo->deleteFavorito($datos)) {
+            if ($this->favoritoModelo->deleteFavorito($id_producto, $this->datos['usuarioSesion']->id_usuario)) {
                     
-                redireccionar("/favorito");
+                $this->vistaApi(true);
 
-            }else{
+            } else {
 
-                echo "error";
+                $this->vistaApi(false);
 
             }
 
         }
 
-        public function addFavorito(){
+        public function addFavorito($id_producto){
 
-            if ($this->favoritoModelo->addFavorito($datos)) {
+            if ($this->favoritoModelo->addFavorito($id_producto, $this->datos['usuarioSesion']->id_usuario)) {
                     
-                redireccionar("/favorito");
+                $this->vistaApi(true);
 
-            }else{
+            } else {
 
-                echo "error";
+                $this->vistaApi(false);
 
             }
 
         }
-        
-
-
-
-
-
         
     }
 

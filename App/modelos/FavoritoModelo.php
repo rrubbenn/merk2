@@ -23,25 +23,42 @@
             return $this->db->registros();                    
         }
 
-        public function deleteFavorito($datos){
-            $this->db->query("DELETE * 
+        public function deleteFavorito($id_producto, $id_usuario){
+            $this->db->query("DELETE
                             FROM favorito F
                             WHERE F.id_usuario = :id_usuario AND F.id_producto = :id_producto");
 
-            $this->db->bind(':id_usuario',$datos['id_usuario']);
-            $this->db->bind(':id_usuario',$datos['id_producto']);
+            $this->db->bind(':id_producto',$id_producto);
+            $this->db->bind(':id_usuario',$id_usuario);
 
-            return $this->db->registros();                    
+            if($this->db->execute()) {
+    
+                return true;
+    
+            } else {
+    
+                return false;
+    
+            }                  
         }
 
-        public function addFavorito($datos){
+        public function addFavorito($id_producto, $id_usuario){
             $this->db->query("INSERT INTO favorito (id_usuario, id_producto)
                             VALUES (:id_usuario, :id_producto)");
 
-            $this->db->bind(':id_usuario',$datos['id_usuario']);
-            $this->db->bind(':id_producto',$datos['id_producto']);
+            $this->db->bind(':id_producto',$id_producto);
+            $this->db->bind(':id_usuario',$id_usuario);
+            
 
-            return $this->db->registros();                    
+            if($this->db->execute()) {
+    
+                return true;
+    
+            } else {
+    
+                return false;
+    
+            }                   
         }
 
     }
