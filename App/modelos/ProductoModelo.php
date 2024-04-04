@@ -163,6 +163,25 @@
             return $this->db->registro();                    
         }
 
+        public function getFavoritoUsuario($id_producto, $id_usuario) {
+
+            $this->db->query("SELECT 
+                                CASE 
+                                    WHEN EXISTS (
+                                        SELECT 1
+                                        FROM favorito
+                                        WHERE id_usuario = :id_usuario AND id_producto = :id_producto
+                                    ) THEN 'true'
+                                    ELSE 'false'
+                                END AS esFavorito;");
+    
+            $this->db->bind(':id_producto',$id_producto);
+            $this->db->bind(':id_usuario',$id_usuario);
+    
+            return $this->db->registro();
+
+        }
+
     }
 
 ?>

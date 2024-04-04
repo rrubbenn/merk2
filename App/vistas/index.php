@@ -47,8 +47,16 @@
                         <div class="card">
                             <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="card-img-top imgcard" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title"> <?php echo $producto->nombre_producto ?> </h5>
-                                <h5 class="card-title"> <?php echo $producto->precio ?> € </h5>
+                                <div class="row">
+                                    <div class="col-12 text-start">
+                                        <h5 class="card-title"> <?php echo $producto->nombre_producto ?> </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10 text-start">
+                                        <h5 class="card-title"> <?php echo $producto->precio ?> € </h5>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

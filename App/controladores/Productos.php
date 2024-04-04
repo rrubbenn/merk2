@@ -126,18 +126,11 @@
 
         public function producto($id_producto) {
 
-            //Indica que se ilumina en el menu superior
-            //$this->datos["menuActivo"] = "curso";
-
             $this->datos["producto"] = $this->productoModelo->getProducto($id_producto);
 
             $this->datos["vendedor"] = $this->productoModelo->getVendedorProducto($id_producto);
 
-            //$this->datos["cursoactual"]= $this->productoModelo->getCursoMaterial($id_material);
-
-            //$this->datos["materialRealizado"] = $this->productoModelo->getAlumnosRealizados($id_material);
-            
-            //$this->datos["materialNoRealizado"] = $this->productoModelo->getAlumnosNoRealizados($id_material);
+            $this->datos["esFavorito"] = $this->productoModelo->getFavoritoUsuario($id_producto, $this->datos['usuarioSesion']->id_usuario);
 
             $this->vista("/productos/producto",$this->datos);
 

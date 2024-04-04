@@ -253,3 +253,42 @@ async function rellenarSelect(rutafija, tipomodal){
             });
     } 
 }
+
+async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
+
+    if (marcador == true) {
+
+        await fetch(rutaurl+"/favorito/desmarcarfavorito/"+id_producto, {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include'
+        })
+            .then((resp) => resp.json())
+            .then(function(data) {
+
+                let datos = data
+
+                console.log(datos);
+
+            });
+
+    } else if (marcador == false) {
+
+        await fetch(rutaurl+"/favorito/marcarfavorito/"+id_producto, {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: 'include'
+        })
+            .then((resp) => resp.json())
+            .then(function(data) {
+
+                let datos = data
+
+                //console.log(datos);
+
+            });
+    } 
+
+}
