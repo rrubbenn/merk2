@@ -271,11 +271,45 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
                 if (datos == true) {
 
-                    botonfav = document.getElementById("fav"); 
-                    botonunfav = document.getElementById("unfav"); 
+                    if (document.getElementById("producto_"+id_producto)) { 
 
-                    botonfav.classList.remove("d-none");
-                    botonunfav.classList.add("d-none");
+                        producto = document.getElementById(id_producto);
+
+                        var botonesFav = document.querySelectorAll("#producto_"+id_producto+" .fav");
+                        var botonesUnfav = document.querySelectorAll("#producto_"+id_producto+" .unfav");
+
+                        for (var i = 0; i < botonesFav.length; i++) {
+                            // Remover la clase "d-none"
+                            botonesFav[i].classList.add("d-none");
+                        }
+                        
+                        // Iterar sobre los elementos con la clase "unfav"
+                        for (var i = 0; i < botonesUnfav.length; i++) {
+                            // Agregar la clase "d-none"
+                            botonesUnfav[i].classList.remove("d-none");
+                        }
+
+                    } else {
+
+                        var botonesFav = document.getElementsByClassName("fav");
+
+                        // Obtener todos los elementos con la clase "unfav"
+                        var botonesUnfav = document.getElementsByClassName("unfav");
+
+                        for (var i = 0; i < botonesFav.length; i++) {
+                            // Remover la clase "d-none"
+                            botonesFav[i].classList.add("d-none");
+                        }
+                        
+                        // Iterar sobre los elementos con la clase "unfav"
+                        for (var i = 0; i < botonesUnfav.length; i++) {
+                            // Agregar la clase "d-none"
+                            botonesUnfav[i].classList.remove("d-none");
+                        }
+
+                    }
+
+                    
 
                 } else if (datos == false) {
 
@@ -300,11 +334,43 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
                 if (datos == true) {
 
-                    botonfav = document.getElementById("fav"); 
-                    botonunfav = document.getElementById("unfav"); 
+                    if (document.getElementById("producto_"+id_producto)) { 
 
-                    botonfav.classList.add("d-none");
-                    botonunfav.classList.remove("d-none");
+                        producto = document.getElementById(id_producto);
+
+                        var botonesFav = document.querySelectorAll("#producto_"+id_producto+" .fav");
+                        var botonesUnfav = document.querySelectorAll("#producto_"+id_producto+" .unfav");
+
+                        for (var i = 0; i < botonesFav.length; i++) {
+                            // Remover la clase "d-none"
+                            botonesFav[i].classList.remove("d-none");
+                        }
+                        
+                        // Iterar sobre los elementos con la clase "unfav"
+                        for (var i = 0; i < botonesUnfav.length; i++) {
+                            // Agregar la clase "d-none"
+                            botonesUnfav[i].classList.add("d-none");
+                        }
+
+                    } else {
+
+                        var botonesFav = document.getElementsByClassName("fav");
+
+                        // Obtener todos los elementos con la clase "unfav"
+                        var botonesUnfav = document.getElementsByClassName("unfav");
+    
+                        for (var i = 0; i < botonesFav.length; i++) {
+                            // Remover la clase "d-none"
+                            botonesFav[i].classList.remove("d-none");
+                        }
+                        
+                        // Iterar sobre los elementos con la clase "unfav"
+                        for (var i = 0; i < botonesUnfav.length; i++) {
+                            // Agregar la clase "d-none"
+                            botonesUnfav[i].classList.add("d-none");
+                        }
+
+                    }
 
                 } else if (datos == false) {
 

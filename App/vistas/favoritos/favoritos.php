@@ -13,23 +13,32 @@
         <div class="col-9">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($datos['favoritos'] as $favorito): ?>
-                    <div class="col-4">
+                    <div id="producto_<?php echo $favorito->id_producto ?>" class="col-4">
                         <div class="card">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="d-flex">
-                                    <div class="col-11">
-                                        <h5 class="card-title"> <?php echo $favorito->nombre_producto ?> </h5>
-                                    </div>
-                                    <div class="col-1">
-                                        <a href="<?php echo RUTA_URL?>/Favorito/delFavorito">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $favorito->id_producto?>" class="text-decoration-none text-dark">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="card-img-top" alt="...">
+                            </a>
+                            <div class="card-body pt-2">
+                                <div class="d-flex align-items-center">
+                                    <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $favorito->id_producto?>" class="text-decoration-none text-dark col-9">
+                                        <h5 class="card-title mb-0"> <?php echo $favorito->nombre_producto ?> </h5>
+                                    </a>
+                                    <div class="col-2 offset-1 d-flex justify-content-around">
+                                        <button onclick='marcardesmarcarFavorito(<?php echo json_encode(RUTA_URL) ?>, true, <?php echo $favorito->id_producto ?>)' class="btn fav">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                             </svg>
-                                        </a>
+                                        </button>
+                                        <button onclick='marcardesmarcarFavorito(<?php echo json_encode(RUTA_URL) ?>, false, <?php echo $favorito->id_producto ?>)' class="btn unfav d-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <p class="card-text mt-1"> <?php echo $favorito->descripcion ?> </p>
+                                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $favorito->id_producto?>" class="card-text mt-3 text-decoration-none text-dark col-12"> 
+                                    <?php echo $favorito->descripcion ?>
+                                </a>
                             </div>
                         </div>
                     </div>
