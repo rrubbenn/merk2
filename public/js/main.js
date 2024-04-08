@@ -36,6 +36,14 @@ function openModal(boton){
         modal = document.getElementById("modalCambiarImagenPerfil");
 
     }
+
+    if(boton.classList.contains("cancelar")) {
+        modal = document.getElementById("modalCancelar");
+    }
+    if(boton.classList.contains("confirmar")) {
+        modal = document.getElementById("modalConfirmar");
+    }
+
     modal.style.display="flex";
 };
 /* =============================================== */
@@ -88,7 +96,7 @@ async function rellenarModal(){
         .then((resp) => resp.json())
         .then(function(data) {
 
-            let datos = data
+            let datos = data;
 
             arrayDatos.forEach(element => {
 
@@ -120,10 +128,9 @@ async function rellenarModal(){
         })
 }
 
+async function addDatos() {
 
-async function editarDatos() {
-
-    let formulario = document.getElementById('formBorrar');
+    let formulario = document.getElementById('formAdd');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
     console.log(formulario);
@@ -158,20 +165,66 @@ async function editarDatos() {
 
 }
 
+async function editarDatos() {
+
+    let formulario = document.getElementById('formEditar');
+    let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
+
+    // ESTO ME PERMITIRA CAMBIAR LOS DATOS CON EL TIPO DE ID DE LO QUE QUIERO EDITAR EN ASINCRONO
+    let idasync = formulario.dataset.idasync; 
+
+    let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
+
+        // Lógica para editar los datos de manera asíncrona
+        await fetch(ruta, {
+            method: 'POST',
+            body: formData,
+    })
+        .then((resp) => resp.json())
+        .then(function(data) {
+
+                
+            if (data){
+
+                    
+
+                    formData.forEach((value, key) => {
+                        if (key == idasync) {
+
+                            console.log("key: "+key);
+                            console.log("value: "+value);
+
+                            
+
+                        }
+
+
+                    // Obtener el elemento de la modal correspondiente al campo actual
+                    //let elemento = document.getElementById(key);
+                    //if (elemento) {
+                        // Actualizar el valor del elemento de la modal con el valor del formData
+                        //console.log(elemento);
+                        //elemento.textContent = value;
+                    //}
+                });
+
+            }else{
+                alert("error");
+            }
+        })
+
+        closeModal();
+
+}
+
 async function borrarDatos() {
 
     let formulario = document.getElementById('formBorrar');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
-    console.log(formulario);
-    console.log(ruta);
-
-
     let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
 
-    for (let value of formData.values()) {
-        console.log(value);
-    }
+    let idProducto = formData.get('id_producto');
 
         // Lógica para editar los datos de manera asíncrona
         await fetch(ruta, {
@@ -183,14 +236,15 @@ async function borrarDatos() {
 
             if (data){
 
-                console.log("HOLAAAAAAA");
+                elemento = document.getElementById("producto_"+idProducto);
+                elemento.remove();
 
             }else{
                 alert("error");
             }
         })
 
-        alert('Datos editados exitosamente');
+        closeModal();
 
 }
 

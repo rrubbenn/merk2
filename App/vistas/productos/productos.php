@@ -26,7 +26,7 @@
         <div class="col-9">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($datos['productos'] as $producto): ?>
-                    <div class="col-4"  id="producto_<?php echo $producto->id_producto ?>">
+                    <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
                         <div class="card-container"style="position: relative;">
                             <div class="card">
                                 <img src="<?php echo RUTA_URL_STATIC ?>/img/colores.jpg" class="card-img-top" alt="...">
@@ -42,8 +42,13 @@
                                     </ul>
                                 <?php endif ?>
                                 <div class="card-body">
-                                    <h5 class="card-title"> <?php echo $producto->nombre_producto ?> </h5>
-                                    <p class="card-text"> <?php echo $producto->descripcion ?> </p>
+                                <div class="d-flex">
+                                    <h5 class="card-title col-8" id="nombre_producto"> <?php echo $producto->nombre_producto ?> </h5>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <h5 class="card-title" id="precio"> <?php echo $producto->precio ?> € </h5>
+                                    </div>
+                                </div>
+                                    <p class="card-text" id="descripcion"> <?php echo $producto->descripcion ?> </p>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +59,6 @@
 
     </div>
 </div>
-
 
 
 </div>
@@ -74,25 +78,25 @@
                     <div class="col-7 border-end pe-4">
                         <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
 
-                        <label for="nombre_producto">Categoria</label>
-                        <select class="form-select" name="id_categoria" id="anadir_id_categoria" aria-label="Default select example">
+                        <label for="anadir_id_categoria">Categoria</label>
+                        <select class="form-select" name="id_categoria" id="anadir_id_categoria">
                             <option selected>Selecciona una categoria</option>
                         </select>
-                        <label for="nombre_producto">Nombre del producto</label>
+                        <label for="anadir_nombre_producto">Nombre del producto</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="nombre_producto" id="anadir_nombre_producto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input type="text" name="nombre_producto" id="anadir_nombre_producto" class="form-control">
                         </div> 
 
-                        <label for="nombre_producto">Descripcion</label>
+                        <label for="anadir_descripcion">Descripcion</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="descripcion" id="anadir_descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <input type="text" name="descripcion" id="anadir_descripcion" class="form-control">
                         </div> 
 
-                        <label for="nombre_producto">Precio</label>
+                        <label for="anadir_precio">Precio</label>
                         <div class="col-4">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">€</span>
-                                <input type="text" name="precio" id="anadir_precio" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                <input type="text" name="precio" id="anadir_precio" class="form-control">
                             </div>
                         </div>
                         
@@ -125,12 +129,14 @@
             id="formEditar"
             data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
             data-rutarellenar="<?php echo htmlspecialchars(RUTA_URL.'/Productos/get_datosproducto')?>"
-            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/editproducto')?>">
+            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/editproducto')?>"
+            data-idasync="id_producto">
                 <div class="modal-header">
                     <h2>Editar Producto</h2>
                 </div>
                 <div class="modal-body d-flex">
                     <div class="col-7 border-end pe-4">
+                        <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
                         <input type="hidden" name="id_producto" id="id_producto" class="id_producto" value=""></input>
 
                         <label for="nombre_producto">Categoria</label>

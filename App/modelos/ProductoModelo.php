@@ -78,15 +78,24 @@
                                 descripcion = :descripcion,
                                 precio = :precio
                             WHERE
-                                id_producto = :id_producto");
+                                id_producto = :id_producto AND id_usuario = :id_usuario");
 
-            $this->db->bind(':id_usuario',$id_usuario);
-            $this->db->bind(':id_categoria',$id_categoria);
-            $this->db->bind(':nombre_producto',$nombre_producto);
-            $this->db->bind(':descripcion',$descripcion);
-            $this->db->bind(':precio',$precio);
+            $this->db->bind(':id_usuario',$datos['id_usuario']);
+            $this->db->bind(':id_producto',$datos['id_producto']);
+            $this->db->bind(':id_categoria',$datos['id_categoria']);
+            $this->db->bind(':nombre_producto',$datos['nombre_producto']);
+            $this->db->bind(':descripcion',$datos['descripcion']);
+            $this->db->bind(':precio',$datos['precio']);
 
-            return $this->db->registros();   
+            if ($this->db->execute()) {
+
+                return true;
+
+            }else{
+
+                return false;
+
+            }     
             
         }
 

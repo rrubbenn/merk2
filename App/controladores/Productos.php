@@ -46,6 +46,16 @@
 
         }
 
+        public function venta($id_producto){
+
+            $this->datos['roles'] = $this->productoModelo->obtenerRoles();
+
+            $this->datos["producto"] = $this->productoModelo->getProducto($id_producto);
+
+            $this-> vista("productos/venta", $this->datos);
+
+        }
+
         public function addproducto(){
 
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
@@ -71,15 +81,17 @@
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
                 $datos = $_POST;
-                print_r($datos);
-                exit();
+                //print_r($datos);
+                //exit();
 
                 if ($this->productoModelo->editProducto($datos)) {
-                    
-                    redireccionar("/Productos");
+                
+                    $this->vistaApi(true);
 
-                }else{
-                    echo "error";
+                } else {
+
+                    $this->vistaApi(false);
+
                 }
     
             }
