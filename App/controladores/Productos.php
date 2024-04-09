@@ -61,15 +61,17 @@
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
                 $datos = $_POST;
-                print_r($datos);
-                exit();
+                //print_r($datos);
+                //exit();
 
                 if ($this->productoModelo->addProducto($datos)) {
                     
-                    redireccionar("/Productos");
+                    $this->vistaApi(true);
 
-                }else{
-                    echo "error";
+                } else {
+
+                    $this->vistaApi(false);
+
                 }
     
             }

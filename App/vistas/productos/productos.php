@@ -67,10 +67,11 @@
     <div class="modal-contenido">
         <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
             <form method="post" 
-            enctype="multipart/form-data" 
+            action="javascript:addDatos(event)"
             id="formAnadir"
             data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
-            action="<?php echo RUTA_URL?>/Productos/addproducto">
+            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/addproducto')?>"
+            data-tipo="producto">
                 <div class="modal-header">
                     <h2>Añadir Producto</h2>
                 </div>
@@ -130,7 +131,7 @@
             data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
             data-rutarellenar="<?php echo htmlspecialchars(RUTA_URL.'/Productos/get_datosproducto')?>"
             data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/editproducto')?>"
-            data-idasync="id_producto">
+            data-tipo="producto">
                 <div class="modal-header">
                     <h2>Editar Producto</h2>
                 </div>
@@ -188,7 +189,8 @@
             <form method="post" 
             action="javascript:borrarDatos()" 
             id="formBorrar"
-            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/delproducto')?>">
+            data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/delproducto')?>"
+            data-tipo="producto">
                 <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
                 <input type="hidden" name="id_producto" id="id_producto_borrar" value=""></input>
                 <div class="modal-header">

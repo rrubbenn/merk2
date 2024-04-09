@@ -13,7 +13,6 @@ function openModal(boton){
         let formulario = document.getElementById('formAnadir');
         let rutafija = formulario.dataset.rutafija; 
 
-        if (rutafija.substring());
         rellenarSelect(rutafija, 'anadir');
     }
 
@@ -104,7 +103,6 @@ async function rellenarModal(){
                     
                     let categoriaAseleccionar = datos[element];
                     let selectElement = document.getElementById('editar_'+element);
-                    console.log(selectElement);
 
                     for(var i = 0; i < selectElement.options.length; i++) {
                         var option = selectElement.options[i];
@@ -130,12 +128,11 @@ async function rellenarModal(){
 
 async function addDatos() {
 
-    let formulario = document.getElementById('formAdd');
+    let formulario = document.getElementById('formAnadir');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
     console.log(formulario);
     console.log(ruta);
-
 
     let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
 
@@ -146,22 +143,19 @@ async function addDatos() {
         // Lógica para editar los datos de manera asíncrona
         await fetch(ruta, {
             method: 'POST',
-            body: datosForm,
+            body: formData,
     })
         .then((resp) => resp.json())
         .then(function(data) {
 
-                
             if (data){
 
-                
+                window.location.reload();
 
             }else{
                 alert("error");
             }
         })
-
-        alert('Datos editados exitosamente');
 
 }
 
@@ -171,9 +165,11 @@ async function editarDatos() {
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
     // ESTO ME PERMITIRA CAMBIAR LOS DATOS CON EL TIPO DE ID DE LO QUE QUIERO EDITAR EN ASINCRONO
-    let idasync = formulario.dataset.idasync; 
+    let tipo = formulario.dataset.tipo; 
 
     let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
+
+    let idTipo = formData.get('id_'+tipo);
 
         // Lógica para editar los datos de manera asíncrona
         await fetch(ruta, {
@@ -186,30 +182,26 @@ async function editarDatos() {
                 
             if (data){
 
-                    
+                dividTipo = document.getElementById(tipo+"_"+idTipo);
+
+                if (formData.has("id_"+tipo)) {
 
                     formData.forEach((value, key) => {
-                        if (key == idasync) {
 
-                            console.log("key: "+key);
-                            console.log("value: "+value);
+                        let elemento = dividTipo.querySelector('#' + key);
 
-                            
+                        if (elemento !== null) {
+                            elemento.innerHTML = value;
 
+                            if(key == "precio") {
+
+                                elemento.innerHTML = value + " €";
+
+                            }
                         }
 
-
-                    // Obtener el elemento de la modal correspondiente al campo actual
-                    //let elemento = document.getElementById(key);
-                    //if (elemento) {
-                        // Actualizar el valor del elemento de la modal con el valor del formData
-                        //console.log(elemento);
-                        //elemento.textContent = value;
-                    //}
-                });
-
-            }else{
-                alert("error");
+                    });
+                } 
             }
         })
 
@@ -222,9 +214,12 @@ async function borrarDatos() {
     let formulario = document.getElementById('formBorrar');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
+    // ESTO ME PERMITIRA CAMBIAR LOS DATOS CON EL TIPO DE ID DE LO QUE QUIERO EDITAR EN ASINCRONO
+    let tipo = formulario.dataset.tipo; 
+
     let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
 
-    let idProducto = formData.get('id_producto');
+    let idTipo = formData.get('id_'+tipo);
 
         // Lógica para editar los datos de manera asíncrona
         await fetch(ruta, {
@@ -236,7 +231,7 @@ async function borrarDatos() {
 
             if (data){
 
-                elemento = document.getElementById("producto_"+idProducto);
+                elemento = document.getElementById(tipo+"_"+idTipo);
                 elemento.remove();
 
             }else{
@@ -265,8 +260,6 @@ async function rellenarSelect(rutafija, tipomodal){
             .then(function(data) {
 
                 let datos = data
-
-                console.log(datos);
 
                 // Limpiar select
                 documentSelect.innerHTML = '';

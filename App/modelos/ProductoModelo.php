@@ -69,6 +69,28 @@
             return $this->db->registros();                    
         }
 
+        public function addProducto($datos){
+            $this->db->query("INSERT INTO producto (id_categoria, nombre_producto, descripcion, precio, id_usuario)
+            VALUES (:id_categoria, :nombre_producto, :descripcion, :precio, :id_usuario);");
+
+            $this->db->bind(':id_categoria',$datos['id_categoria']);
+            $this->db->bind(':nombre_producto',$datos['nombre_producto']);
+            $this->db->bind(':descripcion',$datos['descripcion']);
+            $this->db->bind(':precio',$datos['precio']);
+            $this->db->bind(':id_usuario',$datos['id_usuario']);
+            
+            if($this->db->execute()) {
+    
+                return true;
+    
+            } else {
+    
+                return false;
+    
+            }  
+            
+        }
+
         public function editProducto($datos){
             $this->db->query("UPDATE  
                                 producto
