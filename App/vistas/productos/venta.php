@@ -1,13 +1,12 @@
 <?php require_once RUTA_APP.'/vistas/inc/header.php'?>
 
-<!-- direccion, localidad, calle, num, provincia, codigo postal, nombre, apellidos, cuenta (numero, fecha caducidad, cvv)   -->
 <div class="container">
 
     <div class="row">
         <div class="col-12 mt-3 mb-3 d-flex justify-content-center">
             <h3 class="text-center align-items-center"> Datos de pago </h3>
         </div>
-        <form class="col-12" id="formAdd">
+        <form class="col-12" action="<?php echo RUTA_URL?>/productos/addventa/<?php echo $datos['producto']->id_producto ?>" method="post" id="formVenta">
             <div class="row">
                 <div class="col-5">
                     <div class="mb-3 row d-flex">
@@ -96,32 +95,26 @@
 <div id="modalCancelar" class="modal-container">
     <div class="modal-contenido">
         <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
-        <form method="post" action="<?php echo RUTA_URL?>/Ranking/askRanking">
-            <div class="modal-header border-0">
-                <h2>¿Cancelar el pago?</h2>
-            </div>
-            <div class="modal-footer border-0">
-                <button class="btn btn-outline-secondary" onclick="closeModal()">Seguir con la compra</button>
-                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $datos['producto']->id_producto ?>" class="btn btn-outline-light" style="background-color: #A898D5;">Volver atrás</a>
-            </div>
-        </form>
+        <div class="modal-header border-0">
+            <h2>¿Cancelar el pago?</h2>
+        </div>
+        <div class="modal-footer border-0">
+            <button class="btn btn-outline-secondary" onclick="closeModal()">Seguir con la compra</button>
+            <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $datos['producto']->id_producto ?>" class="btn btn-outline-light" style="background-color: #A898D5;">Volver atrás</a>
+        </div>
     </div>
 </div>
 
 <div id="modalConfirmar" class="modal-container">
     <div class="modal-contenido">
         <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
-        <form method="post" action="">
-            <div class="modal-header border-0">
-                <h2>¿Realizar la compra?</h2>
-
-                <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                <button type="" value="si" name="ranking" class="btn participar" style="background-color: #A898D5;">Finalizar compra</button>
-            </div>
-        </form>
+        <div class="modal-header border-0">
+            <h2>¿Realizar la compra?</h2>
+        </div>
+        <div class="modal-footer border-0">
+            <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
+            <button type="button" class="btn participar" onclick="confirmarCompra()" style="background-color: #A898D5;">Finalizar compra</button>
+        </div>
     </div>
 </div>
 

@@ -25,7 +25,7 @@
             <div class="col-10">
                 <h5> <?php echo $datos['producto']->descripcion ?> </h5>
             </div>
-            <?php if($datos['producto']->id_usuario != $datos['usuarioSesion']->id_usuario): ?>
+            <?php if($datos['producto']->id_usuario != $datos['usuarioSesion']->id_usuario && $datos['producto']->existe_en_venta == false): ?>
                 <div class="col-1 text-end">
                     <?php if( $datos['esFavorito']->esFavorito == 'false'): ?>
                         <button onclick='marcardesmarcarFavorito(<?php echo json_encode(RUTA_URL) ?>, false, <?php echo $datos["producto"]->id_producto ?>)' class="btn btn-light unfav fs-5"> 

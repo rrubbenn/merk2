@@ -56,6 +56,30 @@
 
         }
 
+        public function addventa($id_producto){
+
+            if ($_SERVER["REQUEST_METHOD"]=="POST") {
+    
+                $datos = $_POST;
+                //print_r($datos);
+                //echo "<br>";
+                //print_r($id_producto);
+                //echo "<br>";
+                //print_r($this->datos['usuarioSesion']->id_usuario);
+                //exit();
+
+                if ($this->productoModelo->addVenta($datos, $id_producto, $this->datos['usuarioSesion']->id_usuario)) {
+                    
+                    redireccionar("/productos/producto/".$id_producto);
+
+                }else{
+                    echo "error";
+                }
+    
+            }
+
+        }
+
         public function addproducto(){
 
             if ($_SERVER["REQUEST_METHOD"]=="POST") {

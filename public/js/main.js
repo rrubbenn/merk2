@@ -57,6 +57,14 @@ function closeModal(){
 }
 /* ================================================== */
 
+function confirmarCompra(){
+
+        formulario = document.getElementById("formVenta");
+
+        formulario.submit();
+
+    } 
+
 /* ============ Cierra la ventana modal al hacer click fuera de la ventana ============ */
 window.onclick = function(event) {
   let modales = document.getElementsByClassName("modal-container");

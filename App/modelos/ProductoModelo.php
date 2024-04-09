@@ -69,6 +69,33 @@
             return $this->db->registros();                    
         }
 
+        public function addVenta($datos, $id_producto, $id_usuario){
+            $this->db->query("INSERT INTO venta (id_producto, fecha_venta, id_comprador, nombre, apellidos, provincia, localidad, calle, numerocasa, piso, codigo_postal, nombre_cuenta, numero_cuenta, fecha_cuenta, cvv_cuenta)
+            VALUES (:id_producto, NOW(), :id_comprador, :nombre, :apellidos, :provincia, :localidad, :calle, :numerocasa, :piso, :codigo_postal, :nombre_cuenta, :numero_cuenta, :fecha_cuenta, :cvv_cuenta)");
+
+            $this->db->bind(':id_producto', $id_producto);
+            $this->db->bind(':id_comprador', $id_usuario);
+            $this->db->bind(':nombre', $datos['nombre']);
+            $this->db->bind(':apellidos', $datos['apellidos']);
+            $this->db->bind(':provincia', $datos['provincia']);
+            $this->db->bind(':localidad', $datos['localidad']);
+            $this->db->bind(':calle', $datos['calle']);
+            $this->db->bind(':numerocasa', $datos['numerocasa']);
+            $this->db->bind(':piso', $datos['piso']);
+            $this->db->bind(':codigo_postal', $datos['codigo_postal']);
+            $this->db->bind(':nombre_cuenta', $datos['nombre_cuenta']);
+            $this->db->bind(':numero_cuenta', $datos['numero_cuenta']);
+            $this->db->bind(':fecha_cuenta', $datos['fecha_cuenta']);
+            $this->db->bind(':cvv_cuenta', $datos['cvv_cuenta']);
+
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+            
+        }
+
         public function addProducto($datos){
             $this->db->query("INSERT INTO producto (id_categoria, nombre_producto, descripcion, precio, id_usuario)
             VALUES (:id_categoria, :nombre_producto, :descripcion, :precio, :id_usuario);");
@@ -163,11 +190,17 @@
         public function getProducto($id_producto){
             
             $this->db->query("SELECT 
-                                *
+                                producto.*, 
+                                CASE 
+                                    WHEN venta.id_producto IS NOT NULL THEN TRUE 
+                                    ELSE FALSE 
+                                END AS existe_en_venta
                             FROM 
                                 producto
-                            WHERE
-                                id_producto = :id_producto
+                            LEFT JOIN 
+                                venta ON producto.id_producto = venta.id_producto
+                            WHERE 
+                                producto.id_producto = :id_producto;
                             ");
 
             $this->db->bind(':id_producto',$id_producto);
