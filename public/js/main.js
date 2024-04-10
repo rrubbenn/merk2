@@ -139,13 +139,13 @@ async function addDatos() {
     let formulario = document.getElementById('formAnadir');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
 
-    console.log(formulario);
-    console.log(ruta);
+    //console.log(formulario);
+    //console.log(ruta);
 
     let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
 
     for (let value of formData.values()) {
-        console.log(value);
+        //console.log(value);
     }
 
         // Lógica para editar los datos de manera asíncrona

@@ -47,10 +47,10 @@
                         <a class="text-dark cambiarimgperfil" href="#" onclick="openModal(this)"> <h5> Cambiar imagen de perfil </h5> </a>
                     </div>
                     <div class="col-12">
-                        <a class="text-dark" href="<?php echo RUTA_URL?>/Perfil/cambiarPass"> <h5> Cambiar contraseña </h5> </a>
+                        <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/cambiarPass"> <h5> Cambiar contraseña </h5> </a>
                     </div>
                     <div class="col-12">
-                        <a class="text-dark" href="<?php echo RUTA_URL?>/Ranking"> <h5> Participar en el Ranking </h5> </a>
+                        <a class="text-dark" href="<?php echo RUTA_URL?>/ranking"> <h5> Participar en el Ranking </h5> </a>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 <div id="modalCambiarImagenPerfil" class="modal-container">
     <div class="modal-contenido">
         <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
-            <form method="post" enctype="multipart/form-data" action="<?php echo RUTA_URL?>/Perfil/cambiarImagen">
+            <form method="post" enctype="multipart/form-data" action="<?php echo RUTA_URL?>/perfil/cambiarImagen">
                 <div class="modal-header">
                     <h2>Subir Imagen</h2>
                 </div>

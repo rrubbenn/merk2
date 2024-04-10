@@ -117,7 +117,7 @@
             <div class="row mt-5">
                 <div class="col-3">
                     <div>
-                        <a class="text-dark" href="<?php echo RUTA_URL?>/Perfil/editarPerfil"> <h5> Editar información </h5> </a>
+                        <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/editarPerfil"> <h5> Editar información </h5> </a>
                     </div>
                 </div>
             </div>

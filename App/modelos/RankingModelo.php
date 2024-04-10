@@ -12,12 +12,6 @@
             return $this->db->registros();                    
         }
 
-        public function obtenerInformacionPerfil(){
-            $this->db->query("SELECT * FROM usuario");
-
-            return $this->db->registros();                    
-        }
-
         public function editarRanking($datos){
 
             $this->db->query("UPDATE usuario SET ranking = :ranking where id_usuario = :id_usuario");

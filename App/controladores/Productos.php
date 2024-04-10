@@ -80,26 +80,35 @@
 
         }
 
-        public function addproducto(){
-
-            if ($_SERVER["REQUEST_METHOD"]=="POST") {
-    
+        public function addProducto() {
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Obtener los datos del formulario y las imágenes subidas
                 $datos = $_POST;
-                //print_r($datos);
+                $imagenes = $_FILES['imagenes'];
+
+                //print_r($imagenes);
                 //exit();
-
-                if ($this->productoModelo->addProducto($datos)) {
-                    
-                    $this->vistaApi(true);
-
-                } else {
-
-                    $this->vistaApi(false);
-
+        
+                // Llamar a la función addProducto() para agregar el producto
+                $id_producto = $this->productoModelo->addProducto($datos);
+        
+                if ($id_producto) {
+                    // Si se agregó el producto correctamente, intentar subir las imágenes si es que se cargaron
+                    if (!empty($imagenes['name'][0])) {
+                        if ($this->productoModelo->subirImagenes($imagenes, $id_producto)) {
+                            $this->vistaApi(true);
+                            return;
+                        }
+                    } else {
+                        // No se cargaron imágenes, pero el producto se agregó correctamente
+                        $this->vistaApi(true);
+                        return;
+                    }
                 }
-    
+        
+                // Si algo falla en la agregación del producto o la subida de imágenes
+                $this->vistaApi(false);
             }
-
         }
 
         public function editproducto(){

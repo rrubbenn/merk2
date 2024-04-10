@@ -12,11 +12,7 @@
             return $this->db->registros();                    
         }
 
-        public function obtenerInformacionPerfil(){
-            $this->db->query("SELECT * FROM usuario");
 
-            return $this->db->registros();                    
-        }
 
     }
 

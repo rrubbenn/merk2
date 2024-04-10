@@ -67,6 +67,7 @@
     <div class="modal-contenido">
         <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
             <form method="post" 
+            enctype="multipart/form-data"
             action="javascript:addDatos(event)"
             id="formAnadir"
             data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
@@ -107,7 +108,7 @@
                         <div class="col-10 offset-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple>
                             </div>
                         </div>
                     </div>
