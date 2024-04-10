@@ -45,7 +45,7 @@
                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
                     <div class="card-container" style="position: relative;">
                         <div class="card">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="card-img-top imgcard" alt="...">
+                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-start">

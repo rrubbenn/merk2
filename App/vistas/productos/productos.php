@@ -29,7 +29,9 @@
                     <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
                         <div class="card-container"style="position: relative;">
                             <div class="card">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
+                                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
+                                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
+                                </a>
                                 <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
                                     <a href="#" class="btn-light rounded text-decoration-none text-dark p-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Editar" aria-expanded="false" style="position: absolute; top: 10px; right: 10px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -41,15 +43,15 @@
                                         <li><a class="dropdown-item text-danger borrar" href="#" id="<?php echo $producto->id_producto ?>" onclick="openModal(this)">Borrar</a></li>
                                     </ul>
                                 <?php endif ?>
-                                <div class="card-body">
-                                <div class="d-flex">
-                                    <h5 class="card-title col-8" id="nombre_producto"> <?php echo $producto->nombre_producto ?> </h5>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <h5 class="card-title" id="precio"> <?php echo $producto->precio ?> € </h5>
+                                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="card-body text-decoration-none text-dark">
+                                    <div class="d-flex">
+                                        <h5 class="card-title col-8" id="nombre_producto"> <?php echo $producto->nombre_producto ?> </h5>
+                                        <div class="col-4 d-flex justify-content-end">
+                                            <h5 class="card-title" id="precio"> <?php echo $producto->precio ?> € </h5>
+                                        </div>
                                     </div>
-                                </div>
                                     <p class="card-text" id="descripcion"> <?php echo $producto->descripcion ?> </p>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
