@@ -177,6 +177,8 @@
 
             $this->datos["vendedor"] = $this->productoModelo->getVendedorProducto($id_producto);
 
+            $this->datos["imagenes"] = $this->productoModelo->getImagenesProducto($id_producto);
+
             $this->datos["esFavorito"] = $this->productoModelo->getFavoritoUsuario($id_producto, $this->datos['usuarioSesion']->id_usuario);
 
             $this->vista("/productos/producto",$this->datos);

@@ -29,7 +29,7 @@
                     <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
                         <div class="card-container"style="position: relative;">
                             <div class="card">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/img/colores.jpg" class="card-img-top" alt="...">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
                                 <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
                                     <a href="#" class="btn-light rounded text-decoration-none text-dark p-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Editar" aria-expanded="false" style="position: absolute; top: 10px; right: 10px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">

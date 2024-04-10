@@ -22,12 +22,21 @@
         }
 
         public function obtenerProductos($id_usuario){
-            $this->db->query("SELECT *
-            FROM producto p
-            WHERE id_usuario = :id_usuario AND NOT EXISTS (
-                SELECT 1
-                FROM venta v
-                WHERE p.id_producto = v.id_producto) ");
+            $this->db->query("SELECT 
+                                p.*,
+                                (SELECT ruta 
+                                FROM imagenesproducto 
+                                WHERE id_producto = p.id_producto 
+                                ORDER BY id_imagen ASC 
+                                LIMIT 1) AS ruta
+                            FROM producto p
+                            WHERE 
+                                id_usuario = :id_usuario 
+                                AND NOT EXISTS (
+                                    SELECT 1
+                                    FROM venta v
+                                    WHERE p.id_producto = v.id_producto
+                                );");
 
             $this->db->bind(':id_usuario',$id_usuario);
 
@@ -308,6 +317,37 @@
                                 producto.id_usuario = usuario.id_usuario
                             WHERE
                                 producto.id_producto = :id_producto;
+                            ");
+
+            $this->db->bind(':id_producto',$id_producto);
+
+            return $this->db->registro();                    
+        }
+
+        public function getImagenesProducto($id_producto){
+            
+            $this->db->query("SELECT 
+                                *
+                            FROM 
+                                imagenesproducto
+                            WHERE
+                                id_producto = :id_producto;
+                            ");
+
+            $this->db->bind(':id_producto',$id_producto);
+
+            return $this->db->registros();                    
+        }
+
+        public function getImagenProducto($id_producto){
+            
+            $this->db->query("SELECT 
+                                *
+                            FROM 
+                                imagenesproducto
+                            WHERE
+                                id_producto = :id_producto;
+                            LIMIT 1
                             ");
 
             $this->db->bind(':id_producto',$id_producto);

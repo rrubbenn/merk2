@@ -4,8 +4,31 @@
 <div class="container">
 
     <div class="row mt-5">
-        <div class="d-flex justify-content-center w-100">
-            <img src="<?php echo RUTA_URL_STATIC ?>/img/colores.jpg" class="imgproducto">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <?php $primerElemento = true; ?>
+                <?php foreach($datos['imagenes'] as $index => $imagen): ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $primerElemento ? 'active' : ''; ?>" <?php if ($primerElemento) echo 'aria-current="true"'; ?> aria-label="Slide <?php echo $index + 1; ?>"></button>
+                    <?php $primerElemento = false; ?>
+                <?php endforeach; ?>
+            </div>
+            <div class="carousel-inner">
+            <?php $primerElemento = true; ?>
+            <?php foreach($datos['imagenes'] as $imagen): ?>
+                <div class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
+                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $imagen->ruta ?>" class="d-block w-100" alt="...">
+                </div>
+                <?php $primerElemento = false; ?>
+            <?php endforeach; ?>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
 
