@@ -173,11 +173,11 @@
                 } else {
                     // Si todo está bien, intenta subir el archivo
                     if (move_uploaded_file($tmp_name, $target_file)) {
-                        echo "El archivo " . htmlspecialchars(basename($imagenes["name"][$key])) . " ha sido cargado.";
+                        //echo "El archivo " . htmlspecialchars(basename($imagenes["name"][$key])) . " ha sido cargado.";
                         chmod($target_file, 0777);
                         $uploaded_files[] = $file; // Agregar el nombre del archivo a la lista de archivos cargados
                     } else {
-                        echo "Lo siento, hubo un error al cargar tu archivo.";
+                        //echo "Lo siento, hubo un error al cargar tu archivo.";
                     }
                 }
             }
@@ -185,7 +185,7 @@
             // Insertar los nombres de archivo en la base de datos
             foreach ($uploaded_files as $file) {
                 // Tu consulta de inserción
-                $this->db->query("INSERT INTO imagenes_producto (id_producto, ruta) 
+                $this->db->query("INSERT INTO imagenesproducto (id_producto, ruta) 
                                     VALUES (:id_producto, :imagen)");
             
                 // Bind de parámetros
