@@ -187,21 +187,23 @@
                 // Tu consulta de inserción
                 $this->db->query("INSERT INTO imagenesproducto (id_producto, ruta) 
                                     VALUES (:id_producto, :imagen)");
+
+                
             
                 // Bind de parámetros
                 $this->db->bind(':id_producto', $id_producto);
                 $this->db->bind(':imagen', $file);
             
                 // Ejecutar la consulta
-                if ($this->db->execute()) {
+                if (!$this->db->execute()) {
                     // Si falla la ejecución de alguna de las consultas, retornar falso
-                    return true;
-                } else {
-
                     return false;
-
                 }
             }
+            
+            // Si todas las consultas se ejecutan correctamente, retornar true
+            return true;
+            
         }
 
         public function editProducto($datos){
