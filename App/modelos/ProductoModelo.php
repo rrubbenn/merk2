@@ -215,34 +215,53 @@
             
         }
 
-        public function editProducto($datos){
-            $this->db->query("UPDATE  
-                                producto
-                            SET
-                                id_categoria = :id_categoria,
+        public function editProducto($datos) {
+        
+            // Realizar la actualización del producto
+            $this->db->query("UPDATE producto
+                            SET id_categoria = :id_categoria,
                                 nombre_producto = :nombre_producto,
                                 descripcion = :descripcion,
                                 precio = :precio
-                            WHERE
-                                id_producto = :id_producto AND id_usuario = :id_usuario");
-
-            $this->db->bind(':id_usuario',$datos['id_usuario']);
-            $this->db->bind(':id_producto',$datos['id_producto']);
-            $this->db->bind(':id_categoria',$datos['id_categoria']);
-            $this->db->bind(':nombre_producto',$datos['nombre_producto']);
-            $this->db->bind(':descripcion',$datos['descripcion']);
-            $this->db->bind(':precio',$datos['precio']);
-
+                            WHERE id_producto = :id_producto AND id_usuario = :id_usuario");
+        
+            $this->db->bind(':id_usuario', $datos['id_usuario']);
+            $this->db->bind(':id_producto', $datos['id_producto']);
+            $this->db->bind(':id_categoria', $datos['id_categoria']);
+            $this->db->bind(':nombre_producto', $datos['nombre_producto']);
+            $this->db->bind(':descripcion', $datos['descripcion']);
+            $this->db->bind(':precio', $datos['precio']);
+        
+            // Ejecutar la consulta de actualización
             if ($this->db->execute()) {
+                return true; // Si la actualización es exitosa, retornar true
+            } else {
+                return false; // Si la actualización falla, retornar false
+            }
+        }
 
-                return true;
+        public function delImagenes($id_producto){
 
-            }else{
+            $this->db->query("SELECT ruta FROM imagenesproducto WHERE id_producto = :id_producto");
+            $this->db->bind(':id_producto', $id_producto);
+            $rutas = $this->db->registros();
 
-                return false;
+            // Eliminar las imágenes de la base de datos
+            $this->db->query("DELETE FROM imagenesproducto WHERE id_producto = :id_producto");
+            $this->db->bind(':id_producto', $id_producto);
+            if ($this->db->execute()) {
+                // Eliminar las imágenes del servidor de archivos
+                foreach ($rutas as $imagen) {
+                    $ruta_archivo = "/var/www/html/proyecto/public/imgbase/" . $imagen->ruta;
+                    if (file_exists($ruta_archivo)) {
+                        unlink($ruta_archivo);
+                    }
+                }
+                return true; // Devuelve true si se eliminaron correctamente las imágenes de la base de datos y del servidor
+            } else {
+                return false; // Devuelve false si hubo un error al ejecutar la consulta de eliminación
+            }
 
-            }     
-            
         }
 
         public function getDatosProducto($datos) {

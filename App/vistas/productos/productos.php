@@ -30,7 +30,7 @@
                         <div class="card-container"style="position: relative;">
                             <div class="card">
                                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
-                                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
+                                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" id="imagenes" alt="...">
                                 </a>
                                 <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
                                     <a href="#" class="btn-light rounded text-decoration-none text-dark p-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Editar" aria-expanded="false" style="position: absolute; top: 10px; right: 10px;">
@@ -134,6 +134,7 @@
             data-rutafija="<?php echo htmlspecialchars(RUTA_URL.'/Productos')?>"
             data-rutarellenar="<?php echo htmlspecialchars(RUTA_URL.'/Productos/get_datosproducto')?>"
             data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/editproducto')?>"
+            data-rutastatic="<?php echo htmlspecialchars(RUTA_URL_STATIC)?>"
             data-tipo="producto">
                 <div class="modal-header">
                     <h2>Editar Producto</h2>
@@ -171,7 +172,7 @@
                         <div class="col-10 offset-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
-                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple>
                             </div>
                         </div>
                     </div>

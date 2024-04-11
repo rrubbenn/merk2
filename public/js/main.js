@@ -171,6 +171,7 @@ async function editarDatos() {
 
     let formulario = document.getElementById('formEditar');
     let ruta = formulario.dataset.ruta; // Obtener ruta de la función asincrónica
+    let rutastatic = formulario.dataset.rutastatic; // Obtener ruta de la función asincrónica
 
     // ESTO ME PERMITIRA CAMBIAR LOS DATOS CON EL TIPO DE ID DE LO QUE QUIERO EDITAR EN ASINCRONO
     let tipo = formulario.dataset.tipo; 
@@ -187,7 +188,6 @@ async function editarDatos() {
         .then((resp) => resp.json())
         .then(function(data) {
 
-                
             if (data){
 
                 dividTipo = document.getElementById(tipo+"_"+idTipo);
@@ -196,14 +196,23 @@ async function editarDatos() {
 
                     formData.forEach((value, key) => {
 
-                        let elemento = dividTipo.querySelector('#' + key);
+                        key = key.replace(/\[|\]/g, '');
 
+                        let elemento = dividTipo.querySelector('#' + key);
+                        
                         if (elemento !== null) {
                             elemento.innerHTML = value;
 
                             if(key == "precio") {
 
                                 elemento.innerHTML = value + " €";
+
+                            }
+
+                            if(key == "imagenes") {
+
+                                let rutafinal = rutastatic+"/imgbase/"+data;
+                                elemento.src = rutafinal;
 
                             }
                         }

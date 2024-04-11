@@ -85,9 +85,6 @@
                 // Obtener los datos del formulario y las imágenes subidas
                 $datos = $_POST;
                 $imagenes = $_FILES['imagenes'];
-
-                //print_r($imagenes);
-                //exit();
         
                 // Llamar a la función addProducto() para agregar el producto
                 $id_producto = $this->productoModelo->addProducto($datos);
@@ -116,18 +113,27 @@
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
                 $datos = $_POST;
-                //print_r($datos);
-                //exit();
+                $imagenes = $_FILES['imagenes'];
 
-                if ($this->productoModelo->editProducto($datos)) {
-                
-                    $this->vistaApi(true);
+                $id_producto = $this->productoModelo->editProducto($datos);
 
-                } else {
+                if ($id_producto) {
+                    // Si se agregó el producto correctamente, intentar subir las imágenes si es que se cargaron
+                    if (!empty($imagenes['name'][0])) {
 
-                    $this->vistaApi(false);
+                        if ($this->productoModelo->delImagenes($datos['id_producto']) && $this->productoModelo->subirImagenes($imagenes, $datos['id_producto'])) {
+                            $this->vistaApi($this->productoModelo->getImagenProducto($datos['id_producto'])->ruta);
+                        }
 
+                    } else {
+                        // No se cargaron imágenes, pero el producto se agregó correctamente
+                        $this->vistaApi("no cargan imagenes");
+                        //$this->vistaApi(true);
+                        return;
+                    }
                 }
+                // Si algo falla en la agregación del producto o la subida de imágenes
+                $this->vistaApi(false);
     
             }
 
