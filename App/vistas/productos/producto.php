@@ -88,7 +88,7 @@
         <a class="col-6 text-decoration-none text-dark" href="<?php echo RUTA_URL?>/perfil/<?php echo $datos['vendedor']->id_usuario ?>">
             <div class="col-12 d-flex align-items-center mt-3">
                 <div class="col-4 text-center">
-                    <img class="imgperfil" src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png"> </img>
+                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $datos['vendedor']->imagen_perfil ?>" class="card-img-top" id="imagenes" alt="...">
                 </div>
                 <div class="col-8">
                     <h5 class="mb-0"> <strong> <?php echo $datos['vendedor']->nombre ?> </strong> </h5>

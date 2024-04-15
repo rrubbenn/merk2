@@ -16,7 +16,7 @@
                     <div id="producto_<?php echo $favorito->id_producto ?>" class="col-4">
                         <div class="card">
                             <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $favorito->id_producto?>" class="text-decoration-none text-dark">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="card-img-top" alt="...">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $favorito->ruta ?>" class="card-img-top" id="imagenes" alt="...">
                             </a>
                             <div class="card-body pt-2">
                                 <div class="d-flex align-items-center">

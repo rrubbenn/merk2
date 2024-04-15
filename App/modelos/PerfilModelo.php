@@ -23,12 +23,15 @@
 
         public function obtenerEnVentaUsuario($id_usuario){
 
-            $this->db->query("SELECT *
-            FROM producto p
-            WHERE id_usuario = :id_usuario AND NOT EXISTS (
-                SELECT 1
-                FROM venta v
-                WHERE p.id_producto = v.id_producto);");
+            $this->db->query("SELECT p.*, ip.ruta AS ruta
+                            FROM producto p
+                            LEFT JOIN imagenesproducto ip ON p.id_producto = ip.id_producto
+                            WHERE p.id_usuario = :id_usuario 
+                            AND NOT EXISTS (
+                                SELECT 1    
+                                FROM venta v
+                                WHERE p.id_producto = v.id_producto
+                            );");
 
             $this->db->bind(':id_usuario',$id_usuario);
 
@@ -38,12 +41,15 @@
 
         public function obtenerVendidosUsuario($id_usuario){
 
-            $this->db->query("SELECT *
-            FROM producto p
-            WHERE id_usuario = :id_usuario AND EXISTS (
-                SELECT 1
-                FROM venta v
-                WHERE p.id_producto = v.id_producto);");
+            $this->db->query("SELECT p.*, ip.ruta AS ruta
+                            FROM producto p
+                            LEFT JOIN imagenesproducto ip ON p.id_producto = ip.id_producto
+                            WHERE p.id_usuario = :id_usuario 
+                            AND EXISTS (
+                                SELECT 1
+                                FROM venta v
+                                WHERE p.id_producto = v.id_producto
+                            );");
 
             $this->db->bind(':id_usuario',$id_usuario);
 
