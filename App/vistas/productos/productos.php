@@ -24,10 +24,10 @@
             </div>
         </div>
         <div class="col-9">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="row row-cols-1 row-cols-md-2 g-4" id="contenedor">
                 <?php foreach ($datos['productos'] as $producto): ?>
                     <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
-                        <div class="card-container"style="position: relative;">
+                        <div class="card-container" style="position: relative;">
                             <div class="card">
                                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
                                     <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" id="imagenes" alt="...">
@@ -62,6 +62,10 @@
     </div>
 </div>
 
+<div id="botones-paginacion">
+    <button onclick="anteriorPagina()">Anterior</button>
+    <button onclick="siguientePagina()">Siguiente</button>
+</div>
 
 </div>
 
@@ -212,3 +216,20 @@
 </div>
 
 <?php require_once RUTA_APP.'/vistas/inc/footer.php'?>
+
+<script>
+
+var datos = <?php echo json_encode($datos['productos']); ?>;
+var numeroporpagina = 9;
+var totalPaginas = Math.ceil(datos.length / numeroporpagina);
+var paginaActual = 1;
+
+var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
+var ruta = <?php echo json_encode(RUTA_URL); ?>+"/productos/producto/";
+var tipo = "producto";
+var id_usuario = <?php echo $datos['usuarioSesion']->id_usuario ?>;
+
+// esta linea muestra los primeros productos de la pagina para que no este vacia
+mostrarPagina(paginaActual, numeroporpagina);
+
+</script>
