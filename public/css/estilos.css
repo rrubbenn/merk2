@@ -91,20 +91,6 @@ body{
     cursor: pointer;
 }
 
-.page-item.disabled .page-link{
-    color:#212529 !important;
-}
-
-.page-item .page-link{
-    color:#96823b !important;
-}
-
-.page-item.active .page-link {
-    background-color: #96823b;
-    border-color: #ced4da;
-    color: #000 !important;
-}
-
 .cerrar:hover{
     color: darkred;
     transition: 0.2s;
