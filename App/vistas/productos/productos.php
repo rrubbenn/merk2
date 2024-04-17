@@ -62,11 +62,12 @@
     </div>
 </div>
 
-<div id="botones-paginacion">
-    <button onclick="anteriorPagina()">Anterior</button>
-    <button onclick="siguientePagina()">Siguiente</button>
-</div>
-
+<!--
+    <div id="botones-paginacion">
+        <button onclick="anteriorPagina()">Anterior</button>
+        <button onclick="siguientePagina()">Siguiente</button>
+    </div>
+-->
 </div>
 
 <div id="modalAnadir" class="modal-container">
@@ -219,17 +220,17 @@
 
 <script>
 
-var datos = <?php echo json_encode($datos['productos']); ?>;
-var numeroporpagina = 9;
-var totalPaginas = Math.ceil(datos.length / numeroporpagina);
-var paginaActual = 1;
+//var datos = <?php echo json_encode($datos['productos']); ?>;
+//var numeroporpagina = 9;
+//var totalPaginas = Math.ceil(datos.length / numeroporpagina);
+//var paginaActual = 1;
 
-var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
-var ruta = <?php echo json_encode(RUTA_URL); ?>+"/productos/producto/";
-var tipo = "producto";
-var id_usuario = <?php echo $datos['usuarioSesion']->id_usuario ?>;
+//var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
+//var ruta = <?php echo json_encode(RUTA_URL); ?>+"/productos/producto/";
+//var tipo = "producto";
+//var id_usuario = <?php echo $datos['usuarioSesion']->id_usuario ?>;
 
 // esta linea muestra los primeros productos de la pagina para que no este vacia
-mostrarPagina(paginaActual, numeroporpagina);
+//mostrarPagina(paginaActual, numeroporpagina);
 
 </script>
