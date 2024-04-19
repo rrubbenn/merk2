@@ -39,32 +39,16 @@
         <?php endif ?>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 g-2">
-        <?php foreach ($datos['productos'] as $producto): ?>
-            <div class="col-3" id="producto_<?php echo $producto->id_producto ?>">
-                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
-                    <div class="card-container" style="position: relative;">
-                        <div class="card">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 text-start">
-                                        <h5 class="card-title"> <?php echo $producto->nombre_producto ?> </h5>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-10 text-start">
-                                        <h5 class="card-title"> <?php echo $producto->precio ?> € </h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        <?php endforeach ?>
+    <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2">
     </div> 
 
+                                        
+    <nav class="mt-3" aria-label="...">
+    <ul id="pagination" class="pagination justify-content-center">
+        
+    </ul>
+</nav>
+                                
 
 </div>
 
@@ -77,17 +61,17 @@
 <script>
 
 var datos = <?php echo json_encode($datos['productos']); ?>;
-var numeroporpagina = 9;
+var numeroporpagina = 20;
 var totalPaginas = Math.ceil(datos.length / numeroporpagina);
 var paginaActual = 1;
-var propiedadID = "producto";
 
 var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
-var ruta = <?php echo json_encode(RUTA_URL); ?>+"/productos/producto/";
+var ruta = <?php echo json_encode(RUTA_URL) ?>+"/productos/producto/";
 var tipo = "producto";
-var id_usuario = <?php echo $datos['usuarioSesion']->id_usuario ?>;
 
 // esta linea muestra los primeros productos de la pagina para que no este vacia
-mostrarPagina(propiedadID);
+actualizarPaginacion();
+mostrarPagina(paginaActual);
+
 
 </script>

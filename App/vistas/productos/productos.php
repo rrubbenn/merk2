@@ -103,12 +103,6 @@
         </ul>
     </nav>
 
-                                    <!--
-    <div id="botones-paginacion">
-        <button onclick="anteriorPagina()">Anterior</button>
-        <button onclick="siguientePagina()">Siguiente</button>
-    </div>
-                                -->
 </div>
 
 <div id="modalAnadir" class="modal-container">

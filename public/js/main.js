@@ -447,24 +447,10 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
 }
 
-function siguientePagina() {
-    // necesito el totalpaginas para que cuando le de al boton de siguiente no se pase
-    if (paginaActual < totalPaginas) {
-        paginaActual++;
-        mostrarPagina(paginaActual);
-    }
-}
-
-function anteriorPagina() {
-    // aqui solamente lo necesito para pasar a mostrarPagina el numero de datos por pagina
-    if (paginaActual > 1) {
-        paginaActual--;
-        mostrarPagina(paginaActual);
-    }
-}
-
 // con esta funcion imprimo cada pagina
-function mostrarPagina() {
+function mostrarPagina(numeroPagina) {
+
+    paginaActual = numeroPagina;
 
     var inicio = (paginaActual - 1) * numeroporpagina;
     var fin = inicio + numeroporpagina;
@@ -475,7 +461,124 @@ function mostrarPagina() {
 
     datosPagina.forEach(function(dato) {
     
+        // Crear elementos HTML para la tarjeta de producto
+        var divCol = document.createElement('div');
+        divCol.className = 'col-3';
+        divCol.id = 'producto_' + dato.id_producto;
 
+        var link = document.createElement('a');
+        link.href = ruta + dato.id_producto;
+        link.className = 'text-decoration-none text-dark';
+
+        var divCardContainer = document.createElement('div');
+        divCardContainer.className = 'card-container';
+        divCardContainer.style.position = 'relative';
+
+        var divCard = document.createElement('div');
+        divCard.className = 'card';
+
+        var img = document.createElement('img');
+        img.src = rutastatic + '/imgbase/' + dato.ruta;
+        img.className = 'card-img-top';
+        img.alt = '...';
+
+        var divCardBody = document.createElement('div');
+        divCardBody.className = 'card-body';
+
+        var divRowTitle = document.createElement('div');
+        divRowTitle.className = 'row';
+
+        var divColTitle = document.createElement('div');
+        divColTitle.className = 'col-12 text-start';
+
+        var h5Title = document.createElement('h5');
+        h5Title.className = 'card-title';
+        h5Title.textContent = dato.nombre_producto;
+
+        var divRowPrice = document.createElement('div');
+        divRowPrice.className = 'row';
+
+        var divColPrice = document.createElement('div');
+        divColPrice.className = 'col-10 text-start';
+
+        var h5Price = document.createElement('h5');
+        h5Price.className = 'card-title';
+        h5Price.textContent = dato.precio + ' €';
+
+        // Construir la estructura de la tarjeta de producto
+        divColTitle.appendChild(h5Title);
+        divRowTitle.appendChild(divColTitle);
+        divCardBody.appendChild(divRowTitle);
+
+        divColPrice.appendChild(h5Price);
+        divRowPrice.appendChild(divColPrice);
+        divCardBody.appendChild(divRowPrice);
+
+        divCard.appendChild(img);
+        divCard.appendChild(divCardBody);
+
+        divCardContainer.appendChild(divCard);
+
+        link.appendChild(divCardContainer);
+
+        divCol.appendChild(link);
+
+        contenedor.appendChild(divCol);
 
     });
+}
+
+function siguientePagina() {
+    // necesito el totalpaginas para que cuando le de al boton de siguiente no se pase
+    if (paginaActual < totalPaginas) {
+        paginaActual++;
+        mostrarPagina(paginaActual);
+    }
+
+    actualizarPaginacion();
+}
+
+function anteriorPagina() {
+    // aqui solamente lo necesito para pasar a mostrarPagina el numero de datos por pagina
+    if (paginaActual > 1) {
+        paginaActual--;
+        mostrarPagina(paginaActual);
+    }
+
+    actualizarPaginacion();
+}
+
+function actualizarPaginacion() {
+    var paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = ''; // Limpiar la paginación antes de generar los números de página
+
+    // Añadir botón de anterior
+    var anteriorBtn = document.createElement('li');
+    anteriorBtn.className = 'page-item';
+    if (paginaActual === 1) {
+        anteriorBtn.classList.add('disabled');
+    } 
+    anteriorBtn.innerHTML = '<a class="page-link text-decoration-none text-dark" href="#" aria-label="Previous" onclick="anteriorPagina()"><span aria-hidden="true">&laquo;</span><span class="visually-hidden">Previous</span></a>';
+    paginationContainer.appendChild(anteriorBtn);
+
+    // Añadir números de página
+    for (var i = 1; i <= totalPaginas; i++) {
+        var paginaBtn = document.createElement('li');
+        paginaBtn.className = 'page-item';
+        if (i === paginaActual) {
+            paginaBtn.innerHTML = '<a class="page-link text-decoration-none text-dark" href="#" onclick="mostrarPagina(' + i + ')" style="background-color: #A898D5">' + i + '</a>';
+        } else {
+            paginaBtn.innerHTML = '<a class="page-link text-decoration-none text-dark" href="#" onclick="mostrarPagina(' + i + ')">' + i + '</a>';
+        }
+        paginationContainer.appendChild(paginaBtn);
+    }
+
+    // Añadir botón de siguiente
+    var siguienteBtn = document.createElement('li');
+    siguienteBtn.className = 'page-item';
+    if (paginaActual === totalPaginas || totalPaginas === 0) {
+        siguienteBtn.classList.add('disabled');
+    }
+    siguienteBtn.innerHTML = '<a class="page-link text-decoration-none text-dark" href="#" aria-label="Next" onclick="siguientePagina()"><span aria-hidden="true">&raquo;</span><span class="visually-hidden">Next</span></a>';
+    paginationContainer.appendChild(siguienteBtn);
 }
