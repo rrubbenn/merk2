@@ -12,21 +12,7 @@
             return $this->db->registros();                    
         }
 
-        public function totalProductos(){
-            $this->db->query("SELECT 
-                                COUNT(*) as total 
-                            FROM producto p 
-                            WHERE NOT EXISTS 
-                                (SELECT 1 
-                                FROM venta v 
-                                WHERE p.id_producto = v.id_producto)");
-            $resultado = $this->db->registro();
-        
-            return $resultado->total;
-        }
-
-        public function obtenerProductos($pagina, $por_pagina){
-            $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+        public function obtenerProductos(){
         
             $this->db->query("SELECT p.*,
                                 (SELECT ruta 
@@ -38,11 +24,7 @@
                             WHERE NOT EXISTS (
                                 SELECT 1
                                 FROM venta v
-                                WHERE p.id_producto = v.id_producto)
-                            LIMIT :por_pagina OFFSET :offset");
-        
-            $this->db->bind(':por_pagina', $por_pagina);
-            $this->db->bind(':offset', $offset);
+                                WHERE p.id_producto = v.id_producto)");
         
             return $this->db->registros();                    
         }

@@ -8,17 +8,29 @@
 
         }
 
-        public function index($id_usuario){
+        public function index($id_usuario, $paginita = 1){
 
+            $pagina_actual = $paginita ? $paginita : 1;
+            $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
+        
+            $total_productos = $total_productos = $this->productoModelo->totalProductos($id_usuario);
+            $total_paginas = ceil($total_productos / $productos_por_pagina);
+        
+            // Asegúrate de que la página actual esté dentro de los límites
+            if ($pagina_actual < 1) {
+                $pagina_actual = 1;
+            } elseif ($pagina_actual > $total_paginas) {
+                $pagina_actual = $total_paginas;
+            }
+
+            $this->datos['total_paginas'] = $total_paginas;
+            $this->datos['pagina_actual'] = $pagina_actual;
+        
+            $this->datos['productos'] = $this->productoModelo->obtenerProductos($id_usuario, $pagina_actual, $productos_por_pagina);
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
-
             $this->datos['datosUsuario'] = $this->productoModelo->obtenerInformacionPerfil($id_usuario);
 
-            $this->datos['productos'] = $this->productoModelo->obtenerProductos($this->datos['usuarioSesion']->id_usuario);
-
-
             $this-> vista("productos/productos", $this->datos);
-
 
         }
 

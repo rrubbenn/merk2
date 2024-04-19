@@ -62,12 +62,53 @@
     </div>
 </div>
 
-<!--
+<nav class="mt-3" aria-label="...">
+        <ul class="pagination justify-content-center">
+            <?php if ($datos['pagina_actual'] > 1): ?>
+                <li class="page-item">
+                    <a class="page-link text-decoration-none text-dark" 
+                    href="<?php echo RUTA_URL ?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $datos['pagina_actual'] - 1; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                </li>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $datos['total_paginas']; $i++): ?>
+                <?php $active_class = ($i === $datos['pagina_actual']) ? 'active' : ''; ?>
+                <li class="page-item <?php echo $active_class; ?>">
+                    <a class="page-link text-decoration-none <?php echo $active_class ? 'text-light' : 'text-dark'; ?> <?php echo $active_class ? 'border' : ''; ?>" 
+                        style="background-color: <?php echo $active_class ? '#A898D5' : '#fff'; ?>;" 
+                        href="<?php echo RUTA_URL ?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+            <?php if ($datos['pagina_actual'] < $datos['total_paginas']): ?>
+                <li class="page-item">
+                    <a class="page-link text-decoration-none text-dark" 
+                    href="<?php echo RUTA_URL ?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $datos['pagina_actual'] + 1; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&raquo;</span> 
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+
+                                    <!--
     <div id="botones-paginacion">
         <button onclick="anteriorPagina()">Anterior</button>
         <button onclick="siguientePagina()">Siguiente</button>
     </div>
--->
+                                -->
 </div>
 
 <div id="modalAnadir" class="modal-container">
@@ -218,19 +259,5 @@
 
 <?php require_once RUTA_APP.'/vistas/inc/footer.php'?>
 
-<script>
 
-//var datos = <?php echo json_encode($datos['productos']); ?>;
-//var numeroporpagina = 9;
-//var totalPaginas = Math.ceil(datos.length / numeroporpagina);
-//var paginaActual = 1;
 
-//var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
-//var ruta = <?php echo json_encode(RUTA_URL); ?>+"/productos/producto/";
-//var tipo = "producto";
-//var id_usuario = <?php echo $datos['usuarioSesion']->id_usuario ?>;
-
-// esta linea muestra los primeros productos de la pagina para que no este vacia
-//mostrarPagina(paginaActual, numeroporpagina);
-
-</script>
