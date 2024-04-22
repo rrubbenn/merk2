@@ -13,6 +13,7 @@
             $productos = $this->inicioModelo->obtenerProductos();
         
             $this->datos['productos'] = $productos;
+            $this->datos['categorias'] = $this->inicioModelo->obtenerCategorias();
         
             $this->vista("index", $this->datos);
         }

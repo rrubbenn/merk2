@@ -1,5 +1,14 @@
 <?php require_once RUTA_APP.'/vistas/inc/header.php'?>
 
+<div class="border border-bottom b-dark d-none position-absolute w-100 bg-light" id="divCategorias">
+    <div class="row mt-3">
+        <?php foreach ($datos['categorias'] as $categoria): ?>
+            <div class="col-3"> 
+                <h6> <?php echo $categoria->nombre_categoria ?> </h6>
+            </div>
+        <?php endforeach ?>
+    </div>
+</div>
 
 <div class="container">
     <div class="mt-5 text-center">
@@ -61,8 +70,11 @@
 <script>
 
 var datos = <?php echo json_encode($datos['productos']); ?>;
+
+var datosFiltrados = datos;
+
 var numeroporpagina = 20;
-var totalPaginas = Math.ceil(datos.length / numeroporpagina);
+var totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
 var paginaActual = 1;
 
 var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;

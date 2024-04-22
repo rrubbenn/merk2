@@ -454,7 +454,7 @@ function mostrarPagina(numeroPagina) {
 
     var inicio = (paginaActual - 1) * numeroporpagina;
     var fin = inicio + numeroporpagina;
-    var datosPagina = datos.slice(inicio, fin);
+    var datosPagina = datosFiltrados.slice(inicio, fin);
 
     var contenedor = document.getElementById('contenedor');
     contenedor.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos elementos
@@ -581,4 +581,49 @@ function actualizarPaginacion() {
     }
     siguienteBtn.innerHTML = '<a class="page-link text-decoration-none text-dark" href="#" aria-label="Next" onclick="siguientePagina()"><span aria-hidden="true">&raquo;</span><span class="visually-hidden">Next</span></a>';
     paginationContainer.appendChild(siguienteBtn);
+}
+
+function buscarProducto(consulta) {
+
+    datosFiltrados = [];
+
+    // Filtrar los datos según la consulta
+    datos.forEach(function(producto) {
+    if (
+        producto.nombre_producto.toLowerCase().includes(consulta.toLowerCase()) ||
+        producto.descripcion.toLowerCase().includes(consulta.toLowerCase()) ||
+        producto.id_categoria.toString().includes(consulta)
+    ) {
+        datosFiltrados.push(producto);
+    }
+
+    });
+
+    return datosFiltrados;
+}
+
+var buscador = document.getElementById('buscador');
+buscador.addEventListener('input', function() {
+  // Obtener los resultados filtrados al escribir en el campo de búsqueda
+    var resultados = buscarProducto(this.value);
+    totalPaginas = Math.ceil(resultados.length / numeroporpagina);
+    mostrarPagina(paginaActual);
+    actualizarPaginacion();
+    
+});
+
+function mostrarCategorias() {
+
+    let divCategorias = document.getElementById("divCategorias");
+
+    if(divCategorias.classList.contains("d-none")) {
+
+        divCategorias.classList.remove("d-none");
+
+    } else {
+
+        divCategorias.classList.add("d-none");
+
+    }
+
 }

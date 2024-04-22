@@ -29,6 +29,15 @@
             return $this->db->registros();                    
         }
 
+        public function obtenerCategorias() {
+
+            $this->db->query("SELECT *
+                            FROM categoria c");
+        
+            return $this->db->registros();  
+
+        }
+
     }
 
 ?>

@@ -45,7 +45,7 @@
           <div class="col-6 text-center p-1 mt-3">
             <form>
               <div class="mb-3 text-start col-11">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style="width: 100%;">
+                  <input type="text" class="form-control" id="buscador" aria-describedby="buscador" style="width: 100%;">
               </div>
             </form>
           </div>
@@ -57,8 +57,8 @@
               </svg>
             </a>
           </div>
-          <div class="col-1 text-center">
-            <a href="<?php echo RUTA_URL?>/">
+          <div class="col-1 text-center" id="mostrarCategorias" onclick="mostrarCategorias()">
+            <a href="javascript:void(0);">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-tag" viewBox="0 0 16 16">
                 <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0"/>
                 <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1m0 5.586 7 7L13.586 9l-7-7H2z"/>
@@ -93,7 +93,7 @@
           <div class="col-6 text-center p-1 mt-3">
             <form>
               <div class="mb-3 text-start col-11">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" style="width: 100%;">
+                  <input type="text" class="form-control" id="buscador" aria-describedby="buscador" style="width: 100%;">
               </div>
             </form>
           </div>
@@ -105,8 +105,8 @@
               </svg>
             </a>
           </div>
-          <div class="col-1 text-center">
-            <a href="<?php echo RUTA_URL?>/">
+          <div class="col-1 text-center" id="mostrarCategorias" onclick="mostrarCategorias()">
+            <a href="javascript:void(0);">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-tag" viewBox="0 0 16 16">
                 <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0"/>
                 <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1m0 5.586 7 7L13.586 9l-7-7H2z"/>
