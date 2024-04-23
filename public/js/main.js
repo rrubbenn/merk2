@@ -526,6 +526,9 @@ function mostrarPagina(numeroPagina) {
         contenedor.appendChild(divCol);
 
     });
+
+    actualizarPaginacion();
+
 }
 
 function siguientePagina() {
@@ -591,13 +594,14 @@ function buscarProducto(consulta) {
     datos.forEach(function(producto) {
     if (
         producto.nombre_producto.toLowerCase().includes(consulta.toLowerCase()) ||
-        producto.descripcion.toLowerCase().includes(consulta.toLowerCase()) ||
-        producto.id_categoria.toString().includes(consulta)
+        producto.descripcion.toLowerCase().includes(consulta.toLowerCase())
     ) {
         datosFiltrados.push(producto);
     }
 
     });
+
+    console.log(datosFiltrados);
 
     return datosFiltrados;
 }
@@ -606,10 +610,10 @@ var buscador = document.getElementById('buscador');
 buscador.addEventListener('input', function() {
   // Obtener los resultados filtrados al escribir en el campo de búsqueda
     var resultados = buscarProducto(this.value);
+
     totalPaginas = Math.ceil(resultados.length / numeroporpagina);
     mostrarPagina(paginaActual);
     actualizarPaginacion();
-    
 });
 
 function mostrarCategorias() {
@@ -625,5 +629,30 @@ function mostrarCategorias() {
         divCategorias.classList.add("d-none");
 
     }
+
+}
+
+function buscarProductoBoton(categoria) {
+
+    datosFiltrados = [];
+
+    var numcategoria = categoria.getAttribute('data-categoria');
+
+    // Filtrar los datos según la consulta
+    datos.forEach(function(producto) {
+    if (
+        producto.id_categoria.toString().includes(numcategoria)
+    ) {
+        datosFiltrados.push(producto);
+    }
+
+    });
+
+    console.log(datosFiltrados);
+
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    mostrarPagina(paginaActual);
+    actualizarPaginacion();
+    mostrarCategorias();
 
 }

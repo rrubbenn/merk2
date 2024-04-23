@@ -50,7 +50,7 @@
                         <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/cambiarPass"> <h5> Cambiar contraseña </h5> </a>
                     </div>
                     <div class="col-12">
-                        <a class="text-dark" href="<?php echo RUTA_URL?>/ranking"> <h5> Participar en el Ranking </h5> </a>
+                        <a class="text-dark" href="<?php echo RUTA_URL?>/ranking/participar"> <h5> Participar en el Ranking </h5> </a>
                     </div>
                 </div>
             </div>

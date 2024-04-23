@@ -1,12 +1,16 @@
 <?php require_once RUTA_APP.'/vistas/inc/header.php'?>
 
-<div class="border border-bottom b-dark d-none position-absolute w-100 bg-light" id="divCategorias">
-    <div class="row mt-3">
+<div class="row border-bottom d-none position-absolute bg-light w-100 m-0" id="divCategorias">
+    <div class="row mt-3 col-6 offset-3">
+        <a href="javascript:void(0)" onclick="buscarProductoBoton(this)" data-categoria="" class="position-relative text-decoration-none text-dark p-0 m-0"> 
+            <h5 class="position-relative top-0 end-0 ms-5"> X </h5>
+        </a>
         <?php foreach ($datos['categorias'] as $categoria): ?>
-            <div class="col-3"> 
-                <h6> <?php echo $categoria->nombre_categoria ?> </h6>
-            </div>
+            <a href="javascript:void(0)" onclick="buscarProductoBoton(this)" data-categoria="<?php echo $categoria->id_categoria ?>" class="col-3 text-decoration-none text-dark p-0 m-0"> 
+                <h5 class="ms-5"> <?php echo $categoria->nombre_categoria ?> </h5>
+            </a>
         <?php endforeach ?>
+        
     </div>
 </div>
 

@@ -10,10 +10,18 @@
 
         public function index(){
 
-            $this-> vista("ranking", $this->datos);
+            $intervalo = 'semana';
 
-            
-            
+            $this->datos['compras'] = $this->rankingModelo->getCompras($intervalo);
+
+            $this-> vista("ranking/ranking", $this->datos);
+
+        }
+
+        public function participar(){
+
+            $this-> vista("ranking/participar", $this->datos);
+
         }
 
         public function askRanking(){
@@ -25,7 +33,7 @@
                 if ($this->rankingModelo->editarRanking($datos)) {
                     
                     Sesion::actualizarRanking($this->datos,$datos['ranking']);
-                    redireccionar("/Ranking");
+                    redireccionar("/ranking/participar");
                 }else{
                     echo "error";
                 }
