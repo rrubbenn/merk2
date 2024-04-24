@@ -449,7 +449,6 @@ async function marcardesmarcarFavorito(rutaurl, marcador, id_producto) {
 
 // con esta funcion imprimo cada pagina
 function mostrarPagina(numeroPagina) {
-
     paginaActual = numeroPagina;
 
     var inicio = (paginaActual - 1) * numeroporpagina;
@@ -459,76 +458,51 @@ function mostrarPagina(numeroPagina) {
     var contenedor = document.getElementById('contenedor');
     contenedor.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos elementos
 
-    datosPagina.forEach(function(dato) {
-    
-        // Crear elementos HTML para la tarjeta de producto
-        var divCol = document.createElement('div');
-        divCol.className = 'col-3';
-        divCol.id = 'producto_' + dato.id_producto;
+    var puestoInicial = (paginaActual - 1) * numeroporpagina + 1;
 
-        var link = document.createElement('a');
-        link.href = ruta + dato.id_producto;
-        link.className = 'text-decoration-none text-dark';
+    datosPagina.forEach(function(usuario, index) {
 
-        var divCardContainer = document.createElement('div');
-        divCardContainer.className = 'card-container';
-        divCardContainer.style.position = 'relative';
+        // Crear columnas para cada dato del usuario
+        var divColPuesto = document.createElement('div');
+        divColPuesto.className = 'col-2 d-flex justify-content-center';
+        var h4Puesto = document.createElement('h4');
+        h4Puesto.textContent = puestoInicial + index;
+        divColPuesto.appendChild(h4Puesto);
 
-        var divCard = document.createElement('div');
-        divCard.className = 'card';
+        var divColNombre = document.createElement('div');
+        divColNombre.className = 'col-3 d-flex justify-content-center';
+        var h4Nombre = document.createElement('h4');
+        h4Nombre.textContent = usuario.nombre;
+        divColNombre.appendChild(h4Nombre);
 
-        var img = document.createElement('img');
-        img.src = rutastatic + '/imgbase/' + dato.ruta;
-        img.className = 'card-img-top';
-        img.alt = '...';
+        var divColApellidos = document.createElement('div');
+        divColApellidos.className = 'col-3 d-flex justify-content-center';
+        var h4Apellidos = document.createElement('h4');
+        h4Apellidos.textContent = usuario.apellidos;
+        divColApellidos.appendChild(h4Apellidos);
 
-        var divCardBody = document.createElement('div');
-        divCardBody.className = 'card-body';
+        var divColVentas = document.createElement('div');
+        divColVentas.className = 'col-2 d-flex justify-content-center';
+        var h4Ventas = document.createElement('h4');
+        h4Ventas.textContent = usuario.totalVentas;
+        divColVentas.appendChild(h4Ventas);
 
-        var divRowTitle = document.createElement('div');
-        divRowTitle.className = 'row';
+        var divColValoracion = document.createElement('div');
+        divColValoracion.className = 'col-2 d-flex justify-content-center';
+        var h4Valoracion = document.createElement('h4');
+        h4Valoracion.textContent = usuario.valoracionMedia !== null ? usuario.valoracionMedia.toFixed(2) + '/5' : 'N/A';
+        divColValoracion.appendChild(h4Valoracion);
 
-        var divColTitle = document.createElement('div');
-        divColTitle.className = 'col-12 text-start';
-
-        var h5Title = document.createElement('h5');
-        h5Title.className = 'card-title';
-        h5Title.textContent = dato.nombre_producto;
-
-        var divRowPrice = document.createElement('div');
-        divRowPrice.className = 'row';
-
-        var divColPrice = document.createElement('div');
-        divColPrice.className = 'col-10 text-start';
-
-        var h5Price = document.createElement('h5');
-        h5Price.className = 'card-title';
-        h5Price.textContent = dato.precio + ' €';
-
-        // Construir la estructura de la tarjeta de producto
-        divColTitle.appendChild(h5Title);
-        divRowTitle.appendChild(divColTitle);
-        divCardBody.appendChild(divRowTitle);
-
-        divColPrice.appendChild(h5Price);
-        divRowPrice.appendChild(divColPrice);
-        divCardBody.appendChild(divRowPrice);
-
-        divCard.appendChild(img);
-        divCard.appendChild(divCardBody);
-
-        divCardContainer.appendChild(divCard);
-
-        link.appendChild(divCardContainer);
-
-        divCol.appendChild(link);
-
-        contenedor.appendChild(divCol);
+        // Agregar columnas a la fila del usuario
+        contenedor.appendChild(divColPuesto);
+        contenedor.appendChild(divColNombre);
+        contenedor.appendChild(divColApellidos);
+        contenedor.appendChild(divColVentas);
+        contenedor.appendChild(divColValoracion);
 
     });
 
     actualizarPaginacion();
-
 }
 
 function siguientePagina() {
@@ -656,3 +630,75 @@ function buscarProductoBoton(categoria) {
     mostrarCategorias();
 
 }
+
+function calcularVentasPorUsuario(datos, periodo) {
+    // Filtrar ventas según el período de tiempo seleccionado
+    var fechaLimite = new Date();
+    switch (periodo) {
+        case 'semana':
+            fechaLimite.setDate(fechaLimite.getDate() - 7);
+            break;
+        case 'mes':
+            fechaLimite.setMonth(fechaLimite.getMonth() - 1);
+            break;
+        case 'anyo':
+            fechaLimite.setFullYear(fechaLimite.getFullYear() - 1);
+            break;
+        default:
+            fechaLimite.setDate(fechaLimite.getDate() - 7); // Por defecto, filtrar por la última semana
+            break;
+    }
+
+    var ventasFiltradas = datos.filter(function(venta) {
+        return new Date(venta.fecha_venta) >= fechaLimite;
+    });
+
+    // Objeto para almacenar los datos de ventas por usuario
+    var ventasPorUsuario = {};
+
+    // Calcular total de ventas y puntuaciones por usuario en el período seleccionado
+    ventasFiltradas.forEach(function(venta) {
+        if (!ventasPorUsuario.hasOwnProperty(venta.id_usuario)) {
+            ventasPorUsuario[venta.id_usuario] = {
+                nombre: venta.nombre,
+                apellidos: venta.apellidos,
+                totalVentas: 0,
+                totalPuntuaciones: 0,
+                cantidadValoraciones: 0
+            };
+        }
+        ventasPorUsuario[venta.id_usuario].totalVentas++;
+        if (venta.puntuacion !== null) {
+            ventasPorUsuario[venta.id_usuario].totalPuntuaciones += venta.puntuacion;
+            ventasPorUsuario[venta.id_usuario].cantidadValoraciones++;
+        }
+    });
+
+    // Calcular la valoración media por usuario
+    for (var usuarioId in ventasPorUsuario) {
+        if (ventasPorUsuario.hasOwnProperty(usuarioId)) {
+            var usuario = ventasPorUsuario[usuarioId];
+            if (usuario.cantidadValoraciones > 0) {
+                usuario.valoracionMedia = usuario.totalPuntuaciones / usuario.cantidadValoraciones;
+            } else {
+                usuario.valoracionMedia = null; // Si no hay valoraciones, se establece como null
+            }
+        }
+    }
+
+    return ventasPorUsuario;
+}
+
+var selectTiempo = document.getElementById('tiempo');
+
+// Agregar un event listener al elemento <select>
+selectTiempo.addEventListener('change', function() {
+    // Obtener el valor seleccionado del elemento <select>
+    var tiempoSeleccionado = selectTiempo.value;
+
+    // Llamar a la función calcularVentasPorUsuario con los datos y el periodo seleccionado
+    var ventasFiltradas = calcularVentasPorUsuario(datos, tiempoSeleccionado);
+
+    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
+    mostrarPagina(1); // Mostrar la primera página de los datos filtrados
+});

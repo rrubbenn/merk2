@@ -57,10 +57,10 @@
 
                                         
     <nav class="mt-3" aria-label="...">
-    <ul id="pagination" class="pagination justify-content-center">
-        
-    </ul>
-</nav>
+        <ul id="pagination" class="pagination justify-content-center">
+            
+        </ul>
+    </nav>
                                 
 
 </div>

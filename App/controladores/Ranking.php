@@ -10,17 +10,12 @@
 
         public function index(){
 
-            $intervalo = 'semana';
+            $this->datos['categorias'] = $this->rankingModelo->getCategorias();
 
-            $this->datos['compras'] = $this->rankingModelo->getCompras($intervalo);
+            $this->datos['ventas'] = $this->rankingModelo->getVentas();
+            //$this->datos['ventas'] = $this->rankingModelo->getVentas();
 
-            $this-> vista("ranking/ranking", $this->datos);
-
-        }
-
-        public function participar(){
-
-            $this-> vista("ranking/participar", $this->datos);
+            $this->vista("ranking/ranking", $this->datos);
 
         }
 
