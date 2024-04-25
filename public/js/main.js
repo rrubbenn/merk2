@@ -455,6 +455,8 @@ function mostrarPagina(numeroPagina) {
     var fin = inicio + numeroporpagina;
     var datosPagina = datosFiltrados.slice(inicio, fin);
 
+    console.log(datosFiltrados);
+
     var contenedor = document.getElementById('contenedor');
     contenedor.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos elementos
 
@@ -462,43 +464,49 @@ function mostrarPagina(numeroPagina) {
 
     datosPagina.forEach(function(usuario, index) {
 
+        // Crear un div que contenga todas las columnas del usuario
+        var divUsuario = document.createElement('a');
+        divUsuario.className = 'usuario col-12 d-flex text-decoration-none text-dark'; // Agrega la clase 'usuario' y 'row' para el formato de Bootstrap
+        divUsuario.href = ruta+"/perfil/"+usuario.id_usuario;
+
         // Crear columnas para cada dato del usuario
         var divColPuesto = document.createElement('div');
         divColPuesto.className = 'col-2 d-flex justify-content-center';
         var h4Puesto = document.createElement('h4');
         h4Puesto.textContent = puestoInicial + index;
         divColPuesto.appendChild(h4Puesto);
+        divUsuario.appendChild(divColPuesto);
 
         var divColNombre = document.createElement('div');
         divColNombre.className = 'col-3 d-flex justify-content-center';
         var h4Nombre = document.createElement('h4');
         h4Nombre.textContent = usuario.nombre;
         divColNombre.appendChild(h4Nombre);
+        divUsuario.appendChild(divColNombre);
 
         var divColApellidos = document.createElement('div');
         divColApellidos.className = 'col-3 d-flex justify-content-center';
         var h4Apellidos = document.createElement('h4');
         h4Apellidos.textContent = usuario.apellidos;
         divColApellidos.appendChild(h4Apellidos);
+        divUsuario.appendChild(divColApellidos);
 
         var divColVentas = document.createElement('div');
         divColVentas.className = 'col-2 d-flex justify-content-center';
         var h4Ventas = document.createElement('h4');
         h4Ventas.textContent = usuario.totalVentas;
         divColVentas.appendChild(h4Ventas);
+        divUsuario.appendChild(divColVentas);
 
         var divColValoracion = document.createElement('div');
         divColValoracion.className = 'col-2 d-flex justify-content-center';
         var h4Valoracion = document.createElement('h4');
         h4Valoracion.textContent = usuario.valoracionMedia !== null ? usuario.valoracionMedia.toFixed(2) + '/5' : 'N/A';
         divColValoracion.appendChild(h4Valoracion);
+        divUsuario.appendChild(divColValoracion);
 
-        // Agregar columnas a la fila del usuario
-        contenedor.appendChild(divColPuesto);
-        contenedor.appendChild(divColNombre);
-        contenedor.appendChild(divColApellidos);
-        contenedor.appendChild(divColVentas);
-        contenedor.appendChild(divColValoracion);
+        // Agregar el div del usuario al contenedor
+        contenedor.appendChild(divUsuario);
 
     });
 
@@ -562,32 +570,32 @@ function actualizarPaginacion() {
 
 function buscarProducto(consulta) {
 
-    datosFiltrados = [];
+    datosBuscador = [];
 
     // Filtrar los datos según la consulta
-    datos.forEach(function(producto) {
+    datosFiltrados.forEach(function(dato) {
     if (
-        producto.nombre_producto.toLowerCase().includes(consulta.toLowerCase()) ||
-        producto.descripcion.toLowerCase().includes(consulta.toLowerCase())
+        dato.nombre.toLowerCase().includes(consulta.toLowerCase()) ||
+        dato.apellidos.toLowerCase().includes(consulta.toLowerCase())
     ) {
-        datosFiltrados.push(producto);
+        datosBuscador.push(dato);
     }
 
     });
 
-    console.log(datosFiltrados);
-
-    return datosFiltrados;
+    return datosBuscador;
 }
 
 var buscador = document.getElementById('buscador');
 buscador.addEventListener('input', function() {
   // Obtener los resultados filtrados al escribir en el campo de búsqueda
-    var resultados = buscarProducto(this.value);
+    datosFiltrados = buscarProducto(this.value);
 
-    totalPaginas = Math.ceil(resultados.length / numeroporpagina);
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
     mostrarPagina(paginaActual);
     actualizarPaginacion();
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
 });
 
 function mostrarCategorias() {
@@ -631,8 +639,9 @@ function buscarProductoBoton(categoria) {
 
 }
 
-function calcularVentasPorUsuario(datos, periodo) {
+function calcularVentasPorUsuario(datos, periodo, categoria = "") {
     // Filtrar ventas según el período de tiempo seleccionado
+
     var fechaLimite = new Date();
     switch (periodo) {
         case 'semana':
@@ -650,7 +659,14 @@ function calcularVentasPorUsuario(datos, periodo) {
     }
 
     var ventasFiltradas = datos.filter(function(venta) {
-        return new Date(venta.fecha_venta) >= fechaLimite;
+
+        var fechaVenta = new Date(venta.fecha_venta);
+        var dentroDelPeriodo = fechaVenta >= fechaLimite;
+
+        // Filtrar por categoría si se especifica
+        var categoriaCoincide = categoria === "" || venta.id_categoria.toString() === categoria.toString();
+
+        return dentroDelPeriodo && categoriaCoincide;
     });
 
     // Objeto para almacenar los datos de ventas por usuario
@@ -660,6 +676,7 @@ function calcularVentasPorUsuario(datos, periodo) {
     ventasFiltradas.forEach(function(venta) {
         if (!ventasPorUsuario.hasOwnProperty(venta.id_usuario)) {
             ventasPorUsuario[venta.id_usuario] = {
+                id_usuario: venta.id_usuario,
                 nombre: venta.nombre,
                 apellidos: venta.apellidos,
                 totalVentas: 0,
@@ -690,15 +707,63 @@ function calcularVentasPorUsuario(datos, periodo) {
 }
 
 var selectTiempo = document.getElementById('tiempo');
+var tiempoSeleccionado = "";
 
 // Agregar un event listener al elemento <select>
 selectTiempo.addEventListener('change', function() {
     // Obtener el valor seleccionado del elemento <select>
-    var tiempoSeleccionado = selectTiempo.value;
 
-    // Llamar a la función calcularVentasPorUsuario con los datos y el periodo seleccionado
-    var ventasFiltradas = calcularVentasPorUsuario(datos, tiempoSeleccionado);
+    tiempoSeleccionado = selectTiempo.value;
+    categoriaSeleccionada = selectCategoria.value;
 
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    paginaActual = 1;
     // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
-    mostrarPagina(1); // Mostrar la primera página de los datos filtrados
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    actualizarPaginacion();
+    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
 });
+
+var selectCategoria = document.getElementById('categoria');
+categoriaSeleccionada = "";
+
+// Agregar un event listener al elemento <select>
+selectCategoria.addEventListener('change', function() {
+    // Obtener el valor seleccionado del elemento <select>
+    categoriaSeleccionada = selectCategoria.value;
+    tiempoSeleccionado = selectTiempo.value;
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    paginaActual = 1;
+    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    actualizarPaginacion();
+    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
+});
+
+function mostrarVentas() {
+
+    var pestanaVenta = document.getElementById("pestanaVentas");
+    var pestanaCompras = document.getElementById("pestanaCompras");
+
+    pestanaVenta.classList.add("fw-bold");
+    pestanaCompras.classList.remove("fw-bold");
+
+    datosFiltrados = ventas;
+
+}
+
+function mostrarCompras() {
+
+    var pestanaCompras = document.getElementById("pestanaCompras");
+    var pestanaVenta = document.getElementById("pestanaVentas");
+
+    pestanaVenta.classList.remove("fw-bold");
+    pestanaCompras.classList.add("fw-bold");
+
+    //datosFiltrados = compras;
+
+}
+

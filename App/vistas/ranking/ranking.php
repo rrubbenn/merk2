@@ -6,8 +6,8 @@
     <div class="row mt-5">
         <div class="col-2 d-flex flex-column border-end m-0 p-0">
             
-            <a href="" class="text-decoration-none text-dark mt-5"> <div class="mt-3"> <h4> <b> Ventas </b> <h4> </div> </a>
-            <a href="" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Compras </h4> </div> </a>
+            <a href="#" class="text-decoration-none text-dark mt-5" onclick="mostrarVentas();"> <div class="mt-3"> <h4 id="pestanaVentas" class="fw-bold"> Ventas <h4> </div> </a>
+            <a href="#" class="text-decoration-none text-dark" onclick="mostrarCompras();"> <div class="mt-3"> <h4 id="pestanaCompras" class=""> Compras </h4> </div> </a>
         </div>
         <div class="col-9">
             <div class="row d-flex">
@@ -26,7 +26,7 @@
                     <div class="input-group mb-3 col-2">
                         <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
                         <select class="form-select" name="categoria" id="categoria">
-                            <option selected>Ninguna</option>
+                            <option value="" selected>Ninguna</option>
                             <?php foreach($datos['categorias'] as $categoria): ?>
                                 <option value="<?php echo $categoria->id_categoria ?>"> <?php echo $categoria->nombre_categoria ?> </option>
                             <?php endforeach ?>
@@ -47,7 +47,7 @@
                     <h4> Apellidos </h4>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
-                    <h4> Compras </h4>
+                    <h4> Ventas </h4>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
                     <h4> Valoraciones </h4>
@@ -73,15 +73,20 @@
 
 <script>
 
-var ruta = "<?php echo htmlspecialchars(RUTA_URL.'/Ranking')?>";
+var ruta = "<?php echo htmlspecialchars(RUTA_URL)?>";
 
-var datos = <?php echo json_encode($datos['ventas']); ?>;
-var ventas = calcularVentasPorUsuario(datos);
-var datosFiltrados = Object.values(ventas); // Convertir el objeto ventas a un array de valores
+var ventasConsulta = <?php echo json_encode($datos['ventas']); ?>;
+//var comprasConsulta = <?php //echo json_encode($datos['compras']); ?>;
 
-var numeroporpagina = 20;
+var ventas = Object.values(calcularVentasPorUsuario(ventasConsulta));
+//var compras = Object.values(calcularVentasPorUsuario(comprasConsulta));
+var datosFiltrados = ventas; // Convertir el objeto ventas a un array de valores
+
+var numeroporpagina = 10;
 var totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
 var paginaActual = 1;
+
+console.log(datosFiltrados);
 
 actualizarPaginacion();
 mostrarPagina(paginaActual);
