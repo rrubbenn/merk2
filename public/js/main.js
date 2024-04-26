@@ -586,18 +586,6 @@ function buscarProducto(consulta) {
     return datosBuscador;
 }
 
-var buscador = document.getElementById('buscador');
-buscador.addEventListener('input', function() {
-  // Obtener los resultados filtrados al escribir en el campo de búsqueda
-    datosFiltrados = buscarProducto(this.value);
-
-    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
-    mostrarPagina(paginaActual);
-    actualizarPaginacion();
-
-    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
-});
-
 function mostrarCategorias() {
 
     let divCategorias = document.getElementById("divCategorias");
@@ -706,52 +694,29 @@ function calcularVentasPorUsuario(datos, periodo, categoria = "") {
     return ventasPorUsuario;
 }
 
-var selectTiempo = document.getElementById('tiempo');
-var tiempoSeleccionado = "";
-
-// Agregar un event listener al elemento <select>
-selectTiempo.addEventListener('change', function() {
-    // Obtener el valor seleccionado del elemento <select>
-
-    tiempoSeleccionado = selectTiempo.value;
-    categoriaSeleccionada = selectCategoria.value;
-
-    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
-
-    paginaActual = 1;
-    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
-    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
-    actualizarPaginacion();
-    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
-});
-
-var selectCategoria = document.getElementById('categoria');
-categoriaSeleccionada = "";
-
-// Agregar un event listener al elemento <select>
-selectCategoria.addEventListener('change', function() {
-    // Obtener el valor seleccionado del elemento <select>
-    categoriaSeleccionada = selectCategoria.value;
-    tiempoSeleccionado = selectTiempo.value;
-
-    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
-
-    paginaActual = 1;
-    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
-    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
-    actualizarPaginacion();
-    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
-});
-
 function mostrarVentas() {
 
     var pestanaVenta = document.getElementById("pestanaVentas");
     var pestanaCompras = document.getElementById("pestanaCompras");
+    var tipoColumna = document.getElementById("tipoColumna");
+
+    tipoColumna.innerHTML = "Ventas";
 
     pestanaVenta.classList.add("fw-bold");
     pestanaCompras.classList.remove("fw-bold");
 
-    datosFiltrados = ventas;
+    datos = "";
+    datos = ventasConsulta;
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    numeroporpagina = 10;
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    paginaActual = 1;
+
+    actualizarPaginacion();
+    mostrarPagina(paginaActual);
+
 
 }
 
@@ -759,11 +724,24 @@ function mostrarCompras() {
 
     var pestanaCompras = document.getElementById("pestanaCompras");
     var pestanaVenta = document.getElementById("pestanaVentas");
+    var tipoColumna = document.getElementById("tipoColumna");
 
+    tipoColumna.innerHTML = "Compras";
     pestanaVenta.classList.remove("fw-bold");
     pestanaCompras.classList.add("fw-bold");
 
-    //datosFiltrados = compras;
+    datos = "";
+    datos = comprasConsulta;
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    numeroporpagina = 10;
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    paginaActual = 1;
+
+    actualizarPaginacion();
+    mostrarPagina(paginaActual);
+
 
 }
 

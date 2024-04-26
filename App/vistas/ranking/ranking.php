@@ -47,7 +47,7 @@
                     <h4> Apellidos </h4>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
-                    <h4> Ventas </h4>
+                    <h4 id="tipoColumna"> Ventas </h4>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
                     <h4> Valoraciones </h4>
@@ -76,20 +76,68 @@
 var ruta = "<?php echo htmlspecialchars(RUTA_URL)?>";
 
 var ventasConsulta = <?php echo json_encode($datos['ventas']); ?>;
-//var comprasConsulta = <?php //echo json_encode($datos['compras']); ?>;
+var comprasConsulta = <?php echo json_encode($datos['compras']); ?>;
 
-var ventas = Object.values(calcularVentasPorUsuario(ventasConsulta));
-//var compras = Object.values(calcularVentasPorUsuario(comprasConsulta));
-var datosFiltrados = ventas; // Convertir el objeto ventas a un array de valores
+var datos = ventasConsulta;
+
+var datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada)); // Convertir el objeto ventas a un array de valores
 
 var numeroporpagina = 10;
 var totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
 var paginaActual = 1;
 
-console.log(datosFiltrados);
-
 actualizarPaginacion();
 mostrarPagina(paginaActual);
+
+
+var selectTiempo = document.getElementById('tiempo');
+var tiempoSeleccionado = "";
+
+// Agregar un event listener al elemento <select>
+selectTiempo.addEventListener('change', function() {
+    // Obtener el valor seleccionado del elemento <select>
+
+    tiempoSeleccionado = selectTiempo.value;
+    categoriaSeleccionada = selectCategoria.value;
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    paginaActual = 1;
+    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    actualizarPaginacion();
+    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
+});
+
+var selectCategoria = document.getElementById('categoria');
+var categoriaSeleccionada = "";
+
+// Agregar un event listener al elemento <select>
+selectCategoria.addEventListener('change', function() {
+    // Obtener el valor seleccionado del elemento <select>
+    categoriaSeleccionada = selectCategoria.value;
+    tiempoSeleccionado = selectTiempo.value;
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+
+    paginaActual = 1;
+    // Actualizar la vista llamando a la función mostrarPagina con los nuevos datos filtrados
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    actualizarPaginacion();
+    mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
+});
+
+var buscador = document.getElementById('buscador');
+buscador.addEventListener('input', function() {
+  // Obtener los resultados filtrados al escribir en el campo de búsqueda
+    datosFiltrados = buscarProducto(this.value);
+
+    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
+    mostrarPagina(paginaActual);
+    actualizarPaginacion();
+
+    datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
+});
 
 
 </script>

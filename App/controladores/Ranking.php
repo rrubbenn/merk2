@@ -13,7 +13,7 @@
             $this->datos['categorias'] = $this->rankingModelo->getCategorias();
 
             $this->datos['ventas'] = $this->rankingModelo->getVentas();
-            //$this->datos['ventas'] = $this->rankingModelo->getVentas();
+            $this->datos['compras'] = $this->rankingModelo->getCompras();
 
             $this->vista("ranking/ranking", $this->datos);
 

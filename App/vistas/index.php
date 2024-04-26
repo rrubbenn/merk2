@@ -70,24 +70,3 @@
 
 
 <?php require_once RUTA_APP.'/vistas/inc/footer.php'?>
-
-<script>
-
-var datos = <?php echo json_encode($datos['productos']); ?>;
-
-var datosFiltrados = datos;
-
-var numeroporpagina = 20;
-var totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
-var paginaActual = 1;
-
-var rutastatic = <?php echo json_encode(RUTA_URL_STATIC); ?>;
-var ruta = <?php echo json_encode(RUTA_URL) ?>+"/productos/producto/";
-var tipo = "producto";
-
-// esta linea muestra los primeros productos de la pagina para que no este vacia
-actualizarPaginacion();
-mostrarPagina(paginaActual);
-
-
-</script>
