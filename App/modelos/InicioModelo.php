@@ -66,6 +66,20 @@
             return $resultado->total;
         }
 
+        public function buscarProductos(){
+            $this->db->query("SELECT 
+                                COUNT(*) as total 
+                            FROM producto p 
+                            WHERE NOT EXISTS 
+                                    (SELECT 1 
+                                    FROM venta v 
+                                    WHERE p.id_producto = v.id_producto)");
+
+            $resultado = $this->db->registro();
+        
+            return $resultado->total;
+        }
+
     }
 
 ?>

@@ -151,9 +151,9 @@
     <div class="row mt-2 Vendidos d-none" id="Vendidos">
     <div class="col-12">
             <?php foreach ($datos['Vendidos'] as $producto): ?>
-                <a href="" class="row text-decoration-none text-dark mt-1">
+                <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="row text-decoration-none text-dark mt-1">
                     <div class="col-1">
-                        <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="imgproductoperfil"> </img>
+                        <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="imgproductoperfil"> </img>
                     </div>
                     <div class="col-2 pt-2 pt-sm-0 d-flex align-items-center">
                         <p class="p-0 mb-0"> <?php echo $producto->nombre_producto ?> </p>
@@ -172,9 +172,8 @@
         </div>
     </div>
 
-</div>
-    
 
+</div>
 </div>
 
 <script>

@@ -602,31 +602,6 @@ function mostrarCategorias() {
 
 }
 
-function buscarProductoBoton(categoria) {
-
-    datosFiltrados = [];
-
-    var numcategoria = categoria.getAttribute('data-categoria');
-
-    // Filtrar los datos según la consulta
-    datos.forEach(function(producto) {
-    if (
-        producto.id_categoria.toString().includes(numcategoria)
-    ) {
-        datosFiltrados.push(producto);
-    }
-
-    });
-
-    console.log(datosFiltrados);
-
-    totalPaginas = Math.ceil(datosFiltrados.length / numeroporpagina);
-    mostrarPagina(paginaActual);
-    actualizarPaginacion();
-    mostrarCategorias();
-
-}
-
 function calcularVentasPorUsuario(datos, periodo, categoria = "") {
     // Filtrar ventas según el período de tiempo seleccionado
 
