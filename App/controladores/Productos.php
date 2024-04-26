@@ -26,7 +26,13 @@
             $this->datos['total_paginas'] = $total_paginas;
             $this->datos['pagina_actual'] = $pagina_actual;
         
-            $this->datos['productos'] = $this->productoModelo->obtenerProductos($id_usuario, $pagina_actual, $productos_por_pagina);
+            $productos = $this->productoModelo->obtenerProductos($id_usuario, $pagina_actual, $productos_por_pagina);
+            if (!empty($productos)) {
+                $this->datos['productos'] = $productos;
+            } else {
+                // Si no hay productos, asignar un array vacío
+                $this->datos['productos'] = array();
+            }
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
             $this->datos['datosUsuario'] = $this->productoModelo->obtenerInformacionPerfil($id_usuario);
 

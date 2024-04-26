@@ -40,30 +40,41 @@
 
         public function obtenerProductos($id_usuario, $pagina, $por_pagina){
 
-            $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+            if ($pagina != 0) {
+                
+                $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+                $this->db->query("SELECT 
+                                    p.*,
+                                    (SELECT ruta 
+                                    FROM imagenesproducto 
+                                    WHERE id_producto = p.id_producto 
+                                    ORDER BY id_imagen ASC 
+                                    LIMIT 1) AS ruta
+                                FROM producto p
+                                WHERE 
+                                    id_usuario = :id_usuario 
+                                    AND NOT EXISTS (
+                                        SELECT 1
+                                        FROM venta v
+                                        WHERE p.id_producto = v.id_producto
+                                    )
+                                LIMIT :por_pagina OFFSET :offset;");
 
-            $this->db->query("SELECT 
-                                p.*,
-                                (SELECT ruta 
-                                FROM imagenesproducto 
-                                WHERE id_producto = p.id_producto 
-                                ORDER BY id_imagen ASC 
-                                LIMIT 1) AS ruta
-                            FROM producto p
-                            WHERE 
-                                id_usuario = :id_usuario 
-                                AND NOT EXISTS (
-                                    SELECT 1
-                                    FROM venta v
-                                    WHERE p.id_producto = v.id_producto
-                                )
-                            LIMIT :por_pagina OFFSET :offset;");
+                $this->db->bind(':id_usuario',$id_usuario);
+                $this->db->bind(':por_pagina', $por_pagina);
+                $this->db->bind(':offset', $offset);
 
-            $this->db->bind(':id_usuario',$id_usuario);
-            $this->db->bind(':por_pagina', $por_pagina);
-            $this->db->bind(':offset', $offset);
+                $productos = $this->db->registros();
 
-            return $this->db->registros();                    
+                // Verificar si se obtuvieron productos
+                if (!empty($productos)) {
+                    return $productos;
+                } else {
+                    // Si no se encontraron productos, devolver un array vacío
+                    return array();
+                }   
+            }
+
         }
 
         public function obtenerVentas($id_usuario){

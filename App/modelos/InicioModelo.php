@@ -12,8 +12,10 @@
             return $this->db->registros();                    
         }
 
-        public function obtenerProductos(){
-        
+        public function obtenerProductos($pagina, $por_pagina){
+
+            $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+
             $this->db->query("SELECT p.*,
                                 (SELECT ruta 
                                 FROM imagenesproducto 
@@ -24,9 +26,21 @@
                             WHERE NOT EXISTS (
                                 SELECT 1
                                 FROM venta v
-                                WHERE p.id_producto = v.id_producto)");
+                                WHERE p.id_producto = v.id_producto)
+                            LIMIT :por_pagina OFFSET :offset;");
+
+            $this->db->bind(':por_pagina', $por_pagina);
+            $this->db->bind(':offset', $offset);
         
-            return $this->db->registros();                    
+            $productos = $this->db->registros();
+
+            // Verificar si se obtuvieron productos
+            if (!empty($productos)) {
+                return $productos;
+            } else {
+                // Si no se encontraron productos, devolver un array vacío
+                return array();
+            }              
         }
 
         public function obtenerCategorias() {
@@ -36,6 +50,20 @@
         
             return $this->db->registros();  
 
+        }
+
+        public function totalProductos(){
+            $this->db->query("SELECT 
+                                COUNT(*) as total 
+                            FROM producto p 
+                            WHERE NOT EXISTS 
+                                    (SELECT 1 
+                                    FROM venta v 
+                                    WHERE p.id_producto = v.id_producto)");
+
+            $resultado = $this->db->registro();
+        
+            return $resultado->total;
         }
 
     }

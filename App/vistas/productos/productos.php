@@ -61,8 +61,8 @@
 
     </div>
 </div>
-
-<nav class="mt-3" aria-label="...">
+<?php if (!empty($datos['productos'])): ?>
+    <nav class="mt-3" aria-label="...">
         <ul class="pagination justify-content-center">
             <?php if ($datos['pagina_actual'] > 1): ?>
                 <li class="page-item">
@@ -102,7 +102,7 @@
             <?php endif; ?>
         </ul>
     </nav>
-
+<?php endif ?>
 </div>
 
 <div id="modalAnadir" class="modal-container">
