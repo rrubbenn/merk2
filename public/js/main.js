@@ -1,9 +1,4 @@
 
-
-/* ------------------------------------------------*/
-/* CODIGO DE VENTANAS MODALES */
-/* ------------------------------------------------*/
-
 /* ============ Abre la ventana Modal ============ */
 function openModal(boton){
   /* Hacemos visible el modal que se necesite */

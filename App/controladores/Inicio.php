@@ -39,5 +39,11 @@
             $this->vista("index", $this->datos);
         }
 
+        public function busqueda($busqueda) {
+
+
+
+        }
+
     } 
 ?>
