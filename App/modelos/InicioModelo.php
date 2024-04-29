@@ -66,18 +66,18 @@
             return $resultado->total;
         }
 
-        public function buscarProductos(){
-            $this->db->query("SELECT 
-                                COUNT(*) as total 
-                            FROM producto p 
-                            WHERE NOT EXISTS 
-                                    (SELECT 1 
-                                    FROM venta v 
-                                    WHERE p.id_producto = v.id_producto)");
+        public function buscarProductos($datos){
 
-            $resultado = $this->db->registro();
+            $this->db->query("SELECT *
+                                FROM producto
+                                WHERE nombre_producto 
+                                    LIKE :busqueda
+                                OR descripcion 
+                                    LIKE :busqueda");
+
+            $this->db->bind(':busqueda', $datos);
         
-            return $resultado->total;
+            return $this->db->registros();  
         }
 
     }

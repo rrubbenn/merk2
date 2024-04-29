@@ -43,9 +43,9 @@
 
         <?php if (empty($datos["usuarioSesion"])):?>
           <div class="col-6 text-center p-1 mt-3">
-            <form>
+            <form action="<?php echo RUTA_URL ?>/inicio/busqueda" method="post">
               <div class="mb-3 text-start col-11">
-                  <input type="text" class="form-control" id="buscador" aria-describedby="buscador" style="width: 100%;">
+                  <input type="text" class="form-control" name="buscador" id="buscador" aria-describedby="buscador" style="width: 100%;">
               </div>
             </form>
           </div>
@@ -91,9 +91,9 @@
         <?php else : ?>
         
           <div class="col-6 text-center p-1 mt-3">
-            <form>
+            <form action="<?php echo RUTA_URL ?>/inicio/busqueda" method="post">
               <div class="mb-3 text-start col-11">
-                  <input type="text" class="form-control" id="buscador" aria-describedby="buscador" style="width: 100%;">
+                  <input type="text" class="form-control" name="buscador" id="buscador" aria-describedby="buscador" style="width: 100%;">
               </div>
             </form>
           </div>

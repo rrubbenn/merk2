@@ -91,9 +91,10 @@
                     <span class="page-link" aria-hidden="true">&laquo;</span>
                 </li>
             <?php endif; ?>
+            
             <?php for ($i = 1; $i <= $datos['total_paginas']; $i++): ?>
-                <?php $active_class = ($i === $datos['pagina_actual']) ? 'active' : ''; ?>
-                <li class="page-item <?php echo $active_class; ?>">
+                <?php $active_class = ($i === intval($datos['pagina_actual'])) ? true : false; ?>
+                <li class="page-item">
                     <a class="page-link text-decoration-none <?php echo $active_class ? 'text-light' : 'text-dark'; ?> <?php echo $active_class ? 'border' : ''; ?>" 
                         style="background-color: <?php echo $active_class ? '#A898D5' : '#fff'; ?>;" 
                         href="<?php echo RUTA_URL ?>/<?php echo $i; ?>">

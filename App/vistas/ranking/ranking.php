@@ -22,6 +22,8 @@
                     </div>
                 </div>
 
+                
+
                 <div class="col-4">
                     <div class="input-group mb-3 col-2">
                         <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
@@ -31,6 +33,14 @@
                                 <option value="<?php echo $categoria->id_categoria ?>"> <?php echo $categoria->nombre_categoria ?> </option>
                             <?php endforeach ?>
                         </select>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="text-center">
+                        <div class="mb-3 text-start col-11">
+                            <input type="text" class="form-control" id="buscadorranking" aria-describedby="buscador" style="width: 100%;">
+                        </div>
                     </div>
                 </div>
             
@@ -127,7 +137,7 @@ selectCategoria.addEventListener('change', function() {
     mostrarPagina(paginaActual); // Mostrar la primera página de los datos filtrados
 });
 
-var buscador = document.getElementById('buscador');
+var buscador = document.getElementById('buscadorranking');
 buscador.addEventListener('input', function() {
   // Obtener los resultados filtrados al escribir en el campo de búsqueda
     datosFiltrados = buscarProducto(this.value);
