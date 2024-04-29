@@ -43,14 +43,14 @@
             </div>
         <?php endif ?>
     </div> 
-
+    
     <?php if($datos['total_paginas'] != 0): ?>
         <nav class="mt-3" aria-label="...">
             <ul class="pagination justify-content-center">
                 <?php if ($datos['pagina_actual'] > 1): ?>
                     <li class="page-item">
                         <a class="page-link text-decoration-none text-dark" 
-                        href="<?php echo RUTA_URL ?>/inicio/busqueda/<?php echo $datos['pagina_actual'] - 1; ?>" aria-label="Previous">
+                        href="<?php echo RUTA_URL ?>/inicio/categoria/<?php echo $datos['categoria']?>/<?php echo $datos['pagina_actual'] - 1; ?>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="visually-hidden">Previous</span>
                         </a>
@@ -65,7 +65,7 @@
                     <li class="page-item <?php echo $active_class; ?>">
                         <a class="page-link text-decoration-none <?php echo $active_class ? 'text-light' : 'text-dark'; ?> <?php echo $active_class ? 'border' : ''; ?>" 
                             style="background-color: <?php echo $active_class ? '#A898D5' : '#fff'; ?>;" 
-                            href="<?php echo RUTA_URL ?>/inicio/busqueda/<?php echo $i; ?>">
+                            href="<?php echo RUTA_URL ?>/inicio/categoria/<?php echo $datos['categoria']?>/<?php echo $i; ?>">
                             <?php echo $i; ?>
                         </a>
                     </li>
@@ -73,7 +73,7 @@
                 <?php if ($datos['pagina_actual'] < $datos['total_paginas']): ?>
                     <li class="page-item">
                         <a class="page-link text-decoration-none text-dark" 
-                        href="<?php echo RUTA_URL ?>/inicio/busqueda/<?php echo $datos['pagina_actual'] + 1; ?>" aria-label="Next">
+                        href="<?php echo RUTA_URL ?>/inicio/categoria/<?php echo $datos['categoria']?>/<?php echo $datos['pagina_actual'] + 1; ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="visually-hidden">Next</span>
                         </a>

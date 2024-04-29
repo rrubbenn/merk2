@@ -1,38 +1,30 @@
 <?php require_once RUTA_APP.'/vistas/inc/header.php'?>
 
-<div class="row border-bottom d-none position-absolute bg-light w-100 m-0" id="divCategorias">
-    <div class="row mt-3 col-6 offset-3">
-        <a href="javascript:void(0)" onclick="buscarProductoBoton(this)" data-categoria="" class="position-relative text-decoration-none text-dark p-0 m-0"> 
-            <h5 class="position-relative top-0 end-0 ms-5"> X </h5>
-        </a>
-        <?php foreach ($datos['categorias'] as $categoria): ?>
-            <a href="javascript:void(0)" onclick="buscarProductoBoton(this)" data-categoria="<?php echo $categoria->id_categoria ?>" class="col-3 text-decoration-none text-dark p-0 m-0"> 
-                <h5 class="ms-5"> <?php echo $categoria->nombre_categoria ?> </h5>
-            </a>
-        <?php endforeach ?>
-        
-    </div>
-</div>
-
 <div class="container">
     <div class="mt-5 text-center">
         <h1 class="mt-5 text-start fw-bold"> Productos recién subidos! </h1>
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <?php $primerElemento = true; ?>
+                <?php foreach($datos['ultimosProductos'] as $index => $producto): ?>
+                    <button 
+                    type="button" 
+                    data-bs-target="#carouselExampleIndicators" 
+                    data-bs-slide-to="<?php echo $index; ?>" 
+                    class="<?php echo $primerElemento ? 'active' : ''; ?>" 
+                    <?php if ($primerElemento) echo 'aria-current="true"'; ?> 
+                    aria-label="Slide <?php echo $index + 1; ?>"></button>
+                    <?php $primerElemento = false; ?>
+                <?php endforeach; ?>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="img-carousel d-block w-100" alt="...">
+            <?php $primerElemento = true; ?>
+            <?php foreach($datos['ultimosProductos'] as $producto): ?>
+                <div class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
+                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="img-carousel d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png" class="img-carousel d-block w-100" alt="...">
-                </div>
+                <?php $primerElemento = false; ?>
+            <?php endforeach; ?>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

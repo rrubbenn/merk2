@@ -10,6 +10,8 @@
 
         public function index($id_usuario, $paginita = 1){
 
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
+
             $pagina_actual = $paginita ? $paginita : 1;
             $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
         
@@ -43,6 +45,7 @@
         public function compras(){
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
             $this->datos['compras'] = $this->productoModelo->obtenerCompras($this->datos['usuarioSesion']->id_usuario);
 
@@ -55,6 +58,7 @@
         public function ventas(){
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
             $this->datos['ventas'] = $this->productoModelo->obtenerVentas($this->datos['usuarioSesion']->id_usuario);
 
@@ -67,6 +71,7 @@
         public function venta($id_producto){
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
             $this->datos["producto"] = $this->productoModelo->getProducto($id_producto);
 

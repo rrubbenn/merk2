@@ -86,10 +86,7 @@
             </a>
           </div>
           
-
-        
         <?php else : ?>
-        
           <div class="col-6 text-center p-1 mt-3">
             <form action="<?php echo RUTA_URL ?>/inicio/busqueda" method="post">
               <div class="mb-3 text-start col-11">
@@ -97,7 +94,6 @@
               </div>
             </form>
           </div>
-
           <div class="col-1 text-center">
             <a href="<?php echo RUTA_URL?>/">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-search" viewBox="0 0 16 16">
@@ -129,7 +125,6 @@
             </a>
           </div>
           <div class="col-1 text-center">
-
             <div class="btn-group">
               <button type="button" class="btn dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #A898D5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -145,14 +140,21 @@
                 <li><a class="dropdown-item" href="<?php echo RUTA_URL?>/login/logout">Cerrar Sesión</a></li>
               </ul>
             </div>
-
           </div>
-  
         <?php endif?> 
-
+        
       </div>
     </div>
   </div>
+</div>
+
+<div class="row p-0 m-0 border-bottom d-none" id="listacategorias">
+  <?php foreach($datos['categorias'] as $categoria): ?>
+    <a class="col-3 text-decoration-none text-dark" href="<?php echo RUTA_URL?>/inicio/categoria/<?php echo $categoria->nombre_categoria ?>">
+      <h5 class="ms-5 mt-2"> <?php echo $categoria->nombre_categoria ?> </h5>
+    </a>
+    
+  <?php endforeach ?>
 </div>
 
 

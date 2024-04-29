@@ -12,6 +12,12 @@
             return $this->db->registros();                    
         }
 
+        public function obtenerCategorias(){
+            $this->db->query("SELECT * FROM categoria");
+
+            return $this->db->registros();                    
+        }
+
         public function obtenerInformacionPerfil($id_usuario){
 
             $this->db->query("SELECT * FROM usuario where id_usuario = :id_usuario");

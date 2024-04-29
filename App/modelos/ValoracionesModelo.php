@@ -6,6 +6,12 @@
             $this->db = new Base;
         }
 
+        public function obtenerCategorias(){
+            $this->db->query("SELECT * FROM categoria");
+
+            return $this->db->registros();                    
+        }
+
 
         public function getValoraciones($id_usuario){
 

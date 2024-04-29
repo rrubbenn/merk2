@@ -12,6 +12,12 @@
             return $this->db->registros();                    
         }
 
+        public function obtenerCategorias(){
+            $this->db->query("SELECT * FROM categoria");
+
+            return $this->db->registros();                    
+        }
+
         public function getVentas(){
 
             $this->db->query("SELECT u.id_usuario, u.nombre, u.apellidos, v.id_comprador, v.fecha_venta, p.id_categoria, v.id_venta, va.puntuacion

@@ -11,6 +11,12 @@
 
             return $this->db->registros();                    
         }
+        
+        public function obtenerCategorias(){
+            $this->db->query("SELECT * FROM categoria");
+
+            return $this->db->registros();                    
+        }
 
         public function obtenerFavoritos($id_usuario){
             $this->db->query("SELECT * 

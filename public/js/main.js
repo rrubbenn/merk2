@@ -74,6 +74,22 @@ window.onclick = function(event) {
 }
 /* ===================================================================================== */
 
+function mostrarCategorias() {
+
+    let divCategorias = document.getElementById("listacategorias");
+
+    if(divCategorias.classList.contains("d-none")) {
+
+        divCategorias.classList.remove("d-none");
+
+    } else {
+
+        divCategorias.classList.add("d-none");
+
+    }
+
+}
+
 async function rellenarModal(){
     
     let formulario = document.getElementById('formEditar');
@@ -579,22 +595,6 @@ function buscarProducto(consulta) {
     });
 
     return datosBuscador;
-}
-
-function mostrarCategorias() {
-
-    let divCategorias = document.getElementById("divCategorias");
-
-    if(divCategorias.classList.contains("d-none")) {
-
-        divCategorias.classList.remove("d-none");
-
-    } else {
-
-        divCategorias.classList.add("d-none");
-
-    }
-
 }
 
 function calcularVentasPorUsuario(datos, periodo, categoria = "") {

@@ -10,7 +10,8 @@
 
         public function index($id_usuario){
 
-            //$this->datos['roles'] = $this->valoracionesModelo->obtenerRoles();ç
+            //$this->datos['roles'] = $this->valoracionesModelo->obtenerRoles();
+            $this->datos['categorias'] = $this->valoracionesModelo->obtenerCategorias();
             $this->datos['valoraciones'] = $this->valoracionesModelo->getValoraciones($id_usuario);
             
             $this-> vista("valoraciones/ver_valoraciones", $this->datos);

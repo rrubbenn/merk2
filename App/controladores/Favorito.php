@@ -11,6 +11,7 @@
         public function index(){
 
             $this->datos['roles'] = $this->favoritoModelo->obtenerRoles();
+            $this->datos['categorias'] = $this->favoritoModelo->obtenerCategorias();
 
             $this->datos['favoritos'] = $this->favoritoModelo->obtenerFavoritos($this->datos['usuarioSesion']->id_usuario);
             
