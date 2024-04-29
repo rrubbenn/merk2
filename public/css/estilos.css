@@ -29,18 +29,26 @@ body{
 
 .imgproducto {
 
-    height:50vw;
+    height: 50vw;
 
 }
 
 .imgproductoperfil {
 
     height:5vw;
+    object-fit: contain;
+
+}
+
+.imgproducto {
+
+    height: 60vw;
+    object-fit: contain;
 
 }
 
 .imgcard {
-    height: 20vw;
+    height: 25vw;
     object-fit: cover; /* Esto asegura que la imagen se ajuste correctamente manteniendo su relación de aspecto */
 }
 

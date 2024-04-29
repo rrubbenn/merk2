@@ -21,7 +21,7 @@
             <?php $primerElemento = true; ?>
             <?php foreach($datos['ultimosProductos'] as $producto): ?>
                 <div class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
-                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="d-block w-100" alt="...">
+                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="d-block w-100 img-carousel" alt="...">
                 </div>
                 <?php $primerElemento = false; ?>
             <?php endforeach; ?>
@@ -36,13 +36,15 @@
             </button>
         </div>
 
+    <!--
     <div class="mt-5 text-center">
-        <?php if (empty($datos["usuarioSesion"])):?>
+        <?php //if (empty($datos["usuarioSesion"])):?>
             <p> Registrate o inicia sesión para ver tus suscripciones! </p>
-        <?php else : ?>
+        <?php //else : ?>
             <p> Tus suscripciones! </p>
-        <?php endif ?>
+        <?php //endif ?>
     </div>
+        -->
 
     <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2">
         <?php foreach ($datos['productos'] as $producto): ?>
@@ -50,7 +52,7 @@
                 <div class="card-container" style="position: relative;">
                     <div class="card">
                         <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top" id="imagenes" alt="...">
+                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
                         </a>
                         <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="card-body text-decoration-none text-dark">
                             <div class="d-flex">

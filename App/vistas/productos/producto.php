@@ -16,7 +16,7 @@
             <?php $primerElemento = true; ?>
             <?php foreach($datos['imagenes'] as $imagen): ?>
                 <div class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
-                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $imagen->ruta ?>" class="d-block w-100" alt="...">
+                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $imagen->ruta ?>" class="d-block w-100 imgproducto" alt="...">
                 </div>
                 <?php $primerElemento = false; ?>
             <?php endforeach; ?>

@@ -104,6 +104,8 @@
 
             $this->datos['categorias'] = $this->inicioModelo->obtenerCategorias();
 
+            print_r($categoria);
+
             $datos = "%".$categoria."%";
             
             $pagina_actual = $paginita ? $paginita : 1;
