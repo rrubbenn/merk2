@@ -31,6 +31,14 @@ function openModal(boton){
 
     }
 
+    if(boton.classList.contains("valorar")) {
+        modal = document.getElementById("modalValorar");
+        id_venta = document.getElementById("id_venta").value;
+        id_ventamodal = document.getElementById("id_ventamodal");
+        id_ventamodal.value = id_venta;
+
+    }
+
     if(boton.classList.contains("cancelar")) {
         modal = document.getElementById("modalCancelar");
     }
@@ -259,8 +267,9 @@ async function borrarDatos() {
 
             if (data){
 
-                elemento = document.getElementById(tipo+"_"+idTipo);
-                elemento.remove();
+                //elemento = document.getElementById(tipo+"_"+idTipo);
+                //elemento.remove();
+                window.location.reload();
 
             }else{
                 alert("error");

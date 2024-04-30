@@ -113,14 +113,16 @@
             </div>
         </div>
         <hr>
-        <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
-            <div class="row mt-5">
-                <div class="col-3">
-                    <div>
-                        <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/editarPerfil"> <h5> Editar información </h5> </a>
+        <?php if(!empty($datos['usuarioSesion'])): ?>
+            <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                <div class="row mt-5">
+                    <div class="col-3">
+                        <div>
+                            <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/editarPerfil"> <h5> Editar información </h5> </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif ?>
         <?php endif ?>
     </div>
 
@@ -145,11 +147,20 @@
                     </div>
                 </a>
             <?php endforeach ?>
+            <?php if(!empty($datos['usuarioSesion'])): ?>
+                <?php if($datos['usuarioSesion']->id_rol === 1): ?>
+                    <a href="<?php echo RUTA_URL?>/productos/<?php echo $producto->id_usuario?>" 
+                    class="row d-flex justify-content-center btn text-decoration-none text-dark mt-3"
+                    style="background-color: #A898D5">
+                        Ver los productos del usuario
+                    </a>
+                <?php endif ?>
+            <?php endif ?>
         </div>
     </div>
 
     <div class="row mt-2 Vendidos d-none" id="Vendidos">
-    <div class="col-12">
+        <div class="col-12">
             <?php foreach ($datos['Vendidos'] as $producto): ?>
                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="row text-decoration-none text-dark mt-1">
                     <div class="col-1">

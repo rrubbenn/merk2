@@ -64,6 +64,7 @@
                                         FROM venta v
                                         WHERE p.id_producto = v.id_producto
                                     )
+                                ORDER BY p.fecha_subida DESC
                                 LIMIT :por_pagina OFFSET :offset;");
 
                 $this->db->bind(':id_usuario',$id_usuario);
@@ -88,7 +89,12 @@
                                 P.id_producto,
                                 P.nombre_producto,
                                 P.descripcion,
-                                P.precio
+                                P.precio,
+                                (SELECT ruta 
+                                    FROM imagenesproducto 
+                                    WHERE id_producto = P.id_producto 
+                                    ORDER BY id_imagen ASC 
+                                    LIMIT 1) AS ruta
                             FROM 
                                 producto P
                                 INNER JOIN venta V ON P.id_producto = V.id_producto
@@ -106,12 +112,22 @@
                                 P.id_producto,
                                 P.nombre_producto,
                                 P.descripcion,
-                                P.precio
+                                P.precio,
+                                (SELECT ruta 
+                                    FROM imagenesproducto 
+                                    WHERE id_producto = P.id_producto 
+                                    ORDER BY id_imagen ASC 
+                                    LIMIT 1) AS ruta,
+                                V.id_venta,
+                                VV.puntuacion,
+                                VV.comentario,
+                                VV.fecha_valoracion
                             FROM 
                                 producto P
                                 INNER JOIN venta V ON P.id_producto = V.id_producto
+                                LEFT JOIN valoracion VV ON V.id_venta = VV.id_venta
                             WHERE 
-                                V.id_comprador = :id_usuario");
+                                V.id_comprador = :id_usuario;");
 
             $this->db->bind(':id_usuario',$id_usuario);
 
@@ -139,28 +155,6 @@
 
             if($this->db->execute()) {
                 return true;
-            } else {
-                return false;
-            }
-            
-        }
-
-        public function addProducto($datos){
-            $this->db->query("INSERT INTO producto (id_categoria, nombre_producto, descripcion, precio, id_usuario)
-            VALUES (:id_categoria, :nombre_producto, :descripcion, :precio, :id_usuario);");
-
-            $this->db->bind(':id_categoria',$datos['id_categoria']);
-            $this->db->bind(':nombre_producto',$datos['nombre_producto']);
-            $this->db->bind(':descripcion',$datos['descripcion']);
-            $this->db->bind(':precio',$datos['precio']);
-            $this->db->bind(':id_usuario',$datos['id_usuario']);
-            
-            // Ejecutar la consulta y obtener el último ID insertado
-            $last_insert_id = $this->db->executeLastId();
-
-            // Verificar si se obtuvo correctamente el último ID insertado
-            if ($last_insert_id) {
-                return $last_insert_id; // Devolver el ID del producto recién insertado
             } else {
                 return false;
             }
@@ -255,6 +249,28 @@
             
         }
 
+        public function addProducto($datos){
+            $this->db->query("INSERT INTO producto (id_categoria, nombre_producto, descripcion, precio, fecha_subida, id_usuario)
+            VALUES (:id_categoria, :nombre_producto, :descripcion, :precio, NOW(), :id_usuario);");
+
+            $this->db->bind(':id_categoria',$datos['id_categoria']);
+            $this->db->bind(':nombre_producto',$datos['nombre_producto']);
+            $this->db->bind(':descripcion',$datos['descripcion']);
+            $this->db->bind(':precio',$datos['precio']);
+            $this->db->bind(':id_usuario',$datos['id_usuario']);
+            
+            // Ejecutar la consulta y obtener el último ID insertado
+            $last_insert_id = $this->db->executeLastId();
+
+            // Verificar si se obtuvo correctamente el último ID insertado
+            if ($last_insert_id) {
+                return $last_insert_id; // Devolver el ID del producto recién insertado
+            } else {
+                return false;
+            }
+            
+        }
+
         public function editProducto($datos) {
         
             // Realizar la actualización del producto
@@ -263,9 +279,8 @@
                                 nombre_producto = :nombre_producto,
                                 descripcion = :descripcion,
                                 precio = :precio
-                            WHERE id_producto = :id_producto AND id_usuario = :id_usuario");
+                            WHERE id_producto = :id_producto");
         
-            $this->db->bind(':id_usuario', $datos['id_usuario']);
             $this->db->bind(':id_producto', $datos['id_producto']);
             $this->db->bind(':id_categoria', $datos['id_categoria']);
             $this->db->bind(':nombre_producto', $datos['nombre_producto']);
@@ -278,6 +293,24 @@
             } else {
                 return false; // Si la actualización falla, retornar false
             }
+        }
+
+        public function delProducto($datos){
+            $this->db->query("DELETE
+                            FROM producto P
+                            WHERE P.id_producto = :id_producto");
+
+            $this->db->bind(':id_producto',$datos['id_producto']);
+
+            if ($this->db->execute()) {
+
+                return true;
+
+            }else{
+
+                return false;
+
+            }                 
         }
 
         public function delImagenes($id_producto){
@@ -314,24 +347,7 @@
     
         }
 
-        public function delProducto($datos){
-            $this->db->query("DELETE
-                            FROM producto P
-                            WHERE P.id_producto = :id_producto AND P.id_usuario = :id_usuario");
 
-            $this->db->bind(':id_producto',$datos['id_producto']);
-            $this->db->bind(':id_usuario',$datos['id_usuario']);
-
-            if ($this->db->execute()) {
-
-                return true;
-
-            }else{
-
-                return false;
-
-            }                 
-        }
 
         public function getCategorias(){
             $this->db->query("SELECT 

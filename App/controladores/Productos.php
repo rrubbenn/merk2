@@ -42,12 +42,12 @@
 
         }
 
-        public function compras(){
+        public function compras($id_usuario){
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
-            $this->datos['compras'] = $this->productoModelo->obtenerCompras($this->datos['usuarioSesion']->id_usuario);
+            $this->datos['compras'] = $this->productoModelo->obtenerCompras($id_usuario);
 
 
             $this-> vista("productos/compras", $this->datos);
@@ -150,9 +150,8 @@
 
                     } else {
                         // No se cargaron imágenes, pero el producto se agregó correctamente
-                        $this->vistaApi("no cargan imagenes");
-                        //$this->vistaApi(true);
-                        return;
+                        $this->vistaApi($this->productoModelo->getImagenProducto($datos['id_producto'])->ruta);
+                        
                     }
                 }
                 // Si algo falla en la agregación del producto o la subida de imágenes
@@ -208,8 +207,12 @@
 
             $this->datos["imagenes"] = $this->productoModelo->getImagenesProducto($id_producto);
 
-            $this->datos["esFavorito"] = $this->productoModelo->getFavoritoUsuario($id_producto, $this->datos['usuarioSesion']->id_usuario);
+            if (!empty($this->datos['usuarioSesion'])) {
 
+                $this->datos["esFavorito"] = $this->productoModelo->getFavoritoUsuario($id_producto, $this->datos['usuarioSesion']->id_usuario);
+
+            }
+            
             $this->vista("/productos/producto",$this->datos);
 
         }

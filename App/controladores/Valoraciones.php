@@ -18,7 +18,22 @@
             
         }
     
-    
+        public function addvaloracion(){
+
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+
+                $datos = $_POST;
+
+                if ($this->valoracionesModelo->addValoracion($datos)) {
+
+                    redireccionar("/productos/compras/9");
+                
+                }else{
+                
+                    echo "error";
+                
+                }
+            }
+        }
         
-    
     }

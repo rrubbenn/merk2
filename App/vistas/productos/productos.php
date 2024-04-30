@@ -32,7 +32,7 @@
                                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
                                     <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
                                 </a>
-                                <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                                <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario || $datos['usuarioSesion']->id_rol === 1): ?>
                                     <a href="#" class="btn-light rounded text-decoration-none text-dark p-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" data-toggle="tooltip" data-placement="top" title="Editar" aria-expanded="false" style="position: absolute; top: 10px; right: 10px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
@@ -78,7 +78,7 @@
                 </li>
             <?php endif; ?>
             <?php for ($i = 1; $i <= $datos['total_paginas']; $i++): ?>
-                <?php $active_class = ($i === $datos['pagina_actual']) ? 'active' : ''; ?>
+                <?php $active_class = ($i === intval($datos['pagina_actual'])) ? 'active' : ''; ?>
                 <li class="page-item <?php echo $active_class; ?>">
                     <a class="page-link text-decoration-none <?php echo $active_class ? 'text-light' : 'text-dark'; ?> <?php echo $active_class ? 'border' : ''; ?>" 
                         style="background-color: <?php echo $active_class ? '#A898D5' : '#fff'; ?>;" 
@@ -181,7 +181,6 @@
                 </div>
                 <div class="modal-body d-flex">
                     <div class="col-7 border-end pe-4">
-                        <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
                         <input type="hidden" name="id_producto" id="id_producto" class="id_producto" value=""></input>
 
                         <label for="nombre_producto">Categoria</label>
@@ -235,10 +234,9 @@
             id="formBorrar"
             data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/Productos/delproducto')?>"
             data-tipo="producto">
-                <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
                 <input type="hidden" name="id_producto" id="id_producto_borrar" value=""></input>
                 <div class="modal-header">
-                    <h2>Añadir Producto</h2>
+                    <h2>Borrar Producto</h2>
                 </div>
                 <div class="modal-body d-flex">
                     ¿Está seguro de que quiere eliminar el producto?

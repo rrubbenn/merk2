@@ -41,6 +41,31 @@
             
         }
 
+        public function addValoracion($datos){
+        
+            $this->db->query("INSERT INTO valoracion (id_venta, puntuacion, comentario, fecha_valoracion)
+            VALUES (:id_venta, :puntuacion, :comentario, NOW())");
+
+            $this->db->bind(':id_venta', $datos['id_venta']);
+            $this->db->bind(':puntuacion', $datos['puntuacion']);
+            $this->db->bind(':comentario', $datos['comentario']);
+
+            //$last_insert_id = $this->db->executeLastId();
+
+            // Verificar si se obtuvo correctamente el último ID insertado
+            //if ($last_insert_id) {
+                //return $last_insert_id; // Devolver el ID del producto recién insertado
+            //} else {
+            //    return false;
+            //}
+
+            if($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        
+        }
 
         
     } 
