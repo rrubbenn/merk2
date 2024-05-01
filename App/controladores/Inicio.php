@@ -10,6 +10,17 @@
 
         public function index($paginita = 1){
 
+            if ($paginita == 1) {
+
+                $this->datos['carousel'] = true;
+
+            } else {
+
+                $this->datos['carousel'] = false;
+    
+            }
+            
+
             $pagina_actual = $paginita ? $paginita : 1;
             $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
         

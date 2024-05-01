@@ -84,54 +84,103 @@
 
         }
 
-        public function obtenerVentas($id_usuario){
+        public function totalVentas($id_usuario){
             $this->db->query("SELECT 
-                                P.id_producto,
-                                P.nombre_producto,
-                                P.descripcion,
-                                P.precio,
-                                (SELECT ruta 
-                                    FROM imagenesproducto 
-                                    WHERE id_producto = P.id_producto 
-                                    ORDER BY id_imagen ASC 
-                                    LIMIT 1) AS ruta
-                            FROM 
-                                producto P
-                                INNER JOIN venta V ON P.id_producto = V.id_producto
-                            WHERE 
-                                P.id_usuario = :id_usuario
+                                COUNT(*) as total 
+                            FROM producto P
+                            INNER JOIN venta V ON P.id_producto = V.id_producto
+                            WHERE P.id_usuario = :id_usuario
                                 AND V.id_comprador IS NOT NULL");
-
+        
             $this->db->bind(':id_usuario',$id_usuario);
-
-            return $this->db->registros();                    
+        
+            $resultado = $this->db->registro();
+        
+            return $resultado->total;
         }
 
-        public function obtenerCompras($id_usuario){
+        public function obtenerVentas($id_usuario, $pagina, $por_pagina){
+            if ($pagina != 0) {
+                $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+        
+                $this->db->query("SELECT 
+                                    P.id_producto,
+                                    P.nombre_producto,
+                                    P.descripcion,
+                                    P.precio,
+                                    (SELECT ruta 
+                                        FROM imagenesproducto 
+                                        WHERE id_producto = P.id_producto 
+                                        ORDER BY id_imagen ASC 
+                                        LIMIT 1) AS ruta
+                                FROM 
+                                    producto P
+                                    INNER JOIN venta V ON P.id_producto = V.id_producto
+                                WHERE 
+                                    P.id_usuario = :id_usuario
+                                    AND V.id_comprador IS NOT NULL
+                                ORDER BY P.fecha_subida DESC
+                                LIMIT :por_pagina OFFSET :offset");
+        
+                $this->db->bind(':id_usuario', $id_usuario);
+                $this->db->bind(':por_pagina', $por_pagina);
+                $this->db->bind(':offset', $offset);
+        
+                return $this->db->registros();
+            } else {
+                return array(); // Si la página es 0, devolver un array vacío
+            }
+        }
+
+        public function totalCompras($id_usuario){
             $this->db->query("SELECT 
-                                P.id_producto,
-                                P.nombre_producto,
-                                P.descripcion,
-                                P.precio,
-                                (SELECT ruta 
-                                    FROM imagenesproducto 
-                                    WHERE id_producto = P.id_producto 
-                                    ORDER BY id_imagen ASC 
-                                    LIMIT 1) AS ruta,
-                                V.id_venta,
-                                VV.puntuacion,
-                                VV.comentario,
-                                VV.fecha_valoracion
-                            FROM 
-                                producto P
-                                INNER JOIN venta V ON P.id_producto = V.id_producto
-                                LEFT JOIN valoracion VV ON V.id_venta = VV.id_venta
-                            WHERE 
-                                V.id_comprador = :id_usuario;");
-
+                                COUNT(*) as total 
+                            FROM venta 
+                            WHERE id_comprador = :id_usuario");
+        
             $this->db->bind(':id_usuario',$id_usuario);
+        
+            $resultado = $this->db->registro();
+        
+            return $resultado->total;
+        }
 
-            return $this->db->registros();                    
+        public function obtenerCompras($id_usuario, $pagina, $por_pagina){
+            if ($pagina != 0) {
+                $offset = ($pagina - 1) * $por_pagina; // Calcular el desplazamiento
+        
+                $this->db->query("SELECT 
+                                    P.id_producto,
+                                    P.nombre_producto,
+                                    P.descripcion,
+                                    P.precio,
+                                    P.id_usuario,
+                                    (SELECT ruta 
+                                        FROM imagenesproducto 
+                                        WHERE id_producto = P.id_producto 
+                                        ORDER BY id_imagen ASC 
+                                        LIMIT 1) AS ruta,
+                                    V.id_venta,
+                                    VV.puntuacion,
+                                    VV.comentario,
+                                    VV.fecha_valoracion
+                                FROM 
+                                    producto P
+                                    INNER JOIN venta V ON P.id_producto = V.id_producto
+                                    LEFT JOIN valoracion VV ON V.id_venta = VV.id_venta
+                                WHERE 
+                                    V.id_comprador = :id_usuario
+                                ORDER BY VV.fecha_valoracion DESC
+                                LIMIT :por_pagina OFFSET :offset");
+        
+                $this->db->bind(':id_usuario', $id_usuario);
+                $this->db->bind(':por_pagina', $por_pagina);
+                $this->db->bind(':offset', $offset);
+        
+                return $this->db->registros();
+            } else {
+                return array(); // Si la página es 0, devolver un array vacío
+            }
         }
 
         public function addVenta($datos, $id_producto, $id_usuario){

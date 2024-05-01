@@ -1,40 +1,43 @@
 <?php require_once RUTA_APP.'/vistas/inc/header.php'?>
 
 <div class="container">
-    <div class="mt-5 text-center">
-        <h1 class="mt-5 text-start fw-bold"> Productos recién subidos! </h1>
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
+    <?php if($datos['carousel']): ?>
+        <div class="mt-5 text-center">
+            <h1 class="mt-5 text-start fw-bold"> Productos recién subidos! </h1>
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <?php $primerElemento = true; ?>
+                    <?php foreach($datos['ultimosProductos'] as $index => $producto): ?>
+                        <button 
+                        type="button" 
+                        data-bs-target="#carouselExampleIndicators" 
+                        data-bs-slide-to="<?php echo $index; ?>" 
+                        class="<?php echo $primerElemento ? 'active' : ''; ?>" 
+                        <?php if ($primerElemento) echo 'aria-current="true"'; ?> 
+                        aria-label="Slide <?php echo $index + 1; ?>"></button>
+                        <?php $primerElemento = false; ?>
+                    <?php endforeach; ?>
+                </div>
+                <div class="carousel-inner">
                 <?php $primerElemento = true; ?>
-                <?php foreach($datos['ultimosProductos'] as $index => $producto): ?>
-                    <button 
-                    type="button" 
-                    data-bs-target="#carouselExampleIndicators" 
-                    data-bs-slide-to="<?php echo $index; ?>" 
-                    class="<?php echo $primerElemento ? 'active' : ''; ?>" 
-                    <?php if ($primerElemento) echo 'aria-current="true"'; ?> 
-                    aria-label="Slide <?php echo $index + 1; ?>"></button>
+                <?php foreach($datos['ultimosProductos'] as $producto): ?>
+                    <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
+                        <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="d-block w-100 img-carousel" alt="...">
+                    </a>
                     <?php $primerElemento = false; ?>
                 <?php endforeach; ?>
-            </div>
-            <div class="carousel-inner">
-            <?php $primerElemento = true; ?>
-            <?php foreach($datos['ultimosProductos'] as $producto): ?>
-                <div class="carousel-item <?php echo $primerElemento ? 'active' : ''; ?>">
-                    <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="d-block w-100 img-carousel" alt="...">
                 </div>
-                <?php $primerElemento = false; ?>
-            <?php endforeach; ?>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+    <?php endif ?>
 
     <!--
     <div class="mt-5 text-center">
@@ -46,11 +49,11 @@
     </div>
         -->
 
-    <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2">
+    <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 mt-3">
         <?php foreach ($datos['productos'] as $producto): ?>
             <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
-                <div class="card-container">
-                    <div class="card">
+                <div class="card-container h-100">
+                    <div class="card h-100">
                         <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
                             <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
                         </a>

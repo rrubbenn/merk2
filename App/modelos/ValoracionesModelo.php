@@ -16,22 +16,30 @@
         public function getValoraciones($id_usuario){
 
             $this->db->query("SELECT 
-                                P.nombre_producto,
-                                P.id_usuario,
-                                IP.ruta AS imagen_producto,
-                                U.id_usuario,
-                                U.nombre AS nombre_comprador,
-                                V.puntuacion,
-                                V.comentario,
-                                V.fecha_valoracion
+                                p.nombre_producto,
+                                p.id_usuario AS id_usuario_vendedor,
+                                uv.nombre AS nombre_vendedor,
+                                uv.apellidos AS apellidos_vendedor,
+                                ip.ruta AS imagen_producto,
+                                u.nombre AS nombre_comprador,
+                                u.apellidos AS apellidos_comprador,
+                                vr.puntuacion,
+                                vr.comentario,
+                                vr.fecha_valoracion
                             FROM 
-                                producto P
-                                INNER JOIN venta Vn ON P.id_producto = Vn.id_producto
-                                INNER JOIN valoracion V ON Vn.id_venta = V.id_venta
-                                INNER JOIN usuario U ON Vn.id_comprador = U.id_usuario
-                                INNER JOIN imagenesproducto IP ON P.id_producto = IP.id_producto
-                            WHERE
-                                P.id_usuario = :id_usuario");
+                                producto p
+                            JOIN 
+                                venta v ON p.id_producto = v.id_producto
+                            JOIN 
+                                usuario uv ON p.id_usuario = uv.id_usuario -- Usuario que vende el producto
+                            JOIN 
+                                usuario u ON v.id_comprador = u.id_usuario -- Usuario que compra el producto
+                            LEFT JOIN 
+                                valoracion vr ON v.id_venta = vr.id_venta
+                            LEFT JOIN 
+                                imagenesproducto ip ON p.id_producto = ip.id_producto
+                            WHERE 
+                                uv.id_usuario = :id_usuario");
 
 
 

@@ -9,7 +9,7 @@
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-9 d-flex align-items-center">
                     <div class="col-2 text-center">
-                        <img class="imgvaloraciones" src="<?php echo RUTA_URL_STATIC ?>/img/ejemplo1.png"> </img>
+                        <img class="imgvaloraciones" src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $valoracion->ruta ?>"> </img>
                     </div>
                     <div class="col-8 text-start">
                         <h4 class="mb-0"> <b> <?php echo $valoracion->nombre_producto ?> </b> comprado por <b> <?php echo $valoracion->nombre_comprador ?> </b> </h4>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-3">
-                    <a href="<?php echo RUTA_URL?>/Valoraciones/ver_valoraciones" class="text-decoration-none">
+                    <div class="" style="color: #A898D5">
                         <div class="text-center">
                             <?php if ($valoracion->puntuacion==1): ?>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -102,10 +102,10 @@
                                 </svg>
                             <?php endif ?>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
-            <div class="row mt-2">
+            <div class="row mt-3">
                 <hr>
             </div>
             

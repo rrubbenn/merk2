@@ -18,17 +18,17 @@
                 <?php endif ?>
             </div> 
             <div class="p-3">
-                <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Productos </b> </h4> </div> </a>
-                <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Compras <h4> </div> </a>
-                <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Productos </b> </h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Compras <h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
             </div>
         </div>
         <div class="col-9">
             <div class="row row-cols-1 row-cols-md-2 g-4" id="contenedor">
                 <?php foreach ($datos['productos'] as $producto): ?>
                     <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
-                        <div class="card-container" style="position: relative;">
-                            <div class="card">
+                        <div class="card-container h-100" style="position: relative;">
+                            <div class="card h-100">
                                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
                                     <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
                                 </a>

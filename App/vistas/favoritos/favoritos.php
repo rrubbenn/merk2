@@ -13,8 +13,8 @@
         <div class="col-9">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($datos['favoritos'] as $favorito): ?>
-                    <div id="producto_<?php echo $favorito->id_producto ?>" class="col-4">
-                        <div class="card">
+                    <div id="producto_<?php echo $favorito->id_producto ?>" class="col-4 h-100">
+                        <div class="card h-100">
                             <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $favorito->id_producto?>" class="text-decoration-none text-dark">
                                 <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $favorito->ruta ?>" class="card-img-top" id="imagenes" alt="...">
                             </a>

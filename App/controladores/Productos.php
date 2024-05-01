@@ -42,26 +42,75 @@
 
         }
 
-        public function compras($id_usuario){
+        public function compras($id_usuario, $paginita = 1){
+
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
+
+            $pagina_actual = $paginita ? $paginita : 1;
+            $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
+        
+            $total_productos = $total_productos = $this->productoModelo->totalCompras($id_usuario);
+            $total_paginas = ceil($total_productos / $productos_por_pagina);
+        
+            // Asegúrate de que la página actual esté dentro de los límites
+            if ($pagina_actual < 1) {
+                $pagina_actual = 1;
+            } elseif ($pagina_actual > $total_paginas) {
+                $pagina_actual = $total_paginas;
+            }
+
+            $this->datos['total_paginas'] = $total_paginas;
+            $this->datos['pagina_actual'] = $pagina_actual;
+        
+            $productos = $this->productoModelo->obtenerCompras($id_usuario, $pagina_actual, $productos_por_pagina);
+            if (!empty($productos)) {
+                $this->datos['compras'] = $productos;
+            } else {
+                // Si no hay productos, asignar un array vacío
+                $this->datos['compras'] = array();
+            }
+
+            $this->datos['datosUsuario'] = $this->productoModelo->obtenerInformacionPerfil($id_usuario);
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
-
-            $this->datos['compras'] = $this->productoModelo->obtenerCompras($id_usuario);
-
 
             $this-> vista("productos/compras", $this->datos);
 
-
         }
 
-        public function ventas(){
+        public function ventas($id_usuario, $paginita = 1){
+
+            $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
+
+            $pagina_actual = $paginita ? $paginita : 1;
+            $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
+        
+            $total_productos = $total_productos = $this->productoModelo->totalVentas($id_usuario);
+            $total_paginas = ceil($total_productos / $productos_por_pagina);
+        
+            // Asegúrate de que la página actual esté dentro de los límites
+            if ($pagina_actual < 1) {
+                $pagina_actual = 1;
+            } elseif ($pagina_actual > $total_paginas) {
+                $pagina_actual = $total_paginas;
+            }
+
+            $this->datos['total_paginas'] = $total_paginas;
+            $this->datos['pagina_actual'] = $pagina_actual;
+        
+            $productos = $this->productoModelo->obtenerVentas($id_usuario, $pagina_actual, $productos_por_pagina);
+            if (!empty($productos)) {
+                $this->datos['ventas'] = $productos;
+            } else {
+                // Si no hay productos, asignar un array vacío
+                $this->datos['ventas'] = array();
+            }
+
+            $this->datos['datosUsuario'] = $this->productoModelo->obtenerInformacionPerfil($id_usuario);
 
             $this->datos['roles'] = $this->productoModelo->obtenerRoles();
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
-
-            $this->datos['ventas'] = $this->productoModelo->obtenerVentas($this->datos['usuarioSesion']->id_usuario);
-
 
             $this-> vista("productos/ventas", $this->datos);
 

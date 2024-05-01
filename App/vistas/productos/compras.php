@@ -6,16 +6,16 @@
 
         <div class="col-2 d-flex flex-column border-end">
             <div class="p-3">
-                <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Productos </h4> </div> </a>
-                <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Compras </b> <h4></div> </a>
-                <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['usuarioSesion']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Productos </h4> </div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Compras </b> <h4></div> </a>
+                <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
             </div>  
         </div>
         <div class="col-9">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($datos['compras'] as $compra): ?>
-                    <div class="col-4">
-                        <div class="card">
+                    <div class="col-4 h-100">
+                        <div class="card h-100">
                             <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $compra->ruta ?>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <div class="row">
@@ -25,22 +25,26 @@
                                     </div>
                                 </div>
                                 <?php if($compra->puntuacion == ""): ?>
-                                    <div class="row">
-                                        <input type="hidden" id="id_venta" value="<?php echo $compra->id_venta ?>"> </input>
-                                        <button onclick="openModal(this)" 
-                                        class="col-10 offset-1 d-flex justify-content-center btn text-decoration-none text-dark mt-3 valorar"
-                                        style="background-color: #A898D5">
-                                            Valorar
-                                        </button>
-                                    </div>
+                                    <?php if(!empty($datos['usuarioSesion'])):?>
+                                        <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                                            <div class="row">
+                                                <input type="hidden" id="id_venta" value="<?php echo $compra->id_venta ?>"> </input>
+                                                <button onclick="openModal(this)" 
+                                                class="col-10 offset-1 d-flex justify-content-center btn text-decoration-none text-dark mt-3 valorar"
+                                                style="background-color: #A898D5">
+                                                    Valorar
+                                                </button>
+                                            </div>
+                                        <?php endif ?>
+                                    <?php endif ?>
                                 <?php else: ?>
-                                    <div class="row">
+                                    <a class="row text-decoration-none" href="<?php echo RUTA_URL?>/valoraciones/<?php echo $compra->id_usuario ?>">
                                         <h5
                                         class="col-12 d-flex justify-content-center mt-3 valorar"
                                         style="color: #A898D5">
                                             Valoracion realizada!
                                         </h5>
-                                    </div>
+                                    </a>
                                 <?php endif ?>
                             </div>
                         </div>
@@ -52,6 +56,49 @@
         </div>
 
     </div>
+
+    <?php if (!empty($datos['compras'])): ?>
+    <nav class="mt-3" aria-label="...">
+        <ul class="pagination justify-content-center">
+            <?php if ($datos['pagina_actual'] > 1): ?>
+                <li class="page-item">
+                    <a class="page-link text-decoration-none text-dark" 
+                    href="<?php echo RUTA_URL ?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $datos['pagina_actual'] - 1; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                </li>
+            <?php endif; ?>
+            <?php for ($i = 1; $i <= $datos['total_paginas']; $i++): ?>
+                <?php $active_class = ($i === intval($datos['pagina_actual'])) ? 'active' : ''; ?>
+                <li class="page-item <?php echo $active_class; ?>">
+                    <a class="page-link text-decoration-none <?php echo $active_class ? 'text-light' : 'text-dark'; ?> <?php echo $active_class ? 'border' : ''; ?>" 
+                        style="background-color: <?php echo $active_class ? '#A898D5' : '#fff'; ?>;" 
+                        href="<?php echo RUTA_URL ?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $i; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                </li>
+            <?php endfor; ?>
+            <?php if ($datos['pagina_actual'] < $datos['total_paginas']): ?>
+                <li class="page-item">
+                    <a class="page-link text-decoration-none text-dark" 
+                    href="<?php echo RUTA_URL ?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>/<?php echo $datos['pagina_actual'] + 1; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&raquo;</span> 
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    <?php endif ?>
 </div>
 
 <div id="modalValorar" class="modal-container">
@@ -73,9 +120,9 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        <label for="detalles">Más detalles</label>
+                        <label for="comentario">Más detalles</label>
                         <div class="input-group mb-3">
-                            <textarea name="detalles" id="detalles" class="form-control"> </textarea>
+                            <textarea name="comentario" id="comentario" class="form-control"> </textarea>
                         </div> 
                     </div>
                 </div>
