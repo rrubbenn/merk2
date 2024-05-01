@@ -25,7 +25,7 @@
                                 LEFT JOIN producto p ON u.id_usuario = p.id_usuario
                                 LEFT JOIN venta v ON p.id_producto = v.id_producto
                                 LEFT JOIN valoracion va ON v.id_venta = va.id_venta
-                                WHERE v.fecha_venta >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+                                WHERE v.fecha_venta >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND u.ranking = 'si';
                             ");
         
             return $this->db->registros(); 
@@ -39,7 +39,7 @@
                                 LEFT JOIN venta v ON u.id_usuario = v.id_comprador
                                 LEFT JOIN valoracion va ON v.id_venta = va.id_venta
                                 LEFT JOIN producto p ON v.id_producto = p.id_producto
-                                WHERE v.fecha_venta >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+                                WHERE v.fecha_venta >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND u.ranking = 'si';
                             ");
         
             return $this->db->registros(); 

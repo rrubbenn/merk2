@@ -12,10 +12,9 @@
         <h5> ¿Qué implica participar? </h5> 
         <p>Al optar por participar, estarás permitiendo que la plataforma publique de manera pública cierta información sobre tu desempeño, incluyendo:</p>
         <ul>
-            <li>Ganancias totales</li>
             <li>Cantidad de compras realizadas</li>
             <li>Cantidad de ventas exitosas</li>
-            <li>Gastos en productos</li>
+            <li>Promedio de valoraciones</li>
         </ul>
         <p>Además, también se mostrará una versión resumida de tu perfil, resaltando tus logros y contribuciones en nuestra comunidad.</p>
 
@@ -24,7 +23,7 @@
             comparten intereses similares. Puedes ganar reconocimiento, mejorar tu visibilidad y contribuir al ambiente positivo de nuestra plataforma.</p>
 
         <h5> ¿Cómo participar? </h5>
-        <p>Para unirte a los rankings públicos, simplemente [insertar pasos específicos].</p>
+        <p>Para unirte a los rankings públicos, simplemente haz click en el botón de la parte inferior.</p>
 
         <h5> ¿Puedo cambiar mi configuración en el futuro?  </h5>
         <p>¡Por supuesto! Puedes ajustar tus preferencias en cualquier momento desde la sección de configuración de tu cuenta.</p>

@@ -19,6 +19,14 @@
 
         }
 
+        public function participar(){
+
+            $this->datos['categorias'] = $this->rankingModelo->getCategorias();
+
+            $this->vista("ranking/participar", $this->datos);
+
+        }
+
         public function askRanking(){
 
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
