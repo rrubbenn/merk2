@@ -475,8 +475,6 @@ function mostrarPagina(numeroPagina) {
     var fin = inicio + numeroporpagina;
     var datosPagina = datosFiltrados.slice(inicio, fin);
 
-    console.log(datosFiltrados);
-
     var contenedor = document.getElementById('contenedor');
     contenedor.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos elementos
 
