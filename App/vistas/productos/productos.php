@@ -128,12 +128,12 @@
                         </select>
                         <label for="anadir_nombre_producto">Nombre del producto</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="nombre_producto" id="anadir_nombre_producto" class="form-control">
+                            <input type="text" name="nombre_producto" id="anadir_nombre_producto" class="form-control" maxlength="20">
                         </div> 
 
                         <label for="anadir_descripcion">Descripcion</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="descripcion" id="anadir_descripcion" class="form-control">
+                            <textarea name="descripcion" id="anadir_descripcion" class="form-control" maxlength="250"> </textarea>
                         </div> 
 
                         <label for="anadir_precio">Precio</label>
@@ -150,7 +150,7 @@
                         <div class="col-10 offset-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
-                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple>
+                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple max="10">
                             </div>
                         </div>
                     </div>
@@ -189,12 +189,12 @@
                         </select>
                         <label for="nombre_producto">Nombre del producto</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="nombre_producto" id="editar_nombre_producto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="">
+                            <input type="text" name="nombre_producto" id="editar_nombre_producto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="" maxlength="20">
                         </div> 
 
                         <label for="nombre_producto">Descripcion</label>
                         <div class="input-group mb-3">
-                            <input type="text" name="descripcion" id="editar_descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="">
+                            <input type="text" name="descripcion" id="editar_descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="" maxlength="250">
                         </div> 
 
                         <label for="nombre_producto">Precio</label>
@@ -211,7 +211,7 @@
                         <div class="col-10 offset-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
-                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple>
+                                <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple max="10">
                             </div>
                         </div>
                     </div>
@@ -248,6 +248,8 @@
             </form>
     </div>
 </div>
+
+
 
 <?php require_once RUTA_APP.'/vistas/inc/footer.php'?>
 

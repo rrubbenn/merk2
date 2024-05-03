@@ -8,31 +8,31 @@
                 <form class="offset-1 col-10" method="post" action="<?php echo RUTA_URL?>/Perfil/enviarEditar">
                         <div class="mb-2 text-start">
                             <label for="nombre" class="form-label text-dark fs-4">Nombre</label>
-                            <input type="text" name="nombre" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->nombre ?>" id="nombre" aria-describedby="emailHelp" style="width: 100%;" disabled>
+                            <input type="text" name="nombre" id="nombre" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->nombre ?>" id="nombre" aria-describedby="emailHelp" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="apellidos" class="form-label text-dark fs-4">Apellidos</label>
-                            <input type="text" name="apellidos" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->apellidos ?>" id="apellidos" aria-describedby="emailHelp" style="width: 100%;" disabled>
+                            <input type="text" name="apellidos" id="apellidos" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->apellidos ?>" id="apellidos" aria-describedby="emailHelp" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="email" class="form-label text-dark fs-4">Email</label>
-                            <input type="text" name="email" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->email ?>" id="email" aria-describedby="emailHelp" style="width: 100%;" disabled>
+                            <input type="text" name="email" id="email" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->email ?>" id="email" aria-describedby="emailHelp" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="telefono" class="form-label text-dark fs-4">Teléfono</label>
-                            <input type="text" name="telefono" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->telefono ?>" id="telefono" style="width: 100%;" disabled>
+                            <input type="text" name="telefono" id="telefono" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->telefono ?>" id="telefono" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="fechanacimiento" class="form-label text-dark fs-4">Fecha de nacimiento</label>
-                            <input type="date" name="fechanacimiento" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->fecha_nacimiento ?>" id="fechanacimiento" style="width: 100%;" disabled>
+                            <input type="date" name="fechanacimiento" id="fechanacimiento" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->fecha_nacimiento ?>" id="fechanacimiento" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="ciudad" class="form-label text-dark fs-4">Ciudad</label>
-                            <input type="text" name="ciudad" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->ciudad ?>" id="ciudad" style="width: 100%;" disabled>
+                            <input type="text" name="ciudad" id="ciudad" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->ciudad ?>" id="ciudad" style="width: 100%;" disabled>
                         </div>
                         <div class="mb-2 text-start">
                             <label for="direccion" class="form-label text-dark fs-4">Direccion</label>
-                            <input type="text" name="direccion" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->direccion ?>" id="direccion" style="width: 100%;" disabled>
+                            <input type="text" name="direccion" id="direccion" class="form-control fs-5" value="<?php echo $datos['datosUsuario']->direccion ?>" id="direccion" style="width: 100%;" disabled>
                         </div>
                         <button type="button" onclick="habilitarCambios();" class="btn btn-outline-light mt-3 fs-5" id="btnhabilitarCambios" style="background-color: #A898D5;">Realizar Cambios</button>
                         <button type="submit" class="btn btn-outline-light mt-3 fs-5 d-none" id="btnguardarCambios" style="background-color: #A898D5;">Guardar Cambios</button>
@@ -119,12 +119,196 @@
 
         botonGuardar.disabled = true;
 
-        setTimeout(function(){
-            botonGuardar.disabled = false;
-        }, 2500);
-
-        
     }
+
+    // VALIDACIONES
+
+    const validacionNombre = document.querySelector('#nombre');
+
+    let Nombrevalidado = true;
+    let regNombreApellidos = /^[a-zA-Z\s]*$/;
+
+    validacionNombre.addEventListener('keyup', (e)=> {
+
+        if (regNombreApellidos.test(validacionNombre.value)) {
+
+            validacionNombre.classList.remove("is-invalid");
+            validacionNombre.classList.add("is-valid");
+            Nombrevalidado = true;
+
+        } else {
+
+            validacionNombre.classList.remove("is-valid");
+            validacionNombre.classList.add("is-invalid");
+            Nombrevalidado = false;
+
+        }
+    });
+
+    const validacionApellidos = document.querySelector('#apellidos');
+    let Apellidovalidado = true;
+
+    validacionApellidos.addEventListener('keyup', (e)=> {
+
+        if (regNombreApellidos.test(validacionApellidos.value)) {
+
+            validacionApellidos.classList.remove("is-invalid");
+            validacionApellidos.classList.add("is-valid");
+            Apellidovalidado = true;
+
+        } else {
+
+            validacionApellidos.classList.remove("is-valid");
+            validacionApellidos.classList.add("is-invalid");
+            Apellidovalidado = false;
+
+        }
+    });
+
+    const validacionMail = document.querySelector('#email'); 
+
+    let Mailvalidado = true;
+    var MailRegex = /^([a-zA-Z0-9_.+-]+)@[a-zA-Z0-9_.+-]+\.[a-zA-Z]{2,4}$/;
+
+    validacionMail.addEventListener('keyup', (e)=> {
+
+        if (MailRegex.test(validacionMail.value)) {
+
+            validacionMail.classList.remove("is-invalid");
+            validacionMail.classList.add("is-valid");
+            Mailvalidado = true;
+
+        } else {
+
+            validacionMail.classList.remove("is-valid");
+            validacionMail.classList.add("is-invalid");
+            Mailvalidado = false;
+
+        }
+
+    });
+
+    const validacionTelefono = document.querySelector('#telefono');
+
+    let Telefonovalidado = true;
+    regTelefono = /^[0-9]{9}$/;
+
+    validacionTelefono.addEventListener('keyup', (e)=> {
+
+        if (regTelefono.test(validacionTelefono.value)) {
+
+            validacionTelefono.classList.remove("is-invalid");
+            validacionTelefono.classList.add("is-valid");
+            Telefonovalidado = true;
+
+        } else {
+
+            validacionTelefono.classList.remove("is-valid");
+            validacionTelefono.classList.add("is-invalid");
+            Telefonovalidado = false;
+
+        }
+    });
+
+    const validacionCiudad = document.querySelector('#ciudad');
+
+    let Ciudadvalidado = true;
+    let regCiudad = /^[a-zA-Z\s]*$/;
+
+    validacionCiudad.addEventListener('keyup', (e)=> {
+
+        if (regCiudad.test(validacionCiudad.value)) {
+
+            validacionCiudad.classList.remove("is-invalid");
+            validacionCiudad.classList.add("is-valid");
+            Ciudadvalidado = true;
+
+        } else {
+
+            validacionCiudad.classList.remove("is-valid");
+            validacionCiudad.classList.add("is-invalid");
+            Ciudadvalidado = false;
+
+        }
+    });
+
+    const validacionDireccion = document.querySelector('#direccion');
+
+    let Direccionvalidado = true;
+    let regDireccion = /^[a-zA-Z0-9\s,]+ \d+$/;
+
+    validacionDireccion.addEventListener('keyup', (e)=> {
+
+        if (regDireccion.test(validacionDireccion.value)) {
+
+            validacionDireccion.classList.remove("is-invalid");
+            validacionDireccion.classList.add("is-valid");
+            Direccionvalidado = true;
+
+        } else {
+
+            validacionDireccion.classList.remove("is-valid");
+            validacionDireccion.classList.add("is-invalid");
+            Direccionvalidado = false;
+
+        }
+    });
+
+    const campoAnyo = document.querySelector('#fechanacimiento');
+    let anyoValidado = true;
+
+    campoAnyo.addEventListener('change', (e) => {
+        const fechaNacimiento = new Date(campoAnyo.value);
+        const fechaHoy = new Date();
+        const edadMinima = 18;
+
+        const diferenciaTiempo = fechaHoy.getTime() - fechaNacimiento.getTime();
+        const edad = Math.floor(diferenciaTiempo / (1000 * 3600 * 24 * 365.25));
+
+        if (edad < edadMinima) {
+
+            campoAnyo.classList.add("is-invalid");
+            campoAnyo.classList.remove("is-valid");
+            anyoValidado = false;
+
+        } else {
+
+            campoAnyo.classList.add("is-valid");
+            campoAnyo.classList.remove("is-invalid");
+            anyoValidado = true;
+
+        }
+
+    });
+    const botonguardar = document.querySelector('#btnguardarCambios');
+
+    document.addEventListener('keyup', (e)=> {
+
+        if (Nombrevalidado === true && Apellidovalidado === true && Mailvalidado === true && Telefonovalidado === true && anyoValidado === true && Ciudadvalidado === true && Direccionvalidado === true) {
+
+            botonguardar.removeAttribute("disabled");
+
+        } else {
+
+            botonguardar.disabled = "true";
+
+        }
+
+    });
+
+    document.addEventListener('change', (e)=> {
+
+        if (Nombrevalidado === true && Apellidovalidado === true && Mailvalidado === true && Telefonovalidado === true && anyoValidado === true && Ciudadvalidado === true && Direccionvalidado === true) {
+
+            botonguardar.removeAttribute("disabled");
+
+        } else {
+
+            botonguardar.disabled = "true";
+
+        }
+
+    });
     
 </script>
 <script src="<?php echo RUTA_URL_STATIC?>/js/main.js"></script>
