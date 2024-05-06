@@ -10,6 +10,12 @@
 
         public function index($id_usuario, $paginita = 1){
 
+            if(tienePrivilegiosExtra($id_usuario, $this->datos['usuarioSesion']->id_usuario, $this->datos['usuarioSesion']->id_rol, 1)) {
+
+                redireccionar("/");
+
+            }
+
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
             $pagina_actual = $paginita ? $paginita : 1;
@@ -43,6 +49,12 @@
         }
 
         public function compras($id_usuario, $paginita = 1){
+
+            if(tienePrivilegiosExtra($id_usuario, $this->datos['usuarioSesion']->id_usuario, $this->datos['usuarioSesion']->id_rol, 1)) {
+
+                redireccionar("/");
+
+            }
 
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
@@ -80,6 +92,12 @@
         }
 
         public function ventas($id_usuario, $paginita = 1){
+
+            if(tienePrivilegiosExtra($id_usuario, $this->datos['usuarioSesion']->id_usuario, $this->datos['usuarioSesion']->id_rol, 1)) {
+
+                redireccionar("/");
+
+            }
 
             $this->datos['categorias'] = $this->productoModelo->obtenerCategorias();
 
@@ -133,12 +151,6 @@
             if ($_SERVER["REQUEST_METHOD"]=="POST") {
     
                 $datos = $_POST;
-                //print_r($datos);
-                //echo "<br>";
-                //print_r($id_producto);
-                //echo "<br>";
-                //print_r($this->datos['usuarioSesion']->id_usuario);
-                //exit();
 
                 if ($this->productoModelo->addVenta($datos, $id_producto, $this->datos['usuarioSesion']->id_usuario)) {
                     

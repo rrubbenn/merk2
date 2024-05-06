@@ -8,11 +8,13 @@
         if (empty($rolesPermitidos) || in_array($rol_usuario, $rolesPermitidos)) {
             return true;
         }
-    }
+    } 
 
-    function formatoFecha($fechaIngles){
-        return date("d/m/Y", strtotime($fechaIngles));
-    }   
+    function tienePrivilegiosExtra($id_usuario_pagina, $id_usuario, $rol ,$rolvalido){
+        if (empty($id_usuario) || ($id_usuario != $id_usuario_pagina && $rol != $rolvalido)) {
+            return true;
+        }
+    } 
 
     // function obtenerRol($roles){
     //     $idRol=0;
