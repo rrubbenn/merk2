@@ -87,14 +87,9 @@
             $this->db->query("SELECT 
                                 COUNT(*) as total 
                             FROM producto p 
-                            WHERE c.nombre_categoria 
-                                    LIKE :busqueda
-                                OR c.descripcion 
-                                    LIKE :busqueda
-                            AND NOT EXISTS 
-                                    (SELECT 1 
-                                    FROM venta v 
-                                    WHERE p.id_producto = v.id_producto)");
+                            LEFT JOIN venta v ON p.id_producto = v.id_producto
+                            WHERE (p.nombre_producto LIKE :busqueda OR p.descripcion LIKE :busqueda)
+                            AND v.id_producto IS NULL");
 
             $this->db->bind(':busqueda', $datos);
 
@@ -109,10 +104,7 @@
                             FROM producto p
                             INNER JOIN categoria c
                             ON p.id_categoria = c.id_categoria
-                            WHERE c.nombre_categoria
-                                LIKE :busqueda
-                            OR c.descripcion 
-                                LIKE :busqueda
+                            WHERE c.id_categoria = :busqueda
                             AND NOT EXISTS 
                                 (SELECT 1 
                                 FROM venta v 
@@ -125,35 +117,15 @@
             return $resultado->total;
         }
 
-        public function buscarProductos($datos){
-
-            $this->db->query("SELECT COUNT(*) as total
-                                FROM producto
-                                WHERE nombre_producto 
-                                    LIKE :busqueda
-                                OR descripcion 
-                                    LIKE :busqueda
-                                AND NOT EXISTS 
-                                    (SELECT 1 
-                                    FROM venta v 
-                                    WHERE p.id_producto = v.id_producto)");
-
-            $this->db->bind(':busqueda', $datos);
-        
-            return $this->db->registros();  
-        }
-
-        public function buscarCategoria($datos, $pagina, $por_pagina){
+        public function buscarProductos($datos, $pagina, $por_pagina){
 
             $offset = ($pagina - 1) * $por_pagina;
 
-            $this->db->query("SELECT p.*
+            $this->db->query("SELECT *
                                 FROM producto p
-                                INNER JOIN categoria c
-                                ON p.id_categoria = c.id_categoria
-                                WHERE c.nombre_categoria 
+                                WHERE p.nombre_producto 
                                     LIKE :busqueda
-                                OR c.descripcion 
+                                OR p.descripcion 
                                     LIKE :busqueda
                                 AND NOT EXISTS 
                                     (SELECT 1 
@@ -165,8 +137,42 @@
             $this->db->bind(':por_pagina', $por_pagina);
             $this->db->bind(':offset', $offset);
 
+            $resultados = $this->db->registros();   
+
+            if ($resultados) {
+                return $resultados;
+            } else {
+                return array(); // Devolver un array vacío si no hay resultados
+            }
+        }
+
+        public function buscarCategoria($datos, $pagina, $por_pagina){
+
+            $offset = ($pagina - 1) * $por_pagina;
+
+            $this->db->query("SELECT p.*
+                                FROM producto p
+                                INNER JOIN categoria c
+                                ON p.id_categoria = c.id_categoria
+                                WHERE c.id_categoria = :busqueda
+                                AND NOT EXISTS 
+                                    (SELECT 1 
+                                    FROM venta v 
+                                    WHERE p.id_producto = v.id_producto)
+                                LIMIT :por_pagina OFFSET :offset;");
+
+            $this->db->bind(':busqueda', $datos);
+            $this->db->bind(':por_pagina', $por_pagina);
+            $this->db->bind(':offset', $offset);
+
         
-            return $this->db->registros();      
+            $resultados = $this->db->registros();   
+
+            if ($resultados) {
+                return $resultados;
+            } else {
+                return array(); // Devolver un array vacío si no hay resultados
+            }     
         }
 
     }
