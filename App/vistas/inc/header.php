@@ -37,8 +37,8 @@
           <img src="<?php echo RUTA_URL_STATIC ?>/img/logo.png" alt="logo-merk2" class="icono img-fluid mt-3" id="icono">
         </a>
       </div>
-      <div class="col-9 d-flex align-items-center justify-content-end">
-          <div class="<?php if (strpos($_SERVER['REQUEST_URI'], 'busqueda')): echo "col-6"; else : echo "col-7"; endif;?> text-center p-1 mt-3">
+      <div class="col-9 d-flex align-items-center">
+          <div class="<?php if (strpos($_SERVER['REQUEST_URI'], 'busqueda')): echo "col-6"; else : echo "col-6"; endif;?> text-center p-1 mt-3">
             <form action="<?php echo RUTA_URL ?>/inicio/busqueda" method="post">
               <div class="mb-3 text-start col-12">
                   <input type="text" class="form-control" name="buscador" id="buscador" aria-describedby="buscador" style="width: 100%;" value="<?php if(!empty($datos['busqueda'])): echo $datos['busqueda']; endif ?>"> 
@@ -79,17 +79,27 @@
               </svg>
             </a>
           </div>
-          <div class="col-1 text-center">
-            <a href="<?php echo RUTA_URL?>/">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-universal-access-circle" viewBox="0 0 16 16">
-                <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
-                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
-              </svg>
-            </a>
+
+          <div class="col-2 text-center">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #A898D5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-universal-access-circle" viewBox="0 0 16 16">
+                  <path d="M8 4.143A1.071 1.071 0 1 0 8 2a1.071 1.071 0 0 0 0 2.143m-4.668 1.47 3.24.316v2.5l-.323 4.585A.383.383 0 0 0 7 13.14l.826-4.017c.045-.18.301-.18.346 0L9 13.139a.383.383 0 0 0 .752-.125L9.43 8.43v-2.5l3.239-.316a.38.38 0 0 0-.047-.756H3.379a.38.38 0 0 0-.047.756Z"/>
+                  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8"/>
+                </svg>
+              </button>
+              <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="cambiarContraste();">Cambiar contraste</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">Aumentar fuente</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);">Disminuir fuente</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="restaurarEstilosOriginales();">Restablecer</a></li>
+              </ul>
+            </div>
           </div>
 
           <?php if (!empty($datos["usuarioSesion"])):?>
-            <div class="col-1 text-center">
+            <div class="col-2 text-center">
               <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #A898D5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">

@@ -722,3 +722,162 @@ function mostrarCompras() {
 
 }
 
+
+
+function etiquetasOriginales() {
+    var etiquetas = document.querySelectorAll('*');
+    etiquetas.forEach(function(elemento) {
+        // Guardar los estilos originales en el objeto de datos del elemento
+        elemento.originalStyles = {
+            backgroundColor: elemento.style.backgroundColor,
+            color: elemento.style.color
+            // Agregar más propiedades de estilo si es necesario
+        };
+
+        // Verificar y guardar las clases de Bootstrap
+        if (elemento.classList.contains('text-dark')) {
+            elemento.originalStyles.bootstrapTextDark = true;
+        }
+        if (elemento.classList.contains('text-white')) {
+            elemento.originalStyles.bootstrapTextWhite = true;
+        }
+
+        // Verificar y guardar los colores de los iconos SVG
+        if (elemento.tagName === 'svg') {
+            var paths = elemento.querySelectorAll('path');
+            paths.forEach(function(path, index) {
+                if (!elemento.originalStyles.svgColors) {
+                    elemento.originalStyles.svgColors = [];
+                }
+                elemento.originalStyles.svgColors[index] = path.getAttribute('fill');
+            });
+        }
+    });
+    return etiquetas;
+}
+
+var etiquetasDefault = etiquetasOriginales();
+
+function restaurarEstilosOriginales() {
+
+    var etiquetas = etiquetasDefault; // Obtener las etiquetas con estilos originales
+
+    etiquetas.forEach(function(elemento) {
+        var estilosOriginales = elemento.originalStyles; // Obtener los estilos originales del objeto de datos
+
+        // Restaurar los estilos originales
+        if (estilosOriginales) {
+            elemento.style.backgroundColor = estilosOriginales.backgroundColor;
+            elemento.style.color = estilosOriginales.color;
+            // Restaurar más propiedades de estilo si es necesario
+        }
+
+        // Restaurar las clases de Bootstrap
+        if (estilosOriginales.bootstrapTextDark) {
+            elemento.classList.add('text-dark');
+        }
+        if (estilosOriginales.bootstrapTextWhite) {
+            elemento.classList.add('text-white');
+        }
+
+        // Restaurar los colores de los iconos SVG
+        if (estilosOriginales.svgColors && elemento.tagName === 'svg') {
+            var paths = elemento.querySelectorAll('path');
+            paths.forEach(function(path, index) {
+                path.setAttribute('fill', estilosOriginales.svgColors[index]);
+            });
+        }
+    });
+
+    localStorage.removeItem('estadoContraste'); // Eliminar el estado de contraste almacenado en el localStorage
+}
+
+var estadoActual = 'normal'; // Cambia el estado predeterminado a 'normal'
+cambiarContraste();
+
+function cambiarContraste() {
+    var estadoGuardado = localStorage.getItem('estadoContraste'); // Obtener el estado actual guardado
+
+    if (estadoGuardado !== null) {
+        estadoActual = estadoGuardado; // Establecer el estado actual al guardado en el almacenamiento local
+    }
+
+    if (estadoActual === 'normal') {
+        restaurarEstilosOriginales(); // Restaurar estilos originales si el estado actual es "normal"
+    } else {
+        aplicarEstilos(estadoActual); // Aplicar estilos correspondientes si el estado actual no es "normal"
+    }
+
+    var siguienteEstado;
+
+    // Determinar el siguiente estado al llamar desde el botón
+    if (event && event.type === 'click') {
+        if (estadoActual === 'normal') {
+            siguienteEstado = 'negro';
+        } else if (estadoActual === 'negro') {
+            siguienteEstado = 'azul';
+        } else if (estadoActual === 'azul') {
+            siguienteEstado = 'amarillo';
+        } else if (estadoActual === 'amarillo') {
+            siguienteEstado = 'negro';
+        }
+
+        // Aplicar estilos para el siguiente estado
+        aplicarEstilos(siguienteEstado);
+    } else {
+        // Aplicar estilos para el estado actual
+        aplicarEstilos(estadoActual);
+    }
+}
+
+// Función para aplicar estilos de acuerdo al estado proporcionado
+function aplicarEstilos(estado) {
+
+    var elementos = document.querySelectorAll('*');
+
+    if (estado === 'normal') {
+        return;
+    }
+
+    elementos.forEach(function(elemento) {
+        // Cambiar estilos de fondo y texto para elementos HTML
+        if (estado === 'negro') {
+            elemento.style.backgroundColor = '#000000'; // Fondo negro
+            elemento.style.color = '#FFFFFF'; // Letra blanca
+        } else if (estado === 'azul') {
+            elemento.style.backgroundColor = '#1A237E'; // Fondo azul oscuro
+            elemento.style.color = '#FFFF00'; // Letra amarilla
+        } else if (estado === 'amarillo') {
+            elemento.style.backgroundColor = '#FFFFCC'; // Fondo amarillo claro
+            elemento.style.color = '#000080'; // Letra azul marino
+        }
+
+        // Cambiar color fill de elementos SVG
+        if (elemento.tagName === 'svg') {
+            var paths = elemento.querySelectorAll('path');
+            paths.forEach(function(path) {
+                if (estado === 'negro') {
+                    path.setAttribute('fill', '#FFFFFF');
+                } else if (estado === 'azul') {
+                    path.setAttribute('fill', '#FFFF00');
+                } else if (estado === 'amarillo') {
+                    path.setAttribute('fill', '#000080');
+                }
+            });
+        }
+
+        // Eliminar clases de Bootstrap que establecen el color del texto a blanco
+        if (elemento.classList.contains('text-white')) {
+            elemento.classList.remove('text-white');
+        }
+        if (elemento.classList.contains('text-dark')) {
+            elemento.classList.remove('text-dark');
+        }
+    });
+
+    // Guardar el estado en el almacenamiento local solo cuando se llama desde el botón
+    if (event && event.type === 'click') {
+        localStorage.setItem('estadoContraste', estado);
+    }
+}
+

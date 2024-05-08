@@ -6,7 +6,7 @@
 
         <div class="d-flex"> 
             <div class="col-10 offset-1 ">
-                <form class="offset-1 col-10" method="post" action="<?php echo RUTA_URL?>/Perfil/enviarPass">
+                <form class="offset-1 col-10" id="formContrasena" action="javascript:cambiarPass()" data-ruta="<?php echo htmlspecialchars(RUTA_URL.'/perfil/enviarPass')?>" >
                         <div class="mb-2 text-start">
                             <label for="nombre" class="form-label text-dark fs-4">Contraseña actual</label>
                             <input type="password" name="oldpass" class="form-control fs-5" id="oldpass" aria-describedby="emailHelp" style="width: 100%;">
@@ -66,119 +66,82 @@
 
 <script> 
 
+async function cambiarPass(){
+    
+    let formulario = document.getElementById('formContrasena');
+    let ruta = formulario.dataset.ruta;
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var exito = '<?php echo isset($_GET) ?>';
+    let formData = new FormData(formulario); // Crear un objeto FormData para enviar los datos del formulario
 
-        console.log(exito);
-        if (exito == 1) {
+    await fetch(ruta, {
+        method: "POST",
+        body: formData,
+    })
+        .then((resp) => resp.json())
+        .then(function(data) {
 
-            modal = document.getElementById('modalExito');
-            modal.style.display="flex";
+            let datos = data;
 
-        } else if (exito == 0) {
+            if (datos) {
 
-            modal = document.getElementById('modalError');
-            modal.style.display="flex";
+                modal = document.getElementById('modalExito');
+                modal.style.display="flex";
 
-        }
-    });
+                } else {
 
+                modal = document.getElementById('modalError');
+                modal.style.display="flex";
 
-    const validacionClave = document.querySelector('#oldpass');
+            }
 
-    let Clavevalidado1 = false;
-    let regClave = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
+        })
+}
 
-    validacionClave.addEventListener('keyup', (e)=> {
+let regClave = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
 
-        if (regClave.test(validacionClave.value)) {
+const validacionClave1 = document.querySelector('#newpass1');
+const validacionClave2 = document.querySelector('#newpass2');
+const botonguardar = document.querySelector('#btnguardarCambios');
 
-            validacionClave.classList.remove("is-invalid");
-            validacionClave.classList.add("is-valid");
-            Clavevalidado1 = true;
+let claveValidada1 = false;
+let claveValidada2 = false;
 
-        } else {
+// Event listener para newpass1
+validacionClave1.addEventListener('keyup', () => {
+    if (regClave.test(validacionClave1.value)) {
+        validacionClave1.classList.remove("is-invalid");
+        validacionClave1.classList.add("is-valid");
+        claveValidada1 = true;
+    } else {
+        validacionClave1.classList.remove("is-valid");
+        validacionClave1.classList.add("is-invalid");
+        claveValidada1 = false;
+    }
+    validarBotonGuardar();
+});
 
-            validacionClave.classList.remove("is-valid");
-            validacionClave.classList.add("is-invalid");
-            Clavevalidado1 = false;
+// Event listener para newpass2
+validacionClave2.addEventListener('keyup', () => {
+    if (regClave.test(validacionClave2.value)) {
+        validacionClave2.classList.remove("is-invalid");
+        validacionClave2.classList.add("is-valid");
+        claveValidada2 = true;
+    } else {
+        validacionClave2.classList.remove("is-valid");
+        validacionClave2.classList.add("is-invalid");
+        claveValidada2 = false;
+    }
+    validarBotonGuardar();
+});
 
-        }
-    });
-
-    validacionClave2 = document.querySelector('#newpass1');
-
-    let Clavevalidado2 = false;
-
-    validacionClave2.addEventListener('keyup', (e)=> {
-
-        if (regClave.test(validacionClave2.value)) {
-
-            validacionClave2.classList.remove("is-invalid");
-            validacionClave2.classList.add("is-valid");
-            Clavevalidado2 = true;
-
-        } else {
-
-            validacionClave2.classList.remove("is-valid");
-            validacionClave2.classList.add("is-invalid");
-            Clavevalidado2 = false;
-
-        }
-    });
-
-    validacionClave3 = document.querySelector('#newpass2');
-
-    let Clavevalidado3 = false;
-
-    validacionClave3.addEventListener('keyup', (e)=> {
-
-        if (regClave.test(validacionClave3.value)) {
-
-            validacionClave3.classList.remove("is-invalid");
-            validacionClave3.classList.add("is-valid");
-            Clavevalidado3 = true;
-
-        } else {
-
-            validacionClave3.classList.remove("is-valid");
-            validacionClave3.classList.add("is-invalid");
-            Clavevalidado3 = false;
-
-        }
-    });
-
-    const botonguardar = document.querySelector('#btnguardarCambios');
-
-    document.addEventListener('keyup', (e)=> {
-
-        if (Clavevalidado1 === true && Clavevalidado2 === true && Clavevalidado3 === true) {
-
-            botonguardar.removeAttribute("disabled");
-
-        } else {
-
-            botonguardar.disabled = "true";
-
-        }
-
-    });
-
-    document.addEventListener('change', (e)=> {
-
-        if (Clavevalidado1 === true && Clavevalidado2 === true && Clavevalidado3 === true) {
-
-            botonguardar.removeAttribute("disabled");
-
-        } else {
-
-            botonguardar.disabled = "true";
-
-        }
-
-    });
-
+// Función para validar el botón de guardar
+function validarBotonGuardar() {
+    if (claveValidada1 && claveValidada2 && validacionClave1.value === validacionClave2.value) {
+        botonguardar.removeAttribute("disabled");
+    } else {
+        botonguardar.disabled = true;
+    }
+}
 
 </script>
 

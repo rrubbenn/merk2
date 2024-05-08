@@ -149,6 +149,7 @@ buscador.addEventListener('input', function() {
     datosFiltrados = Object.values(calcularVentasPorUsuario(datos, tiempoSeleccionado, categoriaSeleccionada));
 });
 
+cambiarContraste();
 
 </script>
 

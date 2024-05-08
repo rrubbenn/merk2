@@ -251,7 +251,6 @@
             }
         }
 
-
         public function rellenar_categoria() {
 
             $datos = $this->productoModelo->getCategorias();

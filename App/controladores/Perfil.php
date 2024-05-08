@@ -76,8 +76,7 @@
 
         public function cambiarPass() {
 
-            $this-> vista("/perfil/formularioCambiarPass", $this->datos);
-
+            $this->vista("/perfil/formularioCambiarPass", $this->datos);
 
         }
     
@@ -92,22 +91,23 @@
 
                     if ($this->perfilModelo->cambiarPass($newpass, $this->datos['usuarioSesion']->id_usuario)){
                     
-                        header("Location: /perfil/cambiarPass?exito=true");
+                        $this->vistaApi(true);
         
                     }else{
 
-                        header("Location: /perfil/cambiarPass?exito=false");
+                        $this->vistaApi(false);
                     
                     }
     
                 }else{
                     
-                    header("Location: /perfil/cambiarPass?exito=false");
+                    $this->vistaApi(false);
 
                 }
             } else {
 
-                $this->vista('/perfil/perfil/cambiarPass', $this->datos); 
+                $this->vistaApi(false);
+                //$this->vista('/perfil/perfil/cambiarPass', $this->datos); 
                 
             }
         }
