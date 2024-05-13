@@ -24,13 +24,10 @@
      
      
 
-    //  if (str_starts_with($serverEngine, 'nginx')) {
-    //      define('RUTA_URL_STATIC', 'https://192.168.1.154/public');
-    //      define('RUTA_URL', 'https://192.168.1.154'); 
-    //  } else{
-        define('RUTA_URL_STATIC', 'http://192.168.1.154/public');
-        define('RUTA_URL', 'http://192.168.1.154:80'); 
-    //  }
+
+    define('RUTA_URL_STATIC', 'http://192.168.1.132/public');
+    define('RUTA_URL', 'http://192.168.1.132:80'); 
+
 
     DEFINE('NOMBRE_SITIO', 'PROYECTO');
 
