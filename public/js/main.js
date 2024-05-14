@@ -756,7 +756,7 @@ function etiquetasOriginales() {
     return etiquetas;
 }
 
-var etiquetasDefault = etiquetasOriginales();
+
 
 function restaurarEstilosOriginales() {
 
@@ -771,6 +771,8 @@ function restaurarEstilosOriginales() {
             elemento.style.color = estilosOriginales.color;
             // Restaurar más propiedades de estilo si es necesario
         }
+
+        elemento.style.removeProperty('font-size');
 
         // Restaurar las clases de Bootstrap
         if (estilosOriginales.bootstrapTextDark) {
@@ -790,10 +792,9 @@ function restaurarEstilosOriginales() {
     });
 
     localStorage.removeItem('estadoContraste'); // Eliminar el estado de contraste almacenado en el localStorage
+    //localStorage.removeItem('tamanoFuenteMultiplicador'); // Eliminar el multiplicador guardado en el localStorage
+    //aplicarMultiplicador(1);
 }
-
-var estadoActual = 'normal'; // Cambia el estado predeterminado a 'normal'
-cambiarContraste();
 
 function cambiarContraste() {
     var estadoGuardado = localStorage.getItem('estadoContraste'); // Obtener el estado actual guardado
@@ -803,9 +804,7 @@ function cambiarContraste() {
     }
 
     if (estadoActual === 'normal') {
-        restaurarEstilosOriginales(); // Restaurar estilos originales si el estado actual es "normal"
-    } else {
-        aplicarEstilos(estadoActual); // Aplicar estilos correspondientes si el estado actual no es "normal"
+        aplicarEstilos(estadoActual); 
     }
 
     var siguienteEstado;
@@ -880,4 +879,44 @@ function aplicarEstilos(estado) {
         localStorage.setItem('estadoContraste', estado);
     }
 }
+
+function aumentarFuente() {
+    var multiplicador = parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')) || 1;
+    var nuevoMultiplicador = multiplicador * 1.1; // Aumentar el multiplicador en un 10%
+    localStorage.setItem('tamanoFuenteMultiplicador', nuevoMultiplicador);
+    aplicarMultiplicador(nuevoMultiplicador);
+}
+
+function disminuirFuente() {
+    var multiplicador = parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')) || 1;
+    var nuevoMultiplicador = multiplicador / 1.1; // Disminuir el multiplicador en un 10%
+    localStorage.setItem('tamanoFuenteMultiplicador', nuevoMultiplicador);
+    aplicarMultiplicador(nuevoMultiplicador);
+}
+
+function aplicarMultiplicador(multiplicador) {
+    var etiquetas = document.querySelectorAll('*');
+    etiquetas.forEach(function(elemento) {
+        var fontSize = parseFloat(window.getComputedStyle(elemento).fontSize);
+        var nuevoTamano = Math.round(fontSize * multiplicador); // Redondear al número entero más cercano
+        elemento.style.fontSize = nuevoTamano + 'px';
+    });
+}
+
+// Verificar y establecer el tamaño de fuente predeterminado si no está configurado
+if (!localStorage.getItem('tamanoFuenteMultiplicador')) {
+    localStorage.setItem('tamanoFuenteMultiplicador', 1);
+}
+
+//localStorage.clear();
+
+// Aplicar el tamaño de fuente inicial
+aplicarMultiplicador(parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')));
+
+var etiquetasDefault = etiquetasOriginales();
+var estadoActual = 'normal'; // Cambia el estado predeterminado a 'normal'
+cambiarContraste();
+
+
+//aplicarMultiplicador(multiplicador);
 

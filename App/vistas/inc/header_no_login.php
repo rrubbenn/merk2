@@ -9,7 +9,7 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <link rel="shortcut icon" href="<?php echo RUTA_URL_STATIC ?>/img/logo-casa-yus.png">
+  <link rel="shortcut icon" href="<?php echo RUTA_URL_STATIC ?>/img/logo.png">
 
   <!-- google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
