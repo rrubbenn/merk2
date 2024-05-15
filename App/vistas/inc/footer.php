@@ -1,34 +1,9 @@
 
 
-<footer class="text-center text-lg-start text-muted position-absolute bottom-0 w-100" style="background-color: #A898D5">
+<footer class="text-center text-lg-start text-muted futer" style="background-color: #A898D5">
     <div class="container p-3">
         <div class="row">
-            <div class="col-4 g-2  text-center">
-                <h4 class="text-white text-center">Condiciones legales</h4>
-                <hr class="text-white m-auto w-75">
-                <div class="col-12 mt-3 text-center">
-                    <p class="text-white fw-bold px-3">
-                        <a class="text-white fw-bold" target="_blank" href="#">
-                            Cookies
-                        </a>
-                    </p>
-                </div>
-                <div class="col-12 text-center">
-                        <p class="text-white fw-bold px-3">
-                        <a class="text-white fw-bold" target="_blank" href="#">
-                            Aviso legal
-                        </a>
-                    </p>
-                </div>
-                <div class="col-12 text-center">
-                    <p class="text-white fw-bold px-3">
-                        <a class="text-white fw-bold" target="_blank" href="#">
-                            Politica de privacidad
-                        </a>
-                    </p>
-                </div>
-                
-            </div>
+            
             <div class="col-4 g-2">
             <h4 class="text-white text-center">Contacto</h4>
                 <hr class="text-white m-auto w-75">
@@ -47,6 +22,39 @@
                         c/Alfonso
                     </p>
                 </div>
+            </div>
+            <div class="col-4 g-2  text-center">
+                <h4 class="text-white text-center">Condiciones legales</h4>
+                <hr class="text-white m-auto w-75">
+                <div class="col-12 mt-3 text-center">
+                    <p class="text-white fw-bold px-3">
+                        <a class="text-white fw-bold" href="<?php echo RUTA_URL?>/cookies">
+                            Cookies
+                        </a>
+                    </p>
+                </div>
+                <div class="col-12 text-center">
+                        <p class="text-white fw-bold px-3">
+                        <a class="text-white fw-bold" href="<?php echo RUTA_URL?>/avisolegal">
+                            Aviso legal
+                        </a>
+                    </p>
+                </div>
+                <div class="col-12 text-center">
+                    <p class="text-white fw-bold px-3">
+                        <a class="text-white fw-bold" href="<?php echo RUTA_URL?>/politica">
+                            Politica de privacidad
+                        </a>
+                    </p>
+                </div>
+                <div class="col-12 text-center">
+                    <p class="text-white fw-bold px-3">
+                        <a class="text-white fw-bold" href="<?php echo RUTA_URL?>/accesibilidad">
+                            Declaración de accesibilidad
+                        </a>
+                    </p>
+                </div>
+                
             </div>
             <div class="col-4 g-2">
             <h4 class="text-white text-center">Síguenos</h4>

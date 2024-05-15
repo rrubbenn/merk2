@@ -772,8 +772,6 @@ function restaurarEstilosOriginales() {
             // Restaurar más propiedades de estilo si es necesario
         }
 
-        elemento.style.removeProperty('font-size');
-
         // Restaurar las clases de Bootstrap
         if (estilosOriginales.bootstrapTextDark) {
             elemento.classList.add('text-dark');
@@ -792,8 +790,7 @@ function restaurarEstilosOriginales() {
     });
 
     localStorage.removeItem('estadoContraste'); // Eliminar el estado de contraste almacenado en el localStorage
-    //localStorage.removeItem('tamanoFuenteMultiplicador'); // Eliminar el multiplicador guardado en el localStorage
-    //aplicarMultiplicador(1);
+
 }
 
 function cambiarContraste() {
@@ -880,43 +877,8 @@ function aplicarEstilos(estado) {
     }
 }
 
-function aumentarFuente() {
-    var multiplicador = parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')) || 1;
-    var nuevoMultiplicador = multiplicador * 1.1; // Aumentar el multiplicador en un 10%
-    localStorage.setItem('tamanoFuenteMultiplicador', nuevoMultiplicador);
-    aplicarMultiplicador(nuevoMultiplicador);
-}
-
-function disminuirFuente() {
-    var multiplicador = parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')) || 1;
-    var nuevoMultiplicador = multiplicador / 1.1; // Disminuir el multiplicador en un 10%
-    localStorage.setItem('tamanoFuenteMultiplicador', nuevoMultiplicador);
-    aplicarMultiplicador(nuevoMultiplicador);
-}
-
-function aplicarMultiplicador(multiplicador) {
-    var etiquetas = document.querySelectorAll('*');
-    etiquetas.forEach(function(elemento) {
-        var fontSize = parseFloat(window.getComputedStyle(elemento).fontSize);
-        var nuevoTamano = Math.round(fontSize * multiplicador); // Redondear al número entero más cercano
-        elemento.style.fontSize = nuevoTamano + 'px';
-    });
-}
-
-// Verificar y establecer el tamaño de fuente predeterminado si no está configurado
-if (!localStorage.getItem('tamanoFuenteMultiplicador')) {
-    localStorage.setItem('tamanoFuenteMultiplicador', 1);
-}
-
-//localStorage.clear();
-
-// Aplicar el tamaño de fuente inicial
-aplicarMultiplicador(parseFloat(localStorage.getItem('tamanoFuenteMultiplicador')));
-
 var etiquetasDefault = etiquetasOriginales();
 var estadoActual = 'normal'; // Cambia el estado predeterminado a 'normal'
 cambiarContraste();
 
-
-//aplicarMultiplicador(multiplicador);
 

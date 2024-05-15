@@ -90,8 +90,6 @@
               </button>
               <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="cambiarContraste();">Cambiar contraste</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="aumentarFuente();">Aumentar fuente</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="disminuirFuente();">Disminuir fuente</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="restaurarEstilosOriginales();">Restablecer</a></li>
               </ul>

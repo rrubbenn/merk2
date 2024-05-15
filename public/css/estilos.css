@@ -5,6 +5,12 @@ body{
 
 }
 
+.futer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 .bodyregistro{
     position: relative;
     padding-bottom: 0%;
