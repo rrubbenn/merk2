@@ -3,8 +3,8 @@
 <body class="bodyregistro">
     <div class="container">
     <h1 class="text-center mt-4">Editar perfil</h1>
-        <div class="d-flex"> 
-            <div class="col-6 border-end">
+        <div class="d-flex flex-wrap"> 
+            <div class="col-12 col-md-6 border-end">
                 <form class="offset-1 col-10" method="post" action="<?php echo RUTA_URL?>/Perfil/enviarEditar">
                         <div class="mb-2 text-start">
                             <label for="nombre" class="form-label text-dark fs-4">Nombre</label>
@@ -40,52 +40,54 @@
                     
                 </form>
             </div>
-            <div class="col-6">
-                <div class="col-10 offset-1">
-                    <img class="mt-3 imgperfil" src="<?php echo RUTA_URL_STATIC?>/imgbase/<?php echo $datos['datosUsuario']->imagen_perfil ?>" alt=""></img>
-                    <div class="mt-5 col-12">
+            <div class="col-12 col-md-6 mb-3">
+                <div class="mt-5 d-flex d-md-none justify-content-center col-12">
+                    <h1> Imagen y extras </h1>
+                </div>
+                <div class="col-12 col-md-10 offset-md-1 d-flex flex-wrap justify-content-center">
+                    <img class="mt-3 mb-5 imgperfil col-12 justify-content-center" src="<?php echo RUTA_URL_STATIC?>/imgbase/<?php echo $datos['datosUsuario']->imagen_perfil ?>" alt=""></img>
+                    <div class="mt-4 col-10 col-md-12 justify-content-center d-flex justify-content-md-start">
                         <a class="text-dark cambiarimgperfil" href="#" onclick="openModal(this)"> <h5> Cambiar imagen de perfil </h5> </a>
                     </div>
-                    <div class="col-12">
+                    <div class="col-10 col-md-12 justify-content-center d-flex justify-content-md-start">
                         <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/cambiarPass"> <h5> Cambiar contraseña </h5> </a>
                     </div>
-                    <div class="col-12">
+                    <div class="col-10 col-md-12 justify-content-center d-flex justify-content-md-start">
                         <a class="text-dark" href="<?php echo RUTA_URL?>/ranking/participar"> <h5> Participar en el Ranking </h5> </a>
                     </div>
                 </div>
             </div>
             
         </div>
-
-
-
     </div>
 </body>
 
 
 <div id="modalCambiarImagenPerfil" class="modal-container">
     <div class="modal-contenido">
-        <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
-            <form method="post" enctype="multipart/form-data" action="<?php echo RUTA_URL?>/perfil/cambiarImagen">
-                <div class="modal-header">
-                    <h2>Subir Imagen</h2>
-                </div>
-                <div class="modal-body d-flex">
-                    <div class="col-12">
-                        <div class="col-10 offset-1">
-                            <div class="mb-3">
-                                <input class="form-control" name="imagen" type="file" id="formFile" >
+        <form method="post" enctype="multipart/form-data" action="<?php echo RUTA_URL?>/perfil/cambiarImagen">
+            <div class="modal-header">
+                <h2>Subir Imagen</h2>
+                <i onclick="closeModal()" class="fa-solid fa-xmark cerrar"></i>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="col-12 col-md-10 offset-md-1">
+                                <div class="mb-3">
+                                    <input class="form-control" name="imagen" type="file" id="formFile">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Subir</button>
-                </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary col-12 col-md-6 mb-2 mb-md-0" onclick="closeModal()">Cancelar</button>
+                <button type="submit" class="btn btn-outline-light participar col-12 col-md-5" style="background-color: #A898D5;">Subir</button>
+            </div>
+        </form>
     </div>
 </div>
 

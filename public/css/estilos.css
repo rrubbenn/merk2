@@ -133,3 +133,14 @@ input[type=file]::file-selector-button:hover {
     border: 0px;
     border-right: 1px solid #e1e1e1;
 }
+
+@media (max-width: 800px) {
+    .imgproductoperfil {
+        height: 15vw; /* Ajusta el tamaño según lo necesites */
+    }
+    .imgperfil{
+        width:60%;
+        height:50%;
+    }
+}
+

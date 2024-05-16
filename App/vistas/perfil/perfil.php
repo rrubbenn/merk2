@@ -7,11 +7,11 @@
             <div class="col-4 text-center">
                 <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $datos["datosUsuario"]->imagen_perfil ?>" class="card-img-top" id="imagenes" alt="...">
             </div>
-            <div class="col-4">
+            <div class="col-8 ms-2">
                 <h5 class="mb-0"> <?php echo $datos["datosUsuario"]->nombre." ".$datos["datosUsuario"]->apellidos ?> </h5>
             </div>
         </div>
-        <div class="col-3 offset-3 mt-2">
+        <div class="col-6 col-md-3 offset-md-3 mt-2">
             <a href="<?php echo RUTA_URL?>/valoraciones/<?php echo $datos["datosUsuario"]->id_usuario ?>" class="text-decoration-none">
                 <div class="text-center text-decoration-none text-dark text-alignment-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
@@ -37,22 +37,22 @@
     <div class="row mt-2">
     <hr>
     </div>
-    <div class="row mt-4 mb-5">
-        <div class="col-2">
+    <div class="row d-flex mt-4 mb-5">
+        <div class="col-4 col-md-2">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="p-2" id="pestanaEnVenta" onclick="mostrarEnVenta();">
                     <h5 class="mb-0"> Productos en venta </h5>
                 </div>
             </a>
         </div>
-        <div class="col-2">
+        <div class="col-4 col-md-2">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="p-2" id="pestanaVendidos" onclick="mostrarVendidos();">
                     <h5 class="mb-0"> Productos vendidos </h5>
                 </div>
             </a>
         </div>
-        <div class="col-2">
+        <div class="col-4 col-md-2">
             <a href="#" class="text-decoration-none text-dark">
                 <div class="p-2" id="pestanaInformacion" onclick="mostrarInformacion();" style="background-color: rgb(168, 152, 213)">
                     <h5 class="mb-0"> Informacion Pública</h5>
@@ -115,8 +115,8 @@
         <hr>
         <?php if(!empty($datos['usuarioSesion'])): ?>
             <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
-                <div class="row mt-5">
-                    <div class="col-3">
+                <div class="row my-5">
+                    <div class="col-12 col-md-3">
                         <div>
                             <a class="text-dark" href="<?php echo RUTA_URL?>/perfil/editarPerfil"> <h5> Editar información </h5> </a>
                         </div>
@@ -130,19 +130,19 @@
         <div class="col-12">
             <?php foreach ($datos['enVenta'] as $producto): ?>
                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="row text-decoration-none text-dark mt-1">
-                    <div class="col-1">
+                    <div class="col-3 col-md-2">
                         <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgproductoperfil" id="imagenes" alt="...">
                     </div>
-                    <div class="col-2 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-4 col-md-2 pt-2 pt-sm-0 d-flex align-items-center">
                         <p class="p-0 mb-0"> <?php echo $producto->nombre_producto ?> </p>
                     </div>
-                    <div class="col-1 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-2 col-md-2 pt-2 pt-sm-0 d-flex align-items-center">
                     <p class="p-0 mb-0"> <?php echo $producto->precio ?> € </p>
                     </div>
-                    <div class="col-5 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-md-4 pt-2 pt-sm-0 d-none d-md-flex align-items-center">
                         <p class="p-0 mb-0"> <?php echo $producto->descripcion ?> </p>
                     </div>
-                    <div class="col-3 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-3 col-md-1 pt-2 pt-sm-0 d-flex align-items-center">
                         <p class="p-0 mb-0"> <u> Mas Información... </u> </p>
                     </div>
                 </a>
@@ -150,7 +150,7 @@
             <?php if(!empty($datos['usuarioSesion'])): ?>
                 <?php if($datos['usuarioSesion']->id_rol === 1): ?>
                     <a href="<?php echo RUTA_URL?>/productos/<?php echo $producto->id_usuario?>" 
-                    class="row d-flex justify-content-center btn text-decoration-none text-dark mt-3"
+                    class="row d-flex justify-content-center btn text-decoration-none text-dark my-3"
                     style="background-color: #A898D5">
                         Ver los productos del usuario
                     </a>
@@ -163,19 +163,19 @@
         <div class="col-12">
             <?php foreach ($datos['Vendidos'] as $producto): ?>
                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="row text-decoration-none text-dark mt-1">
-                    <div class="col-1">
+                    <div class="col-1 col-md-1">
                         <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="imgproductoperfil"> </img>
                     </div>
-                    <div class="col-2 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-2 col-md-2 pt-2 pt-sm-0 d-flex align-items-center">
                         <p class="p-0 mb-0"> <?php echo $producto->nombre_producto ?> </p>
                     </div>
-                    <div class="col-1 pt-2 pt-sm-0 d-flex align-items-center">
-                    <p class="p-0 mb-0"> <?php echo $producto->precio ?> € </p>
+                    <div class="col-1 col-md-2 pt-2 pt-sm-0 d-flex align-items-center">
+                        <p class="p-0 mb-0"> <?php echo $producto->precio ?> € </p>
                     </div>
-                    <div class="col-5 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-md-4 pt-2 pt-sm-0 d-none d-md-flex align-items-center">
                         <p class="p-0 mb-0"> <?php echo $producto->descripcion ?> </p>
                     </div>
-                    <div class="col-3 pt-2 pt-sm-0 d-flex align-items-center">
+                    <div class="col-3 col-md-3 pt-2 pt-sm-0 d-flex align-items-center">
                         <p class="p-0 mb-0"> <u> Mas Información... </u> </p>
                     </div>
                 </a>

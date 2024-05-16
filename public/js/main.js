@@ -496,18 +496,11 @@ function mostrarPagina(numeroPagina) {
         divUsuario.appendChild(divColPuesto);
 
         var divColNombre = document.createElement('div');
-        divColNombre.className = 'col-3 d-flex justify-content-center';
+        divColNombre.className = 'col-4 d-flex justify-content-center';
         var h4Nombre = document.createElement('h4');
         h4Nombre.textContent = usuario.nombre;
         divColNombre.appendChild(h4Nombre);
         divUsuario.appendChild(divColNombre);
-
-        var divColApellidos = document.createElement('div');
-        divColApellidos.className = 'col-3 d-flex justify-content-center';
-        var h4Apellidos = document.createElement('h4');
-        h4Apellidos.textContent = usuario.apellidos;
-        divColApellidos.appendChild(h4Apellidos);
-        divUsuario.appendChild(divColApellidos);
 
         var divColVentas = document.createElement('div');
         divColVentas.className = 'col-2 d-flex justify-content-center';
@@ -517,7 +510,7 @@ function mostrarPagina(numeroPagina) {
         divUsuario.appendChild(divColVentas);
 
         var divColValoracion = document.createElement('div');
-        divColValoracion.className = 'col-2 d-flex justify-content-center';
+        divColValoracion.className = 'col-4 d-flex justify-content-center';
         var h4Valoracion = document.createElement('h4');
         h4Valoracion.textContent = usuario.valoracionMedia !== null ? usuario.valoracionMedia.toFixed(2) + '/5' : 'N/A';
         divColValoracion.appendChild(h4Valoracion);

@@ -1,8 +1,6 @@
 <?php require_once RUTA_APP.'/vistas/inc/header_no_login.php'?>
 
-<!-- nombre, apellidos, email, contrasena, telefono, fecha_nacimiento, ciudad, direccion -->
-
-<body class="bodyregistro">
+<body class="bodyregistro mb-5">
     <div class="registro-page">
         <div class="container mt-4">
             <div class="row justify-content-center">

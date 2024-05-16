@@ -3,15 +3,22 @@
 
 
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-2 d-flex flex-column border-end m-0 p-0">
-            
-            <a href="#" class="text-decoration-none text-dark mt-5" onclick="mostrarVentas();"> <div class="mt-3"> <h4 id="pestanaVentas" class="fw-bold"> Ventas <h4> </div> </a>
-            <a href="#" class="text-decoration-none text-dark" onclick="mostrarCompras();"> <div class="mt-3"> <h4 id="pestanaCompras" class=""> Compras </h4> </div> </a>
+    <div class="row d-flex justify-content-center mt-5">
+        <div class="row d-flex border-bottom mb-3 p-0">
+            <div class="col-6 d-flex justify-content-center">
+                <a href="#" class="text-decoration-none text-dark" onclick="mostrarVentas();"> 
+                    <h4 id="pestanaVentas" class="fw-bold"> Ventas </h4> 
+                </a>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+                <a href="#" class="text-decoration-none text-dark" onclick="mostrarCompras();"> 
+                    <h4 id="pestanaCompras" class=""> Compras </h4> 
+                </a>
+            </div>
         </div>
-        <div class="col-9">
-            <div class="row d-flex">
-                <div class="col-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 ms-2 d-flex flex-wrap">
+                <div class="col-12 col-lg-4">
                     <div class="input-group mb-3 col-2">
                         <label class="input-group-text" for="inputGroupSelect01">Periodo de tiempo</label>
                         <select class="form-select" name="tiempo" id="tiempo">
@@ -24,7 +31,7 @@
 
                 
 
-                <div class="col-4">
+                <div class="col-12 col-lg-4">
                     <div class="input-group mb-3 col-2">
                         <label class="input-group-text" for="inputGroupSelect01">Categoría</label>
                         <select class="form-select" name="categoria" id="categoria">
@@ -36,9 +43,9 @@
                     </div>
                 </div>
 
-                <div class="col-4">
+                <div class="col-12 col-lg-4">
                     <div class="text-center">
-                        <div class="mb-3 text-start col-11">
+                        <div class="mb-3 text-start col-12">
                             <input type="text" class="form-control" id="buscadorranking" aria-describedby="buscador" style="width: 100%;">
                         </div>
                     </div>
@@ -46,25 +53,22 @@
             
             </div>
             
-            <div class="row ">
+            <div class="row d-flex">
                 <div class="col-2 d-flex justify-content-center">
                     <h4> Puesto </h4>
                 </div>
-                <div class="col-3 d-flex justify-content-center">
+                <div class="col-4 d-flex justify-content-center">
                     <h4> Nombre </h4>
-                </div>
-                <div class="col-3 d-flex justify-content-center">
-                    <h4> Apellidos </h4>
                 </div>
                 <div class="col-2 d-flex justify-content-center">
                     <h4 id="tipoColumna"> Ventas </h4>
                 </div>
-                <div class="col-2 d-flex justify-content-center">
+                <div class="col-4 d-flex justify-content-center">
                     <h4> Valoraciones </h4>
                 </div>
             </div>
             
-            <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2">
+            <div id="contenedor" class="col-12 row-cols-1 row-cols-md-2 g-2">
 
             </div> 
 

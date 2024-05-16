@@ -34,13 +34,13 @@
 
     <?php if ($datos["usuarioSesion"]->ranking == "no"):?>
 
-        <div>
+        <div class="mb-5">
             <button type="button" class="btn btn-outline-light" onclick="openModal(this)" style="background-color: #A898D5;">Participar</button>
         </div>
 
     <?php else: ?>
 
-        <div>
+        <div class="mb-5">
             <button type="button" class="btn btn-outline-light" onclick="openModal(this)" style="background-color: #A898D5;">Dejar de participar</button>
         </div>
 
@@ -57,12 +57,12 @@
                     <h2>¿PARTICIPAR EN EL RANKING?</h2>
                 </div>
                 <div class="modal-body">
-                    Si aceptas participarás públicamente en el ranking.
-                    <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
+                    <p>Si aceptas participarás públicamente en el ranking.</p>
+                    <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>">
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" value="si" name="ranking" class="btn participar" style="background-color: #A898D5;">Participar</button>
+                    <button class="btn btn-outline-secondary w-100" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" value="si" name="ranking" class="btn participar w-100 mt-2" style="background-color: #A898D5;">Participar</button>
                 </div>
             </form>
         <?php else: ?>
@@ -71,12 +71,12 @@
                     <h2>¿DEJAR DE PARTICIPAR EN EL RANKING?</h2>
                 </div>
                 <div class="modal-body">
-                    Si dejas de participar tus datos ya no serán públicos en el ranking.
-                    <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
+                    <p>Si dejas de participar tus datos ya no serán públicos en el ranking.</p>
+                    <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>">
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" value="no" name="ranking" class="btn dejar-participar" style="background-color: #A898D5;">Dejar de participar</button>
+                    <button class="btn btn-outline-secondary w-100" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" value="no" name="ranking" class="btn dejar-participar w-100 mt-2" style="background-color: #A898D5;">Dejar de participar</button>
                 </div>
             </form>
         <?php endif ?>

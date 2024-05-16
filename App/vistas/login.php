@@ -21,16 +21,10 @@
                             <a href="<?php echo RUTA_URL?>/Registro">
                                 <div class="form-text text-light text-decoration-underline">¿No tienes una cuenta? Crea una aquí</div>
                             </a>
-                            <a href="">
-                                <div class="form-text text-light text-decoration-underline">¿Has olvidado la contraseña?</div>
-                            </a>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-        
                                 <?php 
                                     if (isset($datos['error']) && $datos['error'] == 'error_1'): ?>
                                         <br>
