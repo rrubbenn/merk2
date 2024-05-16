@@ -49,27 +49,27 @@
     </div>
         -->
 
-    <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 mt-3">
-        <?php foreach ($datos['productos'] as $producto): ?>
-            <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
-                <div class="card-container h-100">
-                    <div class="card h-100">
-                        <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
-                        </a>
-                        <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="card-body text-decoration-none text-dark">
-                            <div class="d-flex">
-                                <h5 class="card-title col-8 d-flex justify-content-start" id="nombre_producto"> <?php echo $producto->nombre_producto ?> </h5>
-                                <div class="col-4 d-flex justify-content-end">
-                                    <h5 class="card-title" id="precio"> <?php echo $producto->precio ?> € </h5>
-                                </div>
+        <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 mt-3">
+    <?php foreach ($datos['productos'] as $producto): ?>
+        <div class="col-6 col-md-4 col-lg-3" id="producto_<?php echo $producto->id_producto ?>">
+            <div class="card-container h-100">
+                <div class="card h-100">
+                    <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
+                        <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $producto->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
+                    </a>
+                    <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="card-body text-decoration-none text-dark">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center">
+                            <h5 class="card-title col-12 col-md-8 mb-0"> <?php echo $producto->nombre_producto ?> </h5>
+                            <div class="col-12 col-md-4">
+                                <h5 class="card-title mb-0 text-md-end" id="precio"> <?php echo $producto->precio ?> € </h5>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-        <?php endforeach ?>
-    </div> 
+        </div>
+    <?php endforeach ?>
+</div>
 
                                         
     <nav class="mt-3" aria-label="...">

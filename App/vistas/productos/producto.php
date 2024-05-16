@@ -45,12 +45,12 @@
 
     <div class="row">
         <div class="d-flex">
-            <div class="col-10">
+            <div class="col-6 col-lg-10 col-md-9">
                 <h5> <?php echo $datos['producto']->descripcion ?> </h5>
             </div>
             <?php if(!empty($datos['usuarioSesion'])): ?>
                 <?php if($datos['producto']->id_usuario != $datos['usuarioSesion']->id_usuario && $datos['producto']->existe_en_venta == false): ?>
-                    <div class="col-1 text-end">
+                    <div class="col-3 col-md-1 text-end">
                         <?php if( $datos['esFavorito']->esFavorito == 'false'): ?>
                             <button onclick='marcardesmarcarFavorito(<?php echo json_encode(RUTA_URL) ?>, false, <?php echo $datos["producto"]->id_producto ?>)' class="btn btn-light unfav fs-5"> 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-heart" viewBox="0 0 16 16">
@@ -76,7 +76,7 @@
                         <?php endif ?>
                     </div>
                     
-                    <div class="col-1 text-end">
+                    <div class="col-3 col-md-2 col-lg-1 text-end">
                         <a href="<?php echo RUTA_URL ?>/productos/venta/<?php echo $datos['producto']->id_producto ?>" class="btn btn-outline-light fs-5" style="background-color: #A898D5;"> Comprar </a>
                     </div>
                 <?php endif ?>
@@ -86,19 +86,19 @@
 
     <hr>
 
-    <div class="row mt-4 d-flex align-items-center">
+    <div class="row my-4 d-flex align-items-center">
         <a class="col-6 text-decoration-none text-dark" href="<?php echo RUTA_URL?>/perfil/<?php echo $datos['vendedor']->id_usuario ?>">
             <div class="col-12 d-flex align-items-center mt-3">
                 <div class="col-4 text-center">
                     <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $datos['vendedor']->imagen_perfil ?>" class="card-img-top" id="imagenes" alt="...">
                 </div>
-                <div class="col-8">
+                <div class="col-8 ms-2">
                     <h5 class="mb-0"> <strong> <?php echo $datos['vendedor']->nombre ?> </strong> </h5>
                 </div>
             </div>
         </a>
 
-        <div class="col-3 offset-3 mt-4">
+        <div class="col-6 col-md-3 offset-md-3 mt-4">
             <a href="<?php echo RUTA_URL?>/Valoraciones/<?php echo $datos['vendedor']->id_usuario ?>" class="text-decoration-none">
                 <div class="text-center text-decoration-none text-dark text-alignment-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">

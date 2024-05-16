@@ -30,24 +30,27 @@
 <body>
 
 <div style="background-color: #A898D5">
-  <div class="container">
-    <div class="row">
-      <div class="col-3">
-        <a href="<?php echo RUTA_URL?>/">
-          <img src="<?php echo RUTA_URL_STATIC ?>/img/logo.png" alt="logo-merk2" class="icono img-fluid mt-3" id="icono">
-        </a>
-      </div>
-      <div class="col-9 d-flex align-items-center">
-          <div class="<?php if (strpos($_SERVER['REQUEST_URI'], 'busqueda')): echo "col-6"; else : echo "col-6"; endif;?> text-center p-1 mt-3">
+  <div class="container py-2">
+    <div class="d-flex flex-wrap">
+
+      <div class="d-flex col-12 col-md-8">
+        <div class="col-4 col-md-4 d-flex align-items-center">
+          <a href="<?php echo RUTA_URL?>/">
+            <img src="<?php echo RUTA_URL_STATIC ?>/img/logo.png" alt="logo-merk2" class="icono img-fluid" id="icono">
+          </a>
+        </div>
+
+        <div class="<?php if (strpos($_SERVER['REQUEST_URI'], 'busqueda')): echo "col-6"; else : echo "col-8"; endif;?> text-center p-2 ms-0 mt-3 offset-1">
             <form action="<?php echo RUTA_URL ?>/inicio/busqueda" method="post">
               <div class="mb-3 text-start col-12">
                   <input type="text" class="form-control" name="buscador" id="buscador" aria-describedby="buscador" style="width: 100%;" value="<?php if(!empty($datos['busqueda'])): echo $datos['busqueda']; endif ?>"> 
               </div>
             </form>
           </div>
+
           <?php if (strpos($_SERVER['REQUEST_URI'], 'busqueda')): ?>
-            <div class="col-1 text-center">
-                <a class="col-1 text-center" href="<?php echo RUTA_URL?>">
+            <div class="col-2 col-md-1 text-center d-flex align-items-center">
+                <a class="col-12 text-center" href="<?php echo RUTA_URL?>">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
@@ -55,7 +58,12 @@
                 </a>
             </div>
           <?php endif?>
-          <div class="col-1 text-center" id="mostrarCategorias" onclick="mostrarCategorias()">
+      </div>
+
+      <div class="col-12 col-md-4 d-flex align-items-center">
+
+          
+          <div class="col-3 col-md-3 text-center" id="mostrarCategorias" onclick="mostrarCategorias()">
             <a class="text-decoration-none" href="javascript:void(0);">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-tag" viewBox="0 0 16 16">
                 <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0"/>
@@ -63,7 +71,7 @@
               </svg>
             </a>
             <?php if (strpos($_SERVER['REQUEST_URI'], 'categoria')): ?>
-              <a class="text-center" href="<?php echo RUTA_URL?>">
+              <a class="col text-center" href="<?php echo RUTA_URL?>">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                   <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
@@ -72,7 +80,9 @@
             <?php endif?>
           </div>
 
-          <div class="col-1 text-center">
+          
+
+          <div class="col-3 col-md-3 text-center">
             <a href="<?php echo RUTA_URL?>/ranking">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
                 <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1zm1 12h2V2h-2zm-3 0V7H7v7zm-5 0v-3H2v3z"/>
@@ -80,7 +90,7 @@
             </a>
           </div>
 
-          <div class="col-2 text-center">
+          <div class="col-3 col-md-3 text-center">
             <div class="dropdown">
               <button class="btn dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #A898D5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-universal-access-circle" viewBox="0 0 16 16">
@@ -97,7 +107,7 @@
           </div>
 
           <?php if (!empty($datos["usuarioSesion"])):?>
-            <div class="col-2 text-center">
+            <div class="col-3 col-md-3 text-center">
               <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #A898D5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -115,7 +125,7 @@
               </div>
             </div>
           <?php else: ?> 
-            <div class="col-2 text-center mt-1">
+            <div class="col-3 text-center mt-1">
               <a href="<?php echo RUTA_URL?>/Login/" class="text-white fs-5 text-decoration-none">
                 <button type="button" class="btn btn-outline-light">Iniciar sesión</button>
               </a>
@@ -126,14 +136,14 @@
   </div>
 </div>
 
-<div class="row p-0 m-0 d-none" id="listacategorias" style="border-bottom: solid 1px #A898D5; border-left: solid 1px #A898D5; border-right: solid 1px #A898D5">
+
+
+<div class="d-flex flex-wrap col-12 p-0 m-0 d-none" id="listacategorias" style="background-color: #d1cae3; border-bottom: solid 1px #A898D5; border-left: solid 1px #A898D5; border-right: solid 1px #A898D5">
   <?php foreach($datos['categorias'] as $categoria): ?>
-    <a class="col-3 text-decoration-none text-dark" style="border-right: solid 1px #A898D5;" href="<?php echo RUTA_URL?>/inicio/categoria/<?php echo $categoria->id_categoria ?>">
-      <h5 class="ms-5 mt-2"> <?php echo $categoria->nombre_categoria ?> </h5>
+    <a class="col-4 text-decoration-none text-dark d-flex align-items-center" href="<?php echo RUTA_URL?>/inicio/categoria/<?php echo $categoria->id_categoria ?>">
+      <h5 class="mt-2 ms-4 me-4"> <?php echo $categoria->nombre_categoria ?> </h5>
     </a>
   <?php endforeach ?>
-
-
 </div>
 
 
