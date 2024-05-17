@@ -22,7 +22,7 @@
             
 
             $pagina_actual = $paginita ? $paginita : 1;
-            $productos_por_pagina = 9; // Define cuántos productos quieres mostrar por página
+            $productos_por_pagina = 12; // Define cuántos productos quieres mostrar por página
         
             $total_productos = $this->inicioModelo->totalProductos();
             $total_paginas = ceil($total_productos / $productos_por_pagina);

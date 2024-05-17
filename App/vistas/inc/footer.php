@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-12 text-center">
                     <p class="text-white fw-bold px-3">
-                        c/Alfonso
+                        c/Avenida Mayor
                     </p>
                 </div>
             </div>
