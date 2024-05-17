@@ -4,48 +4,50 @@
 <div class="container">
     <div class="row mt-5">
 
-        <div class="col-2 d-flex flex-column border-end">
+        <div class="col-3 col-md-2 d-flex flex-column border-end m-0 p-0">
             <div class="p-3">
                 <a href="<?php echo RUTA_URL?>/productos/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Productos </h4> </div> </a>
                 <a href="<?php echo RUTA_URL?>/productos/compras/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> <b> Compras </b> <h4></div> </a>
                 <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
             </div>  
         </div>
-        <div class="col-9">
+        <div class="col-9 col-md-10">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <?php foreach ($datos['compras'] as $compra): ?>
-                    <div class="col-4 h-100">
-                        <div class="card h-100">
-                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $compra->ruta ?>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="row">
-                                    <h5 class="card-title col-8"> <?php echo $compra->nombre_producto ?> </h5>
-                                    <div class="col-4">
-                                        <h5 class="card-title d-flex justify-content-end"> <?php echo $compra->precio ?> € </h5>
+                    <div class="col-6 col-md-4">
+                        <div class="card-container h-100">
+                            <div class="card h-100">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $compra->ruta ?>" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <div class="row d-flex flex-wrap">
+                                        <h5 class="card-title col-12 col-md-8"> <?php echo $compra->nombre_producto ?> </h5>
+                                        <div class="col-12 col-md-4">
+                                            <h5 class="card-title d-flex justify-content-md-end"> <?php echo $compra->precio ?> € </h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <?php if($compra->puntuacion == ""): ?>
-                                    <?php if(!empty($datos['usuarioSesion'])):?>
-                                        <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
-                                            <div class="row">
-                                                <input type="hidden" id="id_venta" value="<?php echo $compra->id_venta ?>"> </input>
-                                                <button onclick="openModal(this)" 
-                                                class="col-10 offset-1 d-flex justify-content-center btn text-decoration-none text-dark mt-3 valorar"
-                                                style="background-color: #A898D5">
-                                                    Valorar
-                                                </button>
-                                            </div>
+                                    <?php if($compra->puntuacion == ""): ?>
+                                        <?php if(!empty($datos['usuarioSesion'])):?>
+                                            <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
+                                                <div class="row">
+                                                    <input type="hidden" id="id_venta" value="<?php echo $compra->id_venta ?>"> </input>
+                                                    <button onclick="openModal(this)" 
+                                                    class="col-10 offset-1 d-flex justify-content-center btn text-decoration-none text-dark mt-3 valorar"
+                                                    style="background-color: #A898D5">
+                                                        Valorar
+                                                    </button>
+                                                </div>
+                                            <?php endif ?>
                                         <?php endif ?>
+                                    <?php else: ?>
+                                        <a class="row text-decoration-none" href="<?php echo RUTA_URL?>/valoraciones/<?php echo $compra->id_usuario ?>">
+                                            <h5
+                                            class="col-12 d-flex justify-content-center mt-3 valorar"
+                                            style="color: #A898D5">
+                                                Valoracion realizada!
+                                            </h5>
+                                        </a>
                                     <?php endif ?>
-                                <?php else: ?>
-                                    <a class="row text-decoration-none" href="<?php echo RUTA_URL?>/valoraciones/<?php echo $compra->id_usuario ?>">
-                                        <h5
-                                        class="col-12 d-flex justify-content-center mt-3 valorar"
-                                        style="color: #A898D5">
-                                            Valoracion realizada!
-                                        </h5>
-                                    </a>
-                                <?php endif ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,7 +111,7 @@
                     <h2>Valorar producto</h2>
                 </div>
                 <div class="modal-body d-flex">
-                    <div class="col-12 border-end pe-4">
+                    <div class="col-12 border-md-end pe-md-4">
                         <input type="hidden" id="id_ventamodal" name="id_venta" value=""></input>
 
                         <label for="puntuacion">Puntuación</label>

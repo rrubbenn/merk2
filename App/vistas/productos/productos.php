@@ -2,18 +2,18 @@
 
 
 <div class="container">
-    <div class="row mt-5">
+    <div class="row mt-5 mb-3">
 
-        <div class="col-2 d-flex flex-column border-end m-0 p-0">
+        <div class="col-3 col-md-2 d-flex flex-column border-end m-0 p-0">
             <div class="mt-3 p-0"> 
                 <?php if($datos['usuarioSesion']->id_usuario == $datos['datosUsuario']->id_usuario): ?>
-                    <button class="btn btn-outline-light fs-5 d-flex align-items-center anadir" onclick="openModal(this)" style="background-color: #A898D5">
+                    <button class="btn btn-outline-light fs-5 d-flex align-items-center anadir col-11 p-1 m-1" onclick="openModal(this)" style="background-color: #A898D5">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                         </svg>
                         
-                        <span class="ms-1 fs-5" style="margin-top:1.5%"> Añadir producto </span>
+                        <span class="ms-3 fs-5" style="margin-top:1.5%"> Subir </span>
                     </button> 
                 <?php endif ?>
             </div> 
@@ -23,10 +23,10 @@
                 <a href="<?php echo RUTA_URL?>/productos/ventas/<?php echo $datos['datosUsuario']->id_usuario ?>" class="text-decoration-none text-dark"> <div class="mt-3"> <h4> Ventas </h4> </div> </a>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-9 col-md-10">
             <div class="row row-cols-1 row-cols-md-2 g-4" id="contenedor">
                 <?php foreach ($datos['productos'] as $producto): ?>
-                    <div class="col-4" id="producto_<?php echo $producto->id_producto ?>">
+                    <div class="col-6 col-md-4" id="producto_<?php echo $producto->id_producto ?>">
                         <div class="card-container h-100" style="position: relative;">
                             <div class="card h-100">
                                 <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $producto->id_producto?>" class="text-decoration-none text-dark">
@@ -118,8 +118,8 @@
                 <div class="modal-header">
                     <h2>Añadir Producto</h2>
                 </div>
-                <div class="modal-body d-flex">
-                    <div class="col-7 border-end pe-4">
+                <div class="modal-body d-flex flex-wrap">
+                    <div class="col-12 col-md-7 border-md-end pe-md-4">
                         <input type="hidden" name="id_usuario" value="<?php echo $datos['usuarioSesion']->id_usuario ?>"></input>
 
                         <label for="anadir_id_categoria">Categoria</label>
@@ -137,7 +137,7 @@
                         </div> 
 
                         <label for="anadir_precio">Precio</label>
-                        <div class="col-4">
+                        <div class="col-12 col-md-6">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">€</span>
                                 <input type="text" name="precio" id="anadir_precio" class="form-control">
@@ -146,8 +146,8 @@
                         
                         <!-- <input type="text" name="negociable"></input> -->
                     </div>
-                    <div class="col-5">
-                        <div class="col-10 offset-1">
+                    <div class="col-md-5 col-12">
+                        <div class="col-12 col-md-10 offset-md-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
                                 <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple max="10">
@@ -157,9 +157,9 @@
                     
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Subir</button>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="btn btn-outline-secondary col-12 col-md-3 col-lg-2" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-light participar col-12 col-md-4 col-lg-3" style="background-color: #A898D5;">Subir</button>
                 </div>
             </form>
     </div>
@@ -179,8 +179,8 @@
                 <div class="modal-header">
                     <h2>Editar Producto</h2>
                 </div>
-                <div class="modal-body d-flex">
-                    <div class="col-7 border-end pe-4">
+                <div class="modal-body d-flex flex-wrap">
+                    <div class="col-12 col-md-7 border-md-end pe-4">
                         <input type="hidden" name="id_producto" id="id_producto" class="id_producto" value=""></input>
 
                         <label for="nombre_producto">Categoria</label>
@@ -198,7 +198,7 @@
                         </div> 
 
                         <label for="nombre_producto">Precio</label>
-                        <div class="col-4 col-md-8 col-sm-10 col-xs-12">
+                        <div class="col-12 col-md-6">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">€</span>
                                 <input type="text" name="precio" id="editar_precio" class="form-control" aria-label="Amount (to the nearest dollar)" value="">
@@ -207,8 +207,8 @@
                         
                         <!-- <input type="text" name="negociable"></input> -->
                     </div>
-                    <div class="col-5">
-                        <div class="col-10 offset-1">
+                    <div class="col-12 col-md-5">
+                        <div class="col-11 col-md-10 offset-md-1">
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Subir Fotos</label>
                                 <input class="form-control" name="imagenes[]" type="file" id="formFile" multiple max="10">
@@ -219,8 +219,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" onclick="closeModal()">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-light participar" style="background-color: #A898D5;">Editar</button>
+                    <button type="button" class="btn btn-outline-secondary col-12 col-md-3 col-lg-2" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-light participar col-12 col-md-4 col-lg-3" style="background-color: #A898D5;">Editar</button>
                 </div>
             </form>
     </div>

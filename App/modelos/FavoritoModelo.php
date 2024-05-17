@@ -19,10 +19,16 @@
         }
 
         public function obtenerFavoritos($id_usuario){
-            $this->db->query("SELECT * 
+            $this->db->query("SELECT *, 
+                                (SELECT ruta 
+                                FROM imagenesproducto 
+                                WHERE id_producto = F.id_producto 
+                                ORDER BY id_imagen ASC 
+                                LIMIT 1) AS ruta
                             FROM favorito F
                             INNER JOIN producto P ON F.id_producto = P.id_producto
                             WHERE F.id_usuario = :id_usuario");
+                            
 
             $this->db->bind(':id_usuario',$id_usuario);
 

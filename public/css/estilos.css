@@ -142,5 +142,16 @@ input[type=file]::file-selector-button:hover {
         width:60%;
         height:50%;
     }
+    .modal-contenido{
+        position: relative;
+        background-color: whitesmoke;
+        margin: auto;
+        padding: 25px;
+        /* border: 1px solid black; */
+        border-radius: 20px;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation: .5s aparecerModal;
+    }
 }
 
