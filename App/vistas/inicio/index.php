@@ -49,7 +49,7 @@
     </div>
         -->
 
-        <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 mt-3">
+<div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 mt-3">
     <?php foreach ($datos['productos'] as $producto): ?>
         <div class="col-6 col-md-4 col-lg-3" id="producto_<?php echo $producto->id_producto ?>">
             <div class="card-container h-100">

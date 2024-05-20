@@ -14,35 +14,35 @@
     </div>
 </div>
 
-<div class="container mt-5">
-    <div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2">
-        <?php if(!empty($datos['resultados'])): ?>
-            <?php foreach ($datos['resultados'] as $resultado): ?>
-                <div class="col-4" id="producto_<?php echo $resultado->id_producto ?>">
-                    <div class="card-container" style="position: relative;">
-                        <div class="card">
-                            <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $resultado->id_producto?>" class="text-decoration-none text-dark">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $resultado->ruta ?>" class="card-img-top" id="imagenes" alt="...">
-                            </a>
-                            <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $resultado->id_producto?>" class="card-body text-decoration-none text-dark">
-                                <div class="d-flex">
-                                    <h5 class="card-title col-8" id="nombre_producto"> <?php echo $resultado->nombre_producto ?> </h5>
-                                    <div class="col-4 d-flex justify-content-end">
-                                        <h5 class="card-title" id="precio"> <?php echo $resultado->precio ?> € </h5>
-                                    </div>
+
+
+<div id="contenedor" class="row row-cols-1 row-cols-md-2 g-2 m-5">
+    <?php if(!empty($datos['resultados'])): ?>
+        <?php foreach ($datos['resultados'] as $resultado): ?>
+            <div class="col-6 col-md-4 col-lg-3" id="producto_<?php echo $resultado->id_producto ?>">
+                <div class="card-container h-100">
+                    <div class="card h-100">
+                        <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $resultado->id_producto?>" class="text-decoration-none text-dark">
+                            <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $resultado->ruta ?>" class="card-img-top imgcard" id="imagenes" alt="...">
+                        </a>
+                        <a href="<?php echo RUTA_URL?>/productos/producto/<?php echo $resultado->id_producto?>" class="card-body text-decoration-none text-dark">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                <h5 class="card-title col-12 col-md-8 mb-0" id="nombre_producto"> <?php echo $resultado->nombre_producto ?> </h5>
+                                <div class="col-12 col-md-4">
+                                    <h5 class="card-title mb-0 text-md-end" id="precio"> <?php echo $resultado->precio ?> € </h5>
                                 </div>
-                                <p class="card-text" id="descripcion"> <?php echo $resultado->descripcion ?> </p>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            <?php endforeach ?>
-        <?php else: ?>
-            <div class="col-12 d-flex justify-content">
-                No hay resultados
             </div>
-        <?php endif ?>
-    </div> 
+        <?php endforeach ?>
+    <?php else: ?>
+        <div class="col-12 d-flex justify-content mb-5">
+            No hay resultados
+        </div>
+    <?php endif ?>
+</div>
     
     <?php if($datos['total_paginas'] != 0): ?>
         <nav class="mt-3" aria-label="...">

@@ -27,6 +27,8 @@
 
 </head>
 
+<div class="d-flex flex-column min-vh-100">
+
 <body>
 
 <div style="background-color: #A898D5">

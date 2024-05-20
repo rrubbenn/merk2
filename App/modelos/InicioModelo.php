@@ -121,7 +121,12 @@
 
             $offset = ($pagina - 1) * $por_pagina;
 
-            $this->db->query("SELECT *
+            $this->db->query("SELECT *, 
+                                (SELECT ruta 
+                                FROM imagenesproducto 
+                                WHERE id_producto = p.id_producto 
+                                ORDER BY id_imagen ASC 
+                                LIMIT 1) AS ruta
                                 FROM producto p
                                 WHERE p.nombre_producto 
                                     LIKE :busqueda
@@ -150,7 +155,12 @@
 
             $offset = ($pagina - 1) * $por_pagina;
 
-            $this->db->query("SELECT p.*
+            $this->db->query("SELECT p.*, 
+                                (SELECT ruta 
+                                FROM imagenesproducto 
+                                WHERE id_producto = p.id_producto 
+                                ORDER BY id_imagen ASC 
+                                LIMIT 1) AS ruta
                                 FROM producto p
                                 INNER JOIN categoria c
                                 ON p.id_categoria = c.id_categoria
