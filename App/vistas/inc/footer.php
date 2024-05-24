@@ -1,5 +1,6 @@
 
 </body>
+</div>
 <footer class="footer text-center text-lg-start text-muted" style="background-color: #A898D5">
     <div class="container p-3">
         <div class="row">
@@ -79,7 +80,7 @@
     </div> 
 </footer>
 
-</div>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

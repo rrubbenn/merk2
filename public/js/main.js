@@ -666,8 +666,6 @@ function calcularVentasPorUsuario(datos, periodo, categoria = "") {
         return b.totalVentas - a.totalVentas;
     });
 
-    console.log("Ventas por usuario ordenadas:", ventasPorUsuarioOrdenadas);
-
     return ventasPorUsuarioOrdenadas;
 }
 
