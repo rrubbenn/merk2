@@ -112,6 +112,7 @@
                 </div>
                 <div class="modal-body d-flex">
                     <div class="col-12 border-md-end pe-md-4">
+                        <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo $datos['datosUsuario']->id_usuario ?>"></input>
                         <input type="hidden" id="id_ventamodal" name="id_venta" value=""></input>
 
                         <label for="puntuacion">Puntuación</label>

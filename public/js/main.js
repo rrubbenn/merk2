@@ -661,7 +661,14 @@ function calcularVentasPorUsuario(datos, periodo, categoria = "") {
         }
     }
 
-    return ventasPorUsuario;
+    // Ordenar por el número de ventas (en orden descendente)
+    var ventasPorUsuarioOrdenadas = Object.values(ventasPorUsuario).sort(function(a, b) {
+        return b.totalVentas - a.totalVentas;
+    });
+
+    console.log("Ventas por usuario ordenadas:", ventasPorUsuarioOrdenadas);
+
+    return ventasPorUsuarioOrdenadas;
 }
 
 function mostrarVentas() {

@@ -25,8 +25,8 @@
      
 
 
-    define('RUTA_URL_STATIC', 'http://192.168.1.132/public');
-    define('RUTA_URL', 'http://192.168.1.132:80'); 
+    define('RUTA_URL_STATIC', 'https://merk2/public');
+    define('RUTA_URL', 'https://merk2'); 
 
 
     DEFINE('NOMBRE_SITIO', 'PROYECTO');
