@@ -17,7 +17,7 @@
                     <div class="col-6 col-md-4">
                         <div class="card-container h-100" style="position: relative;">
                             <div class="card h-100">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $venta->ruta ?>" class="card-img-top" alt="...">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $venta->ruta ?>" class="card-img-top imgcard" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title"> <?php echo $venta->nombre_producto ?> </h5>
                                     <p class="card-text"> <?php echo $venta->descripcion ?> </p>

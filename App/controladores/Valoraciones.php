@@ -26,7 +26,7 @@
 
                 if ($this->valoracionesModelo->addValoracion($datos)) {
 
-                    redireccionar("/productos/compras/".$datos->id_usuario);
+                    redireccionar("/productos/compras/".$datos['id_usuario']);
                 
                 }else{
                 

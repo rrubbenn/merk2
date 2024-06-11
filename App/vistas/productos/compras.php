@@ -17,7 +17,7 @@
                     <div class="col-6 col-md-4">
                         <div class="card-container h-100">
                             <div class="card h-100">
-                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $compra->ruta ?>" class="card-img-top" alt="...">
+                                <img src="<?php echo RUTA_URL_STATIC ?>/imgbase/<?php echo $compra->ruta ?>" class="card-img-top imgcard" alt="...">
                                 <div class="card-body">
                                     <div class="row d-flex flex-wrap">
                                         <h5 class="card-title col-12 col-md-8"> <?php echo $compra->nombre_producto ?> </h5>

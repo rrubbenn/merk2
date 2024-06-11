@@ -20,7 +20,7 @@
                                 p.id_usuario AS id_usuario_vendedor,
                                 uv.nombre AS nombre_vendedor,
                                 uv.apellidos AS apellidos_vendedor,
-                                ip.ruta AS imagen_producto,
+                                ip.ruta AS ruta,
                                 u.nombre AS nombre_comprador,
                                 u.apellidos AS apellidos_comprador,
                                 vr.puntuacion,
